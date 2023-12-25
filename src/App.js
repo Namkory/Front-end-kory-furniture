@@ -11,7 +11,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/">
-                        <Route index element={<Header />} />
+                        <Route index element={<Footer />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
