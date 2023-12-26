@@ -40,6 +40,24 @@ function Header() {
                             className={`header-menu-list-item ${isActive === 2 ? 'active' : null}`}
                             onClick={() => handleMenuClick(2)}
                         >
+                            <p> GIƯỜNG NGỦ </p>
+                        </li>
+                        <li
+                            className={`header-menu-list-item ${isActive === 3 ? 'active' : null}`}
+                            onClick={() => handleMenuClick(3)}
+                        >
+                            <p> GIƯỜNG TẦNG </p>
+                        </li>
+                        <li
+                            className={`header-menu-list-item ${isActive === 4 ? 'active' : null}`}
+                            onClick={() => handleMenuClick(4)}
+                        >
+                            <p> PHỤ KIỆN </p>
+                        </li>
+                        {/* <li
+                            className={`header-menu-list-item ${isActive === 2 ? 'active' : null}`}
+                            onClick={() => handleMenuClick(2)}
+                        >
                             <p> SẢN PHẨM </p>
                             <div className="header-menu-list-wrapper">
                                 <ul className="header-menu-list-wrapper-item">
@@ -48,16 +66,16 @@ function Header() {
                                     <li>Phụ kiện</li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                         <li
-                            className={`header-menu-list-item ${isActive === 3 ? 'active' : null}`}
-                            onClick={() => handleMenuClick(3)}
+                            className={`header-menu-list-item ${isActive === 5 ? 'active' : null}`}
+                            onClick={() => handleMenuClick(5)}
                         >
                             <p> TIN TỨC </p>
                         </li>
                         <li
-                            className={`header-menu-list-item ${isActive === 4 ? 'active' : null}`}
-                            onClick={() => handleMenuClick(4)}
+                            className={`header-menu-list-item ${isActive === 6 ? 'active' : null}`}
+                            onClick={() => handleMenuClick(6)}
                         >
                             <p> LIÊN HỆ </p>
                         </li>

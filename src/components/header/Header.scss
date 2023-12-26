@@ -13,11 +13,12 @@
 .header {
     position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 999;
     height: 100px;
     width: 100%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 20px;
+    background-color: white;
 
     .header-content {
         display: flex;

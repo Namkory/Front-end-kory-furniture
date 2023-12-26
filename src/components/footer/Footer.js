@@ -1,7 +1,6 @@
 import './Footer.scss';
-import images from '../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLocation, faLocationDot, faMapLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faInstagram, faSkype, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 function Footer() {

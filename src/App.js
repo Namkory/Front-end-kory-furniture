@@ -1,9 +1,9 @@
 import './App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/home/Home';
+import Home from './pages/userPages/home/Home';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import { Container } from 'react-bootstrap';
+import Layout from './layout/Layout';
 
 function App() {
     return (
@@ -11,7 +11,14 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/">
-                        <Route index element={<Footer />} />
+                        <Route
+                            index
+                            element={
+                                <Layout>
+                                    <Home />
+                                </Layout>
+                            }
+                        />
                     </Route>
                 </Routes>
             </BrowserRouter>
