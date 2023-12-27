@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.news {
+    padding-bottom: 50px;
+    overflow: hidden;
+    .container {
+        margin: 30px auto;
+        .news-header {
+            min-height: 61px;
+            width: 100%;
+            text-align: center;
+            line-height: 100%;
+            h1 {
+                font-size: 20px;
+                font-weight: 500;
+            }
+        }
+        .news-content {
+            width: 100%;
+            display: flex;
+            height: 100%;
+            .news-content-left {
+                padding-right: 30px;
+                flex: 1;
+                .news-content-left-search {
+                    border: 1px solid #dddddd;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 40px;
+                    padding-left: 5px;
+                    input {
+                        height: 100%;
+                        border: none;
+                        outline: none;
+                        padding: 5px;
+                        width: 100%;
+                    }
+                    &:focus-within {
+                        box-shadow: 0 0 5px #ccc;
+                        opacity: 1 !important;
+                        outline: 0;
+                        color: #333;
+                        background-color: #fff;
+                    }
+                    .news-content-left-search-btn {
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 50px;
+                        cursor: pointer;
+                        background-color: #04bcba;
+                        .icon {
+                            font-size: 20px;
+                            color: #fff;
+                        }
+                        &:hover {
+                            background-color: #04bcba;
+                        }
+                    }
+                }
+                .news-content-left-title {
+                    margin: 30px 0;
+                    position: relative;
+                    p {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #04bcba;
+                    }
+                    &::after {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        background-color: #e5e5e5;
+                        width: 30px;
+                        height: 3px;
+                        bottom: -70%;
+                        left: 0;
+                    }
+                }
+                .news-content-left-content {
+                    border: 1px solid #dddddd;
+                    min-height: 468px;
+                    padding: 20px;
+                    .content-item {
+                        display: flex;
+                        justify-content: center;
+
+                        border-bottom: 1px solid #dddddd;
+
+                        margin-bottom: 10px;
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            margin-right: 15px;
+                            margin-top: 10px;
+                        }
+                        p {
+                            font-size: 15px;
+                            &:hover {
+                                color: #04bcba;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+            .news-content-right {
+                flex: 3;
+                height: 613px;
+                padding: 0 30px;
+
+                .card {
+                    width: 18rem;
+                    padding: 0px;
+                    height: 19.69rem;
+                    gap: 6;
+                    margin: 0 10px;
+                    cursor: pointer;
+
+                    &:hover .card-content {
+                        color: #04bcba;
+                    }
+
+                    .card-img {
+                        width: 100%;
+                        // height: 180px;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .card-title,
+                    .card-content {
+                        overflow: hidden;
+                    }
+
+                    .card-title {
+                        font-size: 16px;
+                    }
+
+                    .card-content {
+                        height: 45px;
+                    }
+                }
+            }
+        }
+    }
+}

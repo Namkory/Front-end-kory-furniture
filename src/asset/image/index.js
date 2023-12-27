@@ -11,5 +11,11 @@ const images = {
     introdiamond: require('../image/diamond.png'),
     intronetwork: require('../image/network.png'),
     introeye: require('../image/eye.png'),
+    news01: require('../image/news01.jpg'),
+    news02: require('../image/news02.jpg'),
+    news03: require('../image/news03.jpg'),
+    news04: require('../image/news04.jpg'),
+    news05: require('../image/news05.jpg'),
+    news06: require('../image/news06.jpg'),
 };
 export default images;
