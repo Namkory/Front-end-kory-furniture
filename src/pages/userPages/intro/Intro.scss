@@ -1,0 +1,64 @@
+.intro {
+    .intro-header {
+        text-align: center;
+        // margin-bottom: 0px;
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        .intro-header-line {
+            display: block;
+            width: 100px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+            margin: 0px auto 30px auto;
+        }
+    }
+    .intro-banner {
+        margin-bottom: 30px;
+    }
+    .intro-infro {
+        .intro-infro-icon {
+            width: 50px;
+            height: 48px;
+            border: 1px solid #2da4d6;
+            border-radius: 50%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            &:hover {
+                background-color: #2da4d6;
+            }
+
+            .intro-infro-icon-img {
+                width: 30px;
+                height: 30px;
+                transform: translateY(10px);
+            }
+
+            .intro-infro-icon-imgeye {
+                width: 30px;
+                height: 30px;
+                transform: translateY(8px);
+            }
+        }
+        button {
+            width: 95px;
+            height: 30px;
+            border-radius: 99px;
+            background-color: #04bcba;
+            border: 1px solid #04bcba;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            &:hover {
+                background-color: #039695;
+            }
+        }
+    }
+    .gap-element {
+        margin-top: 50px;
+        display: block;
+        height: 30px;
+        border-bottom: 0.5px solid #f1eded;
+    }
+}

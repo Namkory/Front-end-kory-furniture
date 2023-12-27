@@ -1,9 +1,13 @@
 import './App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/userPages/home/Home';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
 import Layout from './layout/Layout';
+import Intro from './pages/userPages/intro/Intro';
+import Bed from './pages/userPages/bed/Bed';
+import Bunkbed from './pages/userPages/bunkBed/BunkBed';
+import Accessory from './pages/userPages/accessory/Accessory';
+import News from './pages/userPages/news/News';
+import Contact from './pages/userPages/contact/Contact';
 
 function App() {
     return (
@@ -16,6 +20,54 @@ function App() {
                             element={
                                 <Layout>
                                     <Home />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="intro"
+                            element={
+                                <Layout>
+                                    <Intro />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="bed"
+                            element={
+                                <Layout>
+                                    <Bed />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="bunkbed"
+                            element={
+                                <Layout>
+                                    <Bunkbed />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="accessory"
+                            element={
+                                <Layout>
+                                    <Accessory />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="news"
+                            element={
+                                <Layout>
+                                    <News />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="contact"
+                            element={
+                                <Layout>
+                                    <Contact />
                                 </Layout>
                             }
                         />

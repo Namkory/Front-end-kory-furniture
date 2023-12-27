@@ -3,6 +3,7 @@ import './Header.scss';
 import images from '../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const [iconn, setIcon] = useState(true);
@@ -19,40 +20,46 @@ function Header() {
     return (
         <div className="header">
             <div className="header-content container">
-                <div className="header-logo" onClick={() => handleMenuClick(0)}>
-                    <img src={images.logo} alt="logo" className="header-logo-icon" />
-                </div>
+                <Link to="/">
+                    <div className="header-logo" onClick={() => handleMenuClick(0)}>
+                        <img src={images.logo} alt="logo" className="header-logo-icon" />
+                    </div>
+                </Link>
                 <div className="header-menu">
                     <ul id={iconn ? 'navbar' : 'active'} className="header-menu-list">
-                        <li
-                            className={`header-menu-list-item ${isActive === 0 ? 'active' : null}`}
-                            onClick={() => handleMenuClick(0)}
-                        >
-                            <p> TRANG CHỦ</p>
-                        </li>
+                        {/* <Link to="/intro"> */}
                         <li
                             className={`header-menu-list-item ${isActive === 1 ? 'active' : null}`}
                             onClick={() => handleMenuClick(1)}
                         >
-                            <p> GIỚI THIỆU </p>
+                            <Link to="/intro" className="header-menu-list-item-link">
+                                <p> GIỚI THIỆU </p>
+                            </Link>
                         </li>
+                        {/* </Link> */}
                         <li
                             className={`header-menu-list-item ${isActive === 2 ? 'active' : null}`}
                             onClick={() => handleMenuClick(2)}
                         >
-                            <p> GIƯỜNG NGỦ </p>
+                            <Link to="/bed" className="header-menu-list-item-link">
+                                <p> GIƯỜNG NGỦ </p>
+                            </Link>
                         </li>
                         <li
                             className={`header-menu-list-item ${isActive === 3 ? 'active' : null}`}
                             onClick={() => handleMenuClick(3)}
                         >
-                            <p> GIƯỜNG TẦNG </p>
+                            <Link to="/bunkbed" className="header-menu-list-item-link">
+                                <p> GIƯỜNG TẦNG </p>
+                            </Link>
                         </li>
                         <li
                             className={`header-menu-list-item ${isActive === 4 ? 'active' : null}`}
                             onClick={() => handleMenuClick(4)}
                         >
-                            <p> PHỤ KIỆN </p>
+                            <Link to="/accessory" className="header-menu-list-item-link">
+                                <p> PHỤ KIỆN </p>
+                            </Link>
                         </li>
                         {/* <li
                             className={`header-menu-list-item ${isActive === 2 ? 'active' : null}`}
@@ -71,13 +78,17 @@ function Header() {
                             className={`header-menu-list-item ${isActive === 5 ? 'active' : null}`}
                             onClick={() => handleMenuClick(5)}
                         >
-                            <p> TIN TỨC </p>
+                            <Link to="/news" className="header-menu-list-item-link">
+                                <p> TIN TỨC </p>
+                            </Link>
                         </li>
                         <li
                             className={`header-menu-list-item ${isActive === 6 ? 'active' : null}`}
                             onClick={() => handleMenuClick(6)}
                         >
-                            <p> LIÊN HỆ </p>
+                            <Link to="/contact" className="header-menu-list-item-link">
+                                <p> LIÊN HỆ </p>
+                            </Link>
                         </li>
                     </ul>
                 </div>
