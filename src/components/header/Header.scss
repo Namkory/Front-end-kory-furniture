@@ -130,6 +130,7 @@
 
                 .header-right-item-icon {
                     font-size: 18px;
+                    transition: 0.3s ease-in-out;
                 }
 
                 .header-right-item-search {
@@ -221,7 +222,7 @@
                     }
                     .header-right-item-bagShopping-content {
                         padding: 25px 20px;
-                        width: 260px;
+                        width: 270px;
                         max-height: min((100hv - 96px) - 60px, 734px);
                         min-height: 100px;
                         border-radius: 15px;

@@ -8,6 +8,8 @@ import Bunkbed from './pages/userPages/bunkBed/BunkBed';
 import Accessory from './pages/userPages/accessory/Accessory';
 import News from './pages/userPages/news/News';
 import Contact from './pages/userPages/contact/Contact';
+import Cart from './pages/userPages/cart/Cart';
+import Pay from './pages/userPages/pay/Pay';
 
 function App() {
     return (
@@ -68,6 +70,22 @@ function App() {
                             element={
                                 <Layout>
                                     <Contact />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="cart"
+                            element={
+                                <Layout>
+                                    <Cart />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="pay"
+                            element={
+                                <Layout>
+                                    <Pay />
                                 </Layout>
                             }
                         />
