@@ -4,11 +4,12 @@ import images from '../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ModalLogin from '../modal/ModalLogin';
 
 function Header() {
     const [iconn, setIcon] = useState(true);
     const [isActive, setIsActive] = useState(0);
-    console.log('check active', isActive);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const handleTonggleIcon = () => {
         setIcon(!iconn);
         console.log('checkk');
@@ -22,7 +23,7 @@ function Header() {
             <div className="header-content container">
                 <Link to="/">
                     <div className="header-logo" onClick={() => handleMenuClick(0)}>
-                        <img src={images.logo} alt="logo" className="header-logo-icon" />
+                        <img src={images.logokory} alt="logo" className="header-logo-icon" />
                     </div>
                 </Link>
                 <div className="header-menu">
@@ -114,8 +115,9 @@ function Header() {
                         <FontAwesomeIcon icon={faUser} className="header-right-item-icon" />
                         <div className="header-right-item-user">
                             <ul className="header-right-item-user-content">
-                                <li>Log in</li>
+                                <li onClick={() => setIsModalOpen(true)}>Log in</li>
                                 <li>Log out</li>
+                                {/* <ModalLogin open={true} onClose={() => {}} /> */}
                             </ul>
                         </div>
                     </div>
@@ -139,6 +141,7 @@ function Header() {
                 </div>
             </div>
             <div className="over-lay"></div>
+            {isModalOpen && <ModalLogin open={isModalOpen} onClose={() => setIsModalOpen(false)} />}
         </div>
     );
 }

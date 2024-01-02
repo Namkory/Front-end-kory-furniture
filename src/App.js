@@ -10,6 +10,7 @@ import News from './pages/userPages/news/News';
 import Contact from './pages/userPages/contact/Contact';
 import Cart from './pages/userPages/cart/Cart';
 import Pay from './pages/userPages/pay/Pay';
+import ProductDetail from './pages/userPages/productDetail/ProductDetail';
 
 function App() {
     return (
@@ -86,6 +87,14 @@ function App() {
                             element={
                                 <Layout>
                                     <Pay />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="productDetail"
+                            element={
+                                <Layout>
+                                    <ProductDetail />
                                 </Layout>
                             }
                         />

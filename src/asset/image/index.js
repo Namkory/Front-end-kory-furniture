@@ -1,5 +1,7 @@
 const images = {
     logo: require('../image/logo-mona-furniture-12.png'),
+    logokory2: require('../image/logokory2.jpg'),
+    logokory: require('../image/logokory.jpg'),
     banner1: require('../image/banner1.jpg'),
     banner2: require('../image/banner2.jpg'),
     banner3: require('../image/banner3.jpg'),

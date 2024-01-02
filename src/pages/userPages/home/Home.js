@@ -46,6 +46,7 @@ function Home() {
     return (
         <div className="home">
             <Banner />
+            <div className="emtyy"></div>
             {/* Phần Giường Ngủ  */}
             <div className="container home-bed">
                 <h2>GIƯỜNG NGỦ</h2>
@@ -86,6 +87,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <div className="emtyy"></div>
             {/* Phần Giường Tầng  */}
             <div className="container home-bed">
                 <h2>GIƯỜNG TẦNG</h2>
@@ -120,6 +122,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <div className="emtyy"></div>
             {/* Phần Phụ Kiện  */}
             <div className="container home-bed">
                 <h2>PHỤ KIỆN</h2>
