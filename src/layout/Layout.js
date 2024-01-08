@@ -3,11 +3,9 @@ import Header from '../components/header/Header';
 
 function Layout({ children }) {
     return (
-        <div className="">
+        <div>
             <Header />
-            <div className="" style={{ paddingTop: '100px' }}>
-                {children}
-            </div>
+            <div style={{ paddingTop: '100px' }}>{children}</div>
             <Footer />
         </div>
     );

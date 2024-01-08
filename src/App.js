@@ -11,6 +11,8 @@ import Contact from './pages/userPages/contact/Contact';
 import Cart from './pages/userPages/cart/Cart';
 import Pay from './pages/userPages/pay/Pay';
 import ProductDetail from './pages/userPages/productDetail/ProductDetail';
+import LayoutAdmin from './layoutAdmin/LayoutAdmin';
+import Dashboard from './pages/adminPages/dashboard/Dashboard';
 
 function App() {
     return (
@@ -96,6 +98,16 @@ function App() {
                                 <Layout>
                                     <ProductDetail />
                                 </Layout>
+                            }
+                        />
+                    </Route>
+                    <Route path="admin">
+                        <Route
+                            index
+                            element={
+                                <LayoutAdmin>
+                                    <Dashboard />
+                                </LayoutAdmin>
                             }
                         />
                     </Route>

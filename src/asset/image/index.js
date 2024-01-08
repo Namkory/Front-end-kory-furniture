@@ -2,6 +2,7 @@ const images = {
     logo: require('../image/logo-mona-furniture-12.png'),
     logokory2: require('../image/logokory2.jpg'),
     logokory: require('../image/logokory.jpg'),
+    logokoryAdmin: require('../image/logokoryadmin.png'),
     banner1: require('../image/banner1.jpg'),
     banner2: require('../image/banner2.jpg'),
     banner3: require('../image/banner3.jpg'),
@@ -19,5 +20,8 @@ const images = {
     news04: require('../image/news04.jpg'),
     news05: require('../image/news05.jpg'),
     news06: require('../image/news06.jpg'),
+    userAdmin1: require('../image/imgAdminUser1.png'),
+    userAdmin2: require('../image/imgAdminUser2.png'),
+    userAdmin3: require('../image/imgAdminUser3.png'),
 };
 export default images;

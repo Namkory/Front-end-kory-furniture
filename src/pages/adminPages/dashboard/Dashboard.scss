@@ -1,0 +1,22 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-top: 40px;
+    h3 {
+        font-weight: 600;
+    }
+    .dasboard-chart {
+        height: 350px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .dashboard {
+        justify-content: flex-start;
+        margin-top: 2rem;
+    }
+    .dasboard-chart {
+        width: 187%;
+        margin-top: 2rem;
+    }
+}
