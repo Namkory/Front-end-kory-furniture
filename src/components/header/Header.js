@@ -1,10 +1,19 @@
-import { faBagShopping, faBars, faGlobe, faSearch, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBagShopping,
+    faBars,
+    faDeleteLeft,
+    faGlobe,
+    faSearch,
+    faTimes,
+    faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import './Header.scss';
 import images from '../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from '../modal/ModalLogin';
+import { dataDigitalBestSeller } from '../../pages/userPages/home/dataFake';
 
 function Header() {
     const [iconn, setIcon] = useState(true);
@@ -125,7 +134,55 @@ function Header() {
                         <FontAwesomeIcon icon={faBagShopping} className="header-right-item-icon" />
                         <div className="header-right-item-bagShopping">
                             <div className="header-right-item-bagShopping-content">
-                                <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                {dataDigitalBestSeller && dataDigitalBestSeller.length > 0 ? (
+                                    <>
+                                        {dataDigitalBestSeller.slice(0, 3).map((item, index) => {
+                                            return (
+                                                <div key={index} className="tippy-bag-product">
+                                                    <img
+                                                        src={item.linkImg ? item.linkImg : images.logokory2}
+                                                        alt="avatar product"
+                                                    />
+                                                    <div className="tippy-bag-product-infor">
+                                                        <h5>{item.title}</h5>
+                                                        <p>
+                                                            {/* {item.quantity} x{' '} */}
+                                                            {/* {numeral(+item.price).format('0,0')}  */}1 x{' '}
+                                                            {item.price}đ
+                                                        </p>
+                                                    </div>
+                                                    <FontAwesomeIcon
+                                                        icon={faDeleteLeft}
+                                                        className="icon"
+                                                        // onClick={() => {
+                                                        //     handleDeleteProduct(item.id, index);
+                                                        // }}
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                        <div className="tippy-bag-total-price">
+                                            {/* <p>{`Tổng cộng: ${handleTotalProduct(productStorage)} đ`}</p> */}
+                                            <p>
+                                                {/* {t('totallowerCase')}: {handleTotalProduct(productStorage)}{' '} */}
+                                                tổng
+                                                <b>đ</b>
+                                            </p>
+                                        </div>
+                                        <div className="tippy-bag-viewcard">
+                                            <Link to="/cart">
+                                                <button className="btn">viewcart</button>
+                                            </Link>
+                                        </div>
+                                        <div className="tippy-bag-pay">
+                                            <Link to="/pay">
+                                                <button className="btn">pay</button>
+                                            </Link>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                )}
                             </div>
                         </div>
                     </div>

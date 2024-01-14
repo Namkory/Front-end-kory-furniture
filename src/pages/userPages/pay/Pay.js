@@ -2,29 +2,21 @@ import './Pay.scss';
 import { dataCart } from '../cart/dataCart';
 import { useState, useEffect } from 'react';
 import numeral from 'numeral';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function Pay() {
-    const [fullName, setFullName] = useState('');
-    const [address, setAddress] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [note, setNote] = useState('');
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const [payMethod, setPayMethod] = useState(() => {
         const savedPayMethod = localStorage.getItem('pay_method');
         return savedPayMethod !== null ? savedPayMethod : 'vietcombank';
     });
-    // useEffect(() => {
-    //     const getUser = async (userID) => {
-    //         const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getall-user?id=${userID}`);
-    //         setFullName(res.data.users.fullName);
-    //         setAddress(res.data.users.address);
-    //         setPhone(res.data.users.phone);
-    //         setEmail(res.data.users.email);
-    //     };
-    //     getUser(userID);
-    // }, [userID]);
     useEffect(() => {
         localStorage.setItem('pay_method', payMethod);
     }, [payMethod]);
@@ -76,6 +68,9 @@ function Pay() {
     //         alert('Bạn phải đăng nhập trước');
     //     }
     // };
+    const handleOrder = (data) => {
+        console.log('data', data);
+    };
 
     return (
         <>
@@ -84,77 +79,63 @@ function Pay() {
                     <div className="pay-container row">
                         <div className="pay-container-left col-lg-7">
                             <h1>THÔNG TIN THANH TOÁN</h1>
-                            <form>
-                                <div className="pay-container-left-fullName">
-                                    <div className="pay-container-left-firstName">
-                                        <p>Name</p>
-                                        <input
-                                            type="text"
-                                            required
-                                            value={fullName}
-                                            onChange={(e) => {
-                                                setFullName(e.target.value);
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="pay-container-left-item">
-                                    <p>Address</p>
-                                    <input
+                            <Form onSubmit={handleSubmit(handleOrder)}>
+                                <Form.Group className="mb-3" controlId="fullName">
+                                    <Form.Label>Full Name</Form.Label>
+                                    <Form.Control
                                         type="text"
-                                        required
-                                        value={address}
-                                        onChange={(e) => {
-                                            setAddress(e.target.value);
-                                        }}
+                                        name="fullName"
+                                        id="fullName"
+                                        {...register('fullName', { required: true })}
                                     />
-                                </div>
-                                <div className="pay-container-left-item">
-                                    <p>Phone Number</p>
-                                    <input
+                                    <Form.Text className="text-danger">
+                                        {errors.fullName && <p>Username is required</p>}
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        {...register('email', { required: true })}
+                                    />
+                                    <Form.Text className="text-danger">
+                                        {errors.email && <p>Email is required</p>}
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="address">
+                                    <Form.Label>Address</Form.Label>
+                                    <Form.Control
                                         type="text"
-                                        required
-                                        value={phone}
-                                        onChange={(e) => {
-                                            setPhone(e.target.value);
-                                        }}
+                                        id="address"
+                                        name="address"
+                                        {...register('address', { required: true })}
                                     />
-                                </div>
-                                <div className="pay-container-left-item">
-                                    <p>Email</p>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={email}
-                                        onChange={(e) => {
-                                            setEmail(e.target.value);
-                                        }}
+                                    <Form.Text className="text-danger">
+                                        {errors.address && <p>Address is required</p>}
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="phone">
+                                    <Form.Label>Phone</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        id="phone"
+                                        name="phone"
+                                        {...register('phone', { required: true })}
                                     />
-                                </div>
-                                <div className="pay-container-left-item">
-                                    <p>Ghi chú</p>
-                                    <textarea
-                                        rows="20"
-                                        required
-                                        type="text"
-                                        placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn."
-                                        value={note}
-                                        onChange={(e) => {
-                                            setNote(e.target.value);
-                                        }}
-                                    />
-                                </div>
-                                <div className="pay-container-right-inner-order">
-                                    <button
-                                        type="submit"
-                                        // onClick={(e) => {
-                                        //     handleOrder(e);
-                                        // }}
-                                    >
-                                        Đặt hàng
-                                    </button>
-                                </div>
-                            </form>
+                                    <Form.Text className="text-danger">
+                                        {errors.phone && <p>Phone is required</p>}
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="note">
+                                    <Form.Label>Note</Form.Label>
+                                    <Form.Control as="textarea" rows={3} id="note" name="note" {...register('note')} />
+                                </Form.Group>
+                                <Button type="submit" style={{ backgroundColor: '#30b5b2', borderColor: '#30b5b2' }}>
+                                    Submit
+                                </Button>
+                            </Form>
                         </div>
                         <div className="pay-container-right col-lg-4">
                             <div className="pay-container-right-inner">
