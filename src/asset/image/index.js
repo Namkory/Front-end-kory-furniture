@@ -23,5 +23,6 @@ const images = {
     userAdmin1: require('../image/imgAdminUser1.png'),
     userAdmin2: require('../image/imgAdminUser2.png'),
     userAdmin3: require('../image/imgAdminUser3.png'),
+    noImg: require('../image/no-image.jpg'),
 };
 export default images;

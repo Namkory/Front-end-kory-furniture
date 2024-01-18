@@ -37,7 +37,7 @@ const chartOptions = {
 };
 function Dashboard() {
     return (
-        <div className="dashboard container">
+        <div className="dashboard ">
             <h3>Dashboard</h3>
             <Cards />
             <div className="dasboard-chart row">

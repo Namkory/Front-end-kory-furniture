@@ -9,7 +9,7 @@ function LayoutAdmin({ children }) {
             <div className="layoutAdmin-glass">
                 <Sidebar />
                 {children}
-                <RightSide />
+                {/* <RightSide /> */}
             </div>
         </div>
     );

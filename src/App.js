@@ -13,6 +13,12 @@ import Pay from './pages/userPages/pay/Pay';
 import ProductDetail from './pages/userPages/productDetail/ProductDetail';
 import LayoutAdmin from './layoutAdmin/LayoutAdmin';
 import Dashboard from './pages/adminPages/dashboard/Dashboard';
+import Customers from './pages/adminPages/customers/Customers';
+import Products from './pages/adminPages/products/Products';
+import Orders from './pages/adminPages/orders/Orders';
+import Analytics from './pages/adminPages/analytics/Analytics';
+import NewCustomer from './pages/adminPages/newCustomer/NewCustomer';
+import NewProduct from './pages/adminPages/newProduct/NewProduct';
 
 function App() {
     return (
@@ -107,6 +113,68 @@ function App() {
                             element={
                                 <LayoutAdmin>
                                     <Dashboard />
+                                </LayoutAdmin>
+                            }
+                        />
+                        <Route path="customer">
+                            <Route
+                                index
+                                element={
+                                    <LayoutAdmin>
+                                        <Customers />
+                                    </LayoutAdmin>
+                                }
+                            />
+                            <Route
+                                path="new-customer"
+                                element={
+                                    <LayoutAdmin>
+                                        <NewCustomer />
+                                    </LayoutAdmin>
+                                }
+                            />
+                            <Route
+                                path="edit-customer/:id"
+                                element={
+                                    <LayoutAdmin>
+                                        <NewCustomer />
+                                    </LayoutAdmin>
+                                }
+                            />
+                        </Route>
+                        <Route path="products">
+                            <Route
+                                index
+                                element={
+                                    <LayoutAdmin>
+                                        <Products />
+                                    </LayoutAdmin>
+                                }
+                            />
+                            <Route
+                                path="new-product"
+                                element={
+                                    <LayoutAdmin>
+                                        <NewProduct />
+                                    </LayoutAdmin>
+                                }
+                            />
+                        </Route>
+                        <Route path="orders">
+                            <Route
+                                index
+                                element={
+                                    <LayoutAdmin>
+                                        <Orders />
+                                    </LayoutAdmin>
+                                }
+                            />
+                        </Route>
+                        <Route
+                            path="analytics"
+                            element={
+                                <LayoutAdmin>
+                                    <Analytics />
                                 </LayoutAdmin>
                             }
                         />

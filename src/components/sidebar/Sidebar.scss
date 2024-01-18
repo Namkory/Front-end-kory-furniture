@@ -26,6 +26,8 @@
 
         .menu-item {
             display: flex;
+            color: black;
+            text-decoration: none;
             align-items: center;
             gap: 1rem;
             height: 2.5rem;
@@ -55,6 +57,8 @@
         .active {
             background-color: #f799a354;
             margin-left: 0;
+            color: black;
+            text-decoration: none;
 
             &::before {
                 content: '';
@@ -72,5 +76,8 @@
     }
     .logo {
         display: none;
+        .logo-icon {
+            width: 100%;
+        }
     }
 }

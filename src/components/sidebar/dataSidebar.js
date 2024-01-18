@@ -4,21 +4,26 @@ export const dataSidebar = [
     {
         icon: faHouseChimney,
         heading: 'Dashboard',
+        url: '/admin',
     },
     {
         icon: faClipboard,
         heading: 'Orders',
+        url: '/admin/orders',
     },
     {
         icon: faUsers,
         heading: 'Customers',
+        url: '/admin/customer',
     },
     {
         icon: faCartShopping,
         heading: 'Products',
+        url: '/admin/products',
     },
     {
         icon: faChartColumn,
         heading: 'Analytics',
+        url: '/admin/analytics',
     },
 ];

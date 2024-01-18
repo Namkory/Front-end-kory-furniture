@@ -4,10 +4,9 @@ import images from '../../asset/image/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { dataSidebar } from './dataSidebar';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
 
 function Sidebar() {
-    const [selected, setSelected] = useState(0);
-
     return (
         <div className="sidebar">
             {/* logo */}
@@ -18,16 +17,21 @@ function Sidebar() {
             <div className="menu">
                 {dataSidebar.map((item, index) => {
                     return (
-                        <div
-                            className={selected === index ? 'menu-item active' : 'menu-item'}
+                        <NavLink
+                            to={item.url}
+                            className={({ isActive }) => (isActive ? 'menu-item active' : 'menu-item ')}
                             key={index}
-                            onClick={() => setSelected(index)}
+                            /* Nếu không có "end" thì sẽ bị trường hợp luôn luôn active item đầu tiên vì 
+                             đường dẫn các menu-item giống nhau ở phần đầu là "/admin" và react-router-dom sẽ chấp nhận
+                             giá trị url gần giống. Còn nếu thêm "end" (các phiên bản router 6 trở lên) thì sẽ chỉ chấp nhận
+                             giá trị url chính xác để active mà thôi ("exact" với các phiên bản router 5 trở xuống*/
+                            end
                         >
                             <div className="menu-item-icon">
                                 <FontAwesomeIcon icon={item.icon} />
                             </div>
                             <span>{item.heading}</span>
-                        </div>
+                        </NavLink>
                     );
                 })}
                 <div className="menu-item">
