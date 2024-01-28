@@ -159,6 +159,14 @@ function App() {
                                     </LayoutAdmin>
                                 }
                             />
+                            <Route
+                                path="edit-product/:id"
+                                element={
+                                    <LayoutAdmin>
+                                        <NewProduct />
+                                    </LayoutAdmin>
+                                }
+                            />
                         </Route>
                         <Route path="orders">
                             <Route

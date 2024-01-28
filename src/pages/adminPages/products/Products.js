@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import './Products.scss';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { flexbox } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
 import images from '../../../asset/image/index';
+import { useEffect } from 'react';
+import { deleteProduct, fetchProducts } from '../../../services/productService';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -18,7 +21,7 @@ const columns = [
                 <>
                     <img
                         className="cellImg"
-                        src={params.row.image ? params.row.image : images.noImg}
+                        src={params.row.thumbnail ? params.row.thumbnail : images.noImg}
                         // src={params.row.thumbnail}
                         alt="avatar"
                     />
@@ -54,22 +57,23 @@ const columns = [
         headerName: 'Category',
         width: 150,
         editable: true,
+        renderCell: (params) => {
+            return <div>{params.row.category?.name}</div>;
+        },
     },
-];
-const rows = [
-    { id: 1, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 2, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 3, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 4, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 5, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 6, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 7, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 8, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 9, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
-    { id: 10, image: images.noImg, name: 'name 1', discount: 0, price: 15000, category: 'loai SP' },
 ];
 
 function Products() {
+    const [rows, setRows] = useState([]);
+    const navigate = useNavigate();
+    const handleDeleteProduct = async (pId) => {
+        const res = await deleteProduct(pId);
+        await getProducts();
+    };
+    const handleUpdateProduct = async (id) => {
+        navigate(`edit-product/${id}`);
+    };
+
     const actionColumn = [
         {
             field: 'action',
@@ -81,18 +85,18 @@ function Products() {
                         <button
                             type="button"
                             className="custome-action1"
-                            // onClick={() => {
-                            //     handleUpdateProduct(params.row.id);
-                            // }}
+                            onClick={() => {
+                                handleUpdateProduct(params.row.id);
+                            }}
                         >
                             edit
                         </button>
                         <button
                             type="button"
                             className="custome-action2"
-                            // onClick={() => {
-                            //     handleDeleteProduct(params.row.id);
-                            // }}
+                            onClick={() => {
+                                handleDeleteProduct(params.row.id);
+                            }}
                         >
                             delete
                         </button>
@@ -101,6 +105,15 @@ function Products() {
             },
         },
     ];
+
+    useEffect(() => {
+        getProducts();
+    }, []);
+
+    const getProducts = async () => {
+        const res = await fetchProducts();
+        setRows(res);
+    };
 
     return (
         <div className="Products">

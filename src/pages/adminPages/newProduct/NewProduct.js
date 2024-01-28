@@ -7,18 +7,56 @@ import { useNavigate, useParams } from 'react-router-dom';
 import images from '../../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createNewProduct, getPById, updateProduct } from '../../../services/productService';
 
 function NewProduct() {
     const { id } = useParams(); //Dùng để lấy id trên thanh url
     const [file, setFile] = useState('');
+    const [dataUpdated, setDataUpdate] = useState({});
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const handleCreate = (data) => {
-        console.log('data', data);
+
+    const handleCreate = async (data) => {
+        const formData = new FormData();
+        // update
+        if (id) {
+            formData.append('id', id);
+            for (const [key, value] of Object.entries(data)) {
+                formData.append(key, value);
+            }
+            if (file) {
+                formData.append('image', file);
+            }
+            const res = await updateProduct(formData);
+            console.log('check res update', res);
+            return;
+        }
+        // create
+        data.image = file;
+        for (const [key, value] of Object.entries(data)) {
+            formData.append(key, value);
+        }
+        for (var pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+        }
+        const res = await createNewProduct(formData);
+        console.log('check res', res);
+    };
+
+    useEffect(() => {
+        if (id) {
+            fetchProductById();
+        }
+    }, [id]);
+
+    const fetchProductById = async () => {
+        const res = await getPById(id);
+        console.log(res);
+        setDataUpdate(res);
     };
 
     return (
@@ -32,7 +70,7 @@ function NewProduct() {
                         <Form.Group className="mb-3 d-flex align-items-center" controlId="formBasicThumbnail">
                             <div style={{ marginRight: '2rem' }}>
                                 <img
-                                    src={file ? URL.createObjectURL(file) : images.noImg}
+                                    src={file ? URL.createObjectURL(file) : id ? dataUpdated.thumbnail : images.noImg}
                                     alt="ko co anh"
                                     className="input-avatar"
                                 />
@@ -49,30 +87,32 @@ function NewProduct() {
                             />
                             <Form.Text className="text-danger"></Form.Text>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicfullName">
-                            <Form.Label>Full name*</Form.Label>
+                        <Form.Group className="mb-3" controlId="formBasicName">
+                            <Form.Label>Name*</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter fullName"
-                                name="fullName"
-                                id="fullName"
-                                {...register('fullName', { required: true })}
+                                placeholder="Enter Name Product"
+                                name="name"
+                                // value={id ? dataUpdated.name : ''}
+                                id="name"
+                                {...register('name', { required: true })}
                             />
                             <Form.Text className="text-danger">
-                                {errors.fullName && <p style={{ marginTop: '7px' }}>Username is required</p>}
+                                {errors.name && <p style={{ marginTop: '7px' }}>Name is required</p>}
                             </Form.Text>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email*</Form.Label>
+                        <Form.Group className="mb-3" controlId="formBasicPrice">
+                            <Form.Label>Price*</Form.Label>
                             <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                id="email"
-                                name="email"
-                                {...register('email', { required: true })}
+                                type="text"
+                                // value={id ? dataUpdated.price : ''}
+                                placeholder="Enter price"
+                                id="price"
+                                name="price"
+                                {...register('price', { required: true })}
                             />
                             <Form.Text className="text-danger">
-                                {errors.email && <p style={{ marginTop: '7px' }}>Email is required</p>}
+                                {errors.price && <p style={{ marginTop: '7px' }}>Price is required</p>}
                             </Form.Text>
                         </Form.Group>
 
@@ -87,48 +127,46 @@ function NewProduct() {
                         )}
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                            <Form.Label>Phone number*</Form.Label>
+                        <Form.Group className="mb-3" controlId="formBasicDiscount">
+                            <Form.Label>Discount*</Form.Label>
                             <Form.Control
-                                type="number"
-                                placeholder="Phone number"
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                {...register('phoneNumber', { required: true })}
+                                type="text"
+                                // value={id ? dataUpdated.discount : ''}
+                                placeholder="Enter discount"
+                                id="discount"
+                                name="discount"
+                                {...register('discount', { required: true })}
                             />
                             <Form.Text className="text-danger">
-                                {errors.phoneNumber && <p style={{ marginTop: '7px' }}>PhoneNumber is required</p>}
+                                {errors.discount && <p style={{ marginTop: '7px' }}>Discount is required</p>}
                             </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicAddress">
-                            <Form.Label>Address*</Form.Label>
+                            <Form.Label>Description*</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Address"
-                                id="address"
-                                name="address"
-                                {...register('address', { required: true })}
+                                placeholder="Description"
+                                // value={id ? dataUpdated.description : ''}
+                                id="description"
+                                name="description"
+                                {...register('description', { required: true })}
                             />
                             <Form.Text className="text-danger">
-                                {errors.address && <p style={{ marginTop: '7px' }}>Address is required</p>}
+                                {errors.description && <p style={{ marginTop: '7px' }}>Description is required</p>}
                             </Form.Text>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicGender">
-                            <Form.Label>Gender</Form.Label>
-                            <Form.Select aria-label="Default select example" {...register('gender')}>
-                                <option value="0">Male</option>
-                                <option value="1">Female</option>
+                        <Form.Group className="mb-3" controlId="formBasicCategory">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Select
+                                // value={id ? dataUpdated.category?.id : '1'}
+                                // defaultValue={id ? dataUpdated.category?.id : '1'}
+                                // defaultChecked={id ? dataUpdated.category?.id : '1'}
+                                aria-label="Default select example"
+                                {...register('categoryId')}
+                            >
+                                <option value="1">Giường ngủ</option>
+                                <option value="2">Giường tầng</option>
                             </Form.Select>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicRole">
-                            <Form.Label>Role*</Form.Label>
-                            <Form.Select aria-label="Default select example" {...register('role')}>
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
-                            </Form.Select>
-                            <Form.Text className="text-danger">
-                                {errors.role && <p style={{ marginTop: '7px' }}>Role is required</p>}
-                            </Form.Text>
                         </Form.Group>
                     </Col>
                 </Row>
