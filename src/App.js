@@ -1,10 +1,12 @@
 import './App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/userPages/home/Home';
 import Layout from './layout/Layout';
 import Intro from './pages/userPages/intro/Intro';
 import Bed from './pages/userPages/bed/Bed';
-import Bunkbed from './pages/userPages/bunkBed/BunkBed';
+import Bunk from './pages/userPages/bunk/Bunk';
 import Accessory from './pages/userPages/accessory/Accessory';
 import News from './pages/userPages/news/News';
 import Contact from './pages/userPages/contact/Contact';
@@ -54,7 +56,7 @@ function App() {
                             path="bunkbed"
                             element={
                                 <Layout>
-                                    <Bunkbed />
+                                    <Bunk />
                                 </Layout>
                             }
                         />
@@ -189,6 +191,18 @@ function App() {
                     </Route>
                 </Routes>
             </BrowserRouter>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     );
 }

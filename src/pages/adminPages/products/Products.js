@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import './Products.scss';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
@@ -62,18 +63,17 @@ const columns = [
         },
     },
 ];
-
 function Products() {
     const [rows, setRows] = useState([]);
     const navigate = useNavigate();
     const handleDeleteProduct = async (pId) => {
         const res = await deleteProduct(pId);
         await getProducts();
+        toast.success('Product has been successfully deleted!');
     };
     const handleUpdateProduct = async (id) => {
         navigate(`edit-product/${id}`);
     };
-
     const actionColumn = [
         {
             field: 'action',
@@ -105,11 +105,9 @@ function Products() {
             },
         },
     ];
-
     useEffect(() => {
         getProducts();
     }, []);
-
     const getProducts = async () => {
         const res = await fetchProducts();
         setRows(res);

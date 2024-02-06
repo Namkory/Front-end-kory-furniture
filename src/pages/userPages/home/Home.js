@@ -6,7 +6,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { dataDigitalBestSeller } from './dataFake';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import numeral from 'numeral';
 import { faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
+import { fetchProducts } from '../../../services/productService';
 
 function Home() {
     const settings = {
@@ -43,6 +46,32 @@ function Home() {
             },
         ],
     };
+    const [bad, setBad] = useState([]);
+    const [bunk, setBunk] = useState([]);
+    const [accessory, setAccessory] = useState([]);
+
+    useEffect(() => {
+        getProducts();
+    }, []);
+    const getProducts = async () => {
+        try {
+            const res = await fetchProducts();
+
+            // Lọc sản phẩm có category.id === 1 và 2 và 3
+            const badProducts = res.filter((product) => product.category?.id === 1);
+            const bunkProducts = res.filter((product) => product.category?.id === 2);
+            const accessoryProducts = res.filter((product) => product.category?.id === 3);
+
+            // Cập nhật state bad và bunk và accessory
+            setBad(badProducts);
+            setBunk(bunkProducts);
+            setAccessory(accessoryProducts);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+    console.log('check badd', bad);
+
     return (
         <div className="home">
             <Banner />
@@ -52,15 +81,23 @@ function Home() {
                 <h2>GIƯỜNG NGỦ</h2>
                 <div className="home-bed-line"></div>
                 <Slider {...settings}>
-                    {dataDigitalBestSeller.map((item) => (
+                    {bad.map((item) => (
                         <div className="card">
                             <div className="card-top">
-                                <img src={item.linkImg} alt={item.title} />
-                                <h1>{item.title}</h1>
+                                <img
+                                    src={item.thumbnail ? item.thumbnail : images.noImg}
+                                    alt={item.name}
+                                    className="card-top-img"
+                                />
                             </div>
                             <div className="card-bottom">
-                                <h3>{item.price}</h3>
-                                <h3>{item.category}</h3>
+                                <h1>{item.name}</h1>
+                                <h3>
+                                    {numeral(+item.price).format('0,0')}
+                                    <b>
+                                        <u>đ</u>
+                                    </b>
+                                </h3>
                             </div>
                         </div>
                     ))}
@@ -93,15 +130,23 @@ function Home() {
                 <h2>GIƯỜNG TẦNG</h2>
                 <div className="home-bed-line"></div>
                 <Slider {...settings}>
-                    {dataDigitalBestSeller.map((item) => (
+                    {bunk.map((item) => (
                         <div className="card">
                             <div className="card-top">
-                                <img src={item.linkImg} alt={item.title} />
-                                <h1>{item.title}</h1>
+                                <img
+                                    src={item.thumbnail ? item.thumbnail : images.noImg}
+                                    alt={item.name}
+                                    className="card-top-img"
+                                />
                             </div>
                             <div className="card-bottom">
-                                <h3>{item.price}</h3>
-                                <h3>{item.category}</h3>
+                                <h1>{item.name}</h1>
+                                <h3>
+                                    {numeral(+item.price).format('0,0')}
+                                    <b>
+                                        <u>đ</u>
+                                    </b>
+                                </h3>
                             </div>
                         </div>
                     ))}
@@ -128,15 +173,23 @@ function Home() {
                 <h2>PHỤ KIỆN</h2>
                 <div className="home-bed-line"></div>
                 <Slider {...settings}>
-                    {dataDigitalBestSeller.map((item) => (
+                    {accessory.map((item) => (
                         <div className="card">
                             <div className="card-top">
-                                <img src={item.linkImg} alt={item.title} />
-                                <h1>{item.title}</h1>
+                                <img
+                                    src={item.thumbnail ? item.thumbnail : images.noImg}
+                                    alt={item.name}
+                                    className="card-top-img"
+                                />
                             </div>
                             <div className="card-bottom">
-                                <h3>{item.price}</h3>
-                                <h3>{item.category}</h3>
+                                <h1>{item.name}</h1>
+                                <h3>
+                                    {numeral(+item.price).format('0,0')}
+                                    <b>
+                                        <u>đ</u>
+                                    </b>
+                                </h3>
                             </div>
                         </div>
                     ))}

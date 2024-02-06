@@ -7,29 +7,40 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { productDetail } from '../productDetail/ProductData';
 import Card from 'react-bootstrap/Card';
+import { fetchProducts } from '../../../services/productService';
 
 function Bed() {
-    const [minValue, set_minValue] = useState(1000000);
+    const [minValue, set_minValue] = useState(5000000);
     const [maxValue, set_maxValue] = useState(15000000);
-
+    const [bad, setBad] = useState([]);
     const [filterProducts, setFilterProducts] = useState([]);
     const handleInput = (e) => {
         set_minValue(e.minValue);
         set_maxValue(e.maxValue);
     };
     useEffect(() => {
-        const filteredProducts = productDetail.filter(
-            (product) => product.price >= minValue && product.price <= maxValue,
-        );
+        const filteredProducts = bad.filter((product) => product.price >= minValue && product.price <= maxValue);
         setFilterProducts(filteredProducts);
-    }, [minValue, maxValue, productDetail]);
+    }, [minValue, maxValue, bad]);
+    useEffect(() => {
+        getProducts();
+    }, []);
+    const getProducts = async () => {
+        try {
+            const res = await fetchProducts();
+            const badProducts = res.filter((product) => product.category?.id === 1);
+            setBad(badProducts);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
 
     return (
         <div className="bed container">
             <div className="bed-container">
                 <div className="bed-left">
                     <div className="bed-left-header">
-                        <Link to="/">
+                        <Link to="/" style={{ textDecoration: 'none' }}>
                             <h1 className="bed-left-header-home">TRANG CHỦ</h1>
                         </Link>
                         <span>/</span>
@@ -38,11 +49,11 @@ function Bed() {
                     <div className="bed-left-categoty">
                         <div className="bed-left-categoty-title">DANH MỤC SẢN PHẨM</div>
                         <div className="bed-left-categoty-content">
-                            <Link to="/bed">
+                            <Link to="/bed" style={{ textDecoration: 'none' }}>
                                 <p>GIƯỜNG NGỦ</p>
                             </Link>
                             <span></span>
-                            <Link to="/cat">
+                            <Link to="/cat" style={{ textDecoration: 'none' }}>
                                 <p>GIƯỜNG TẦNG</p>
                             </Link>
                         </div>
@@ -50,7 +61,7 @@ function Bed() {
                     <div className="bed-left-range">
                         <div className="bed-left-range-title">LỌC THEO GIÁ</div>
                         <MultiRangeSlider
-                            min={0}
+                            min={3500000}
                             max={15000000}
                             step={5}
                             ruler="flase"
@@ -92,13 +103,18 @@ function Bed() {
                 </div>
                 <div className="bed-right">
                     <div className="row">
-                        {productDetail.map((item, index) => {
+                        {filterProducts.map((item, index) => {
                             return (
                                 <Card key={index} className="card mb-3 md-3">
-                                    <Card.Img variant="top" className="card-img" src={item.linkImg} />
+                                    <Card.Img variant="top" className="card-img" src={item.thumbnail} />
                                     <Card.Body>
-                                        <Card.Title className="card-title">{item.title}</Card.Title>
-                                        <Card.Text className="card-content">{item.content}</Card.Text>
+                                        <Card.Title className="card-title">{item.name}</Card.Title>
+                                        <Card.Text className="card-content">
+                                            {numeral(+item.price).format('0,0')}
+                                            <b>
+                                                <u>đ</u>
+                                            </b>
+                                        </Card.Text>
                                     </Card.Body>
                                 </Card>
                             );

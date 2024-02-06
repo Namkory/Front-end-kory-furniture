@@ -1,4 +1,4 @@
-import './Accessory.scss';
+// import './Bunk.scss';
 import numeral from 'numeral';
 import MultiRangeSlider from 'multi-range-slider-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,27 +9,28 @@ import { productDetail } from '../productDetail/ProductData';
 import Card from 'react-bootstrap/Card';
 import { fetchProducts } from '../../../services/productService';
 
-function Accessory() {
-    const [minValue, set_minValue] = useState(100);
-    const [maxValue, set_maxValue] = useState(1000000);
-    const [accessory, setAccessory] = useState([]);
+function Bunk() {
+    const [minValue, set_minValue] = useState(1000000);
+    const [maxValue, set_maxValue] = useState(25000000);
+    const [bunk, setBunk] = useState([]);
     const [filterProducts, setFilterProducts] = useState([]);
     const handleInput = (e) => {
         set_minValue(e.minValue);
         set_maxValue(e.maxValue);
     };
     useEffect(() => {
-        const filteredProducts = accessory.filter((product) => product.price >= minValue && product.price <= maxValue);
+        const filteredProducts = bunk.filter((product) => product.price >= minValue && product.price <= maxValue);
         setFilterProducts(filteredProducts);
-    }, [minValue, maxValue, accessory]);
+    }, [minValue, maxValue, bunk]);
     useEffect(() => {
         getProducts();
     }, []);
     const getProducts = async () => {
         try {
             const res = await fetchProducts();
-            const accessoryProducts = res.filter((product) => product.category?.id === 3);
-            setAccessory(accessoryProducts);
+            const badProducts = res.filter((product) => product.category?.id === 2);
+            setBunk(badProducts);
+            // console.log('check res', badProducts);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -61,8 +62,8 @@ function Accessory() {
                     <div className="bed-left-range">
                         <div className="bed-left-range-title">LỌC THEO GIÁ</div>
                         <MultiRangeSlider
-                            min={100}
-                            max={1000000}
+                            min={1000000}
+                            max={25000000}
                             step={5}
                             ruler="flase"
                             minValue={minValue}
@@ -126,4 +127,4 @@ function Accessory() {
     );
 }
 
-export default Accessory;
+export default Bunk;

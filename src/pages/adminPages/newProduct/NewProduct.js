@@ -1,12 +1,13 @@
 import './NewProduct.scss';
 import { Col, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import images from '../../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faSpider, faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { createNewProduct, getPById, updateProduct } from '../../../services/productService';
 
@@ -14,13 +15,8 @@ function NewProduct() {
     const { id } = useParams(); //Dùng để lấy id trên thanh url
     const [file, setFile] = useState('');
     const [fileUpdate, setFileUpdate] = useState('');
-    // const [nameUpdate, setNameUpdate] = useState('');
-    // const [priceUpdate, setPriceUpdate] = useState('');
-    // const [discountUpdate, setDiscountUpdate] = useState('');
-    // const [descriptionUpdate, setDescriptionUpdate] = useState('');
-    // const [categoryIdUpdate, setCategoryIdUpdate] = useState('');
-    // const [data, setData] = useState({});
     const [dataUpdated, setDataUpdate] = useState({});
+    const [createAPI, setCreateAPI] = useState(false);
     const {
         register,
         handleSubmit,
@@ -28,6 +24,7 @@ function NewProduct() {
     } = useForm();
     const navigate = useNavigate();
     const handleCreate = async (data) => {
+        setCreateAPI(true);
         const formData = new FormData();
         // create
         data.image = file;
@@ -38,14 +35,13 @@ function NewProduct() {
             console.log(pair[0], pair[1]);
         }
         const res = await createNewProduct(formData);
-        console.log('check res', res);
+        toast.success('Create successful new products!');
+        setCreateAPI(false);
         navigate('/admin/products');
     };
-
     const handleUpdate = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-
         // update
         if (id) {
             formData.append('id', id);
@@ -60,21 +56,22 @@ function NewProduct() {
                 formData.append('image', fileUpdate);
             }
             const res = await updateProduct(formData);
-            console.log('check res update', res);
+            console.log('check res update', dataUpdated);
             return;
         }
     };
-
     useEffect(() => {
         if (id) {
             fetchProductById();
         }
     }, [id]);
-
     const fetchProductById = async () => {
         const res = await getPById(id);
         console.log('check update res', res);
         setDataUpdate(res);
+    };
+    const spinnerStyle = {
+        animation: 'spin 1s linear infinite !important',
     };
 
     return (
@@ -243,7 +240,11 @@ function NewProduct() {
                                 </Form.Group>
 
                                 <Button variant="primary" type="submit">
-                                    Create
+                                    {createAPI ? (
+                                        <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
+                                    ) : (
+                                        'Create'
+                                    )}
                                 </Button>
                             </Col>
                             <Col>
@@ -282,6 +283,7 @@ function NewProduct() {
                                     <Form.Select aria-label="Default select example" {...register('categoryId')}>
                                         <option value="1">Giường ngủ</option>
                                         <option value="2">Giường tầng</option>
+                                        <option value="3">Phụ kiện</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Col>

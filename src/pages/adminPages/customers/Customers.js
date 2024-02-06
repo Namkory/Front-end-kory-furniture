@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link, useNavigate } from 'react-router-dom';
 import { flexbox } from '@mui/system';
+import { useEffect, useState } from 'react';
+import { deleteUser, getAllUser } from '../../../services/UserService';
+import { toast } from 'react-toastify';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -20,7 +23,7 @@ const columns = [
         editable: true,
     },
     {
-        field: 'phone',
+        field: 'phoneNumber',
         headerName: 'Phone',
         type: 'number',
         width: 150,
@@ -43,24 +46,17 @@ const columns = [
         headerName: 'Role',
         width: 100,
         editable: true,
+        renderCell: (params) => {
+            return <div>{params.row.role?.name}</div>;
+        },
     },
 ];
-const rows = [
-    { id: 1, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 2, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 3, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 4, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 5, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 6, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 7, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 8, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 9, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 10, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-    { id: 11, fullName: 'Snow', email: 'John@gmail.com', phone: 14, gender: 'male', address: 'HCM', role: 'admin' },
-];
 function Users() {
+    const [rows, setRow] = useState([]);
     const handleDeleteUser = async (idUser) => {
-        console.log('check iduser', idUser);
+        await deleteUser(idUser);
+        getUsers();
+        toast('delete user successfully!');
     };
     const navigate = useNavigate();
     const handleUpdateUser = (id) => {
@@ -97,6 +93,14 @@ function Users() {
             },
         },
     ];
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+    const getUsers = async () => {
+        const res = await getAllUser();
+        setRow(res);
+    };
 
     return (
         <div className="customers">
