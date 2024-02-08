@@ -35,9 +35,50 @@
                 height: 100%;
                 object-fit: contain;
                 transition: transform 0.3s ease;
+                &:hover {
+                    transform: scale(1.1);
+                }
             }
-            .card-top-img:hover {
-                transform: scale(1.1);
+            .btn-add,
+            .btn-detail {
+                position: absolute;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+                background-color: rgba(48, 181, 178, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border-radius: 10px;
+                transition: top 0.3s ease, opacity 0.3s ease; // Thêm transition cho top và opacity
+                opacity: 0; // Ẩn ban đầu
+                .btn {
+                    color: #fff;
+                    font-weight: 600;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+                &:hover {
+                    background-color: rgba(48, 181, 178, 0.9);
+                }
+            }
+            .btn-add {
+                top: 100%;
+            }
+            .btn-detail {
+                top: 100%;
+            }
+            &:hover {
+                .btn-add {
+                    top: 80%;
+                    opacity: 1; // Hiển thị khi hover
+                }
+                .btn-detail {
+                    top: 65%;
+                    opacity: 1; // Hiển thị khi hover
+                }
             }
         }
         .card-bottom {

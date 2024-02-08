@@ -13,9 +13,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from '../modal/ModalLogin';
+import numeral from 'numeral';
 import { dataDigitalBestSeller } from '../../pages/userPages/home/dataFake';
 
 function Header() {
+    const productStorage = JSON.parse(localStorage.getItem('products'));
+    const [state, setState] = useState(0);
     const [iconn, setIcon] = useState(true);
     const [isActive, setIsActive] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +28,31 @@ function Header() {
     };
     const handleMenuClick = (index) => {
         setIsActive(index);
+    };
+    const handleTotalProduct = (data) => {
+        const arr = [];
+        if (data && data.length > 0) {
+            data.forEach((item) => {
+                arr.push(item.price * item.quantity);
+            });
+            const total = arr.reduce((a, b) => {
+                return a + b;
+            });
+            const formattedTotal = numeral(total).format('0,0');
+            return formattedTotal;
+        }
+    };
+    const handleDeleteProduct = (id, index) => {
+        let arr = [...productStorage];
+        const exits = productStorage.find((product) => {
+            return product.id === id;
+        });
+
+        if (exits) {
+            arr = [...arr.slice(0, index), ...arr.slice(index + 1)];
+            localStorage.setItem('products', JSON.stringify(arr));
+            setState(state + 1);
+        }
     };
 
     return (
@@ -134,40 +162,33 @@ function Header() {
                         <FontAwesomeIcon icon={faBagShopping} className="header-right-item-icon" />
                         <div className="header-right-item-bagShopping">
                             <div className="header-right-item-bagShopping-content">
-                                {dataDigitalBestSeller && dataDigitalBestSeller.length > 0 ? (
+                                {productStorage && productStorage.length > 0 ? (
                                     <>
-                                        {dataDigitalBestSeller.slice(0, 3).map((item, index) => {
+                                        {productStorage.slice(0, 3).map((item, index) => {
                                             return (
                                                 <div key={index} className="tippy-bag-product">
                                                     <img
-                                                        src={item.linkImg ? item.linkImg : images.logokory2}
+                                                        src={item.image ? item.image : images.logokory2}
                                                         alt="avatar product"
                                                     />
                                                     <div className="tippy-bag-product-infor">
-                                                        <h5>{item.title}</h5>
+                                                        <h5>{item.name}</h5>
                                                         <p>
-                                                            {/* {item.quantity} x{' '} */}
-                                                            {/* {numeral(+item.price).format('0,0')}  */}1 x{' '}
-                                                            {item.price}đ
+                                                            {item.quantity} x {numeral(+item.price).format('0,0')} đ
                                                         </p>
                                                     </div>
                                                     <FontAwesomeIcon
                                                         icon={faDeleteLeft}
                                                         className="icon"
-                                                        // onClick={() => {
-                                                        //     handleDeleteProduct(item.id, index);
-                                                        // }}
+                                                        onClick={() => {
+                                                            handleDeleteProduct(item.id, index);
+                                                        }}
                                                     />
                                                 </div>
                                             );
                                         })}
                                         <div className="tippy-bag-total-price">
-                                            {/* <p>{`Tổng cộng: ${handleTotalProduct(productStorage)} đ`}</p> */}
-                                            <p>
-                                                {/* {t('totallowerCase')}: {handleTotalProduct(productStorage)}{' '} */}
-                                                tổng
-                                                <b>đ</b>
-                                            </p>
+                                            <p>{`Tổng cộng: ${handleTotalProduct(productStorage)} đ`}</p>
                                         </div>
                                         <div className="tippy-bag-viewcard">
                                             <Link to="/cart">

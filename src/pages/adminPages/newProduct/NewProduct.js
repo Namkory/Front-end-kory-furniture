@@ -16,7 +16,7 @@ function NewProduct() {
     const [file, setFile] = useState('');
     const [fileUpdate, setFileUpdate] = useState('');
     const [dataUpdated, setDataUpdate] = useState({});
-    const [createAPI, setCreateAPI] = useState(false);
+    const [callAPI, setcallAPI] = useState(false);
     const {
         register,
         handleSubmit,
@@ -24,7 +24,7 @@ function NewProduct() {
     } = useForm();
     const navigate = useNavigate();
     const handleCreate = async (data) => {
-        setCreateAPI(true);
+        setcallAPI(true);
         const formData = new FormData();
         // create
         data.image = file;
@@ -36,11 +36,12 @@ function NewProduct() {
         }
         const res = await createNewProduct(formData);
         toast.success('Create successful new products!');
-        setCreateAPI(false);
+        setcallAPI(false);
         navigate('/admin/products');
     };
     const handleUpdate = async (e) => {
         e.preventDefault();
+        setcallAPI(true);
         const formData = new FormData();
         // update
         if (id) {
@@ -56,7 +57,9 @@ function NewProduct() {
                 formData.append('image', fileUpdate);
             }
             const res = await updateProduct(formData);
-            console.log('check res update', dataUpdated);
+            setcallAPI(false);
+            toast.success('The product has been updated successfully!');
+            navigate('/admin/products');
             return;
         }
     };
@@ -134,7 +137,11 @@ function NewProduct() {
                                     />
                                 </Form.Group>
                                 <Button variant="primary" type="submit" onClick={(e) => handleUpdate(e)}>
-                                    Update
+                                    {callAPI ? (
+                                        <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
+                                    ) : (
+                                        'Update'
+                                    )}
                                 </Button>
                             </Col>
                             <Col>
@@ -240,7 +247,7 @@ function NewProduct() {
                                 </Form.Group>
 
                                 <Button variant="primary" type="submit">
-                                    {createAPI ? (
+                                    {callAPI ? (
                                         <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
                                     ) : (
                                         'Create'

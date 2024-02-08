@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faTag, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { dataCart } from './dataCart';
+import numeral from 'numeral';
 
-function Cart() {
+function Cart({ render }) {
+    const productStorage = JSON.parse(localStorage.getItem('products'));
     const [state, setState] = useState(0);
     const handleTotalProduct = (data) => {
         const arr = [];
@@ -17,7 +19,6 @@ function Cart() {
             const total = arr.reduce((a, b) => {
                 return a + b;
             });
-            // const formattedTotal = numeral(total).format('0,0');
             return total;
         }
     };
@@ -26,9 +27,9 @@ function Cart() {
         // const formattedTotal = numeral(sum).format('0,0');
         return sum;
     };
-    const handleDeleteProduct = (id, index) => {
-        let arr = [...dataCart];
-        const exits = dataCart.find((product) => {
+    const handleDeleteProduct = (id, index, render) => {
+        let arr = [...productStorage];
+        const exits = productStorage.find((product) => {
             return product.id === id;
         });
         if (exits) {
@@ -36,9 +37,10 @@ function Cart() {
             localStorage.setItem('products', JSON.stringify(arr));
             setState(state + 1);
         }
+        render();
     };
-    const handleUpdateQuantity = (action, id) => {
-        let arr = [...dataCart];
+    const handleUpdateQuantity = (action, id, render) => {
+        let arr = [...productStorage];
         if (arr.length > 0) {
             arr.forEach((item, index) => {
                 if (item.id === id) {
@@ -56,6 +58,7 @@ function Cart() {
             localStorage.setItem('products', JSON.stringify(arr));
         }
         setState(state + 1);
+        render();
     };
 
     return (
@@ -73,7 +76,7 @@ function Cart() {
                                         <th>Total</th>
                                     </tr>
                                 </thead>
-                                {dataCart.map((item, index) => {
+                                {productStorage.map((item, index) => {
                                     return (
                                         <tbody key={index}>
                                             <tr>
@@ -82,7 +85,7 @@ function Cart() {
                                                         icon={faTrash}
                                                         className="icon"
                                                         onClick={() => {
-                                                            handleDeleteProduct(item.id, index);
+                                                            handleDeleteProduct(item.id, index, render);
                                                         }}
                                                     />
                                                     <img src={item.image} alt="avatar" />
@@ -90,15 +93,17 @@ function Cart() {
                                                 </td>
                                                 <td>
                                                     <p>
-                                                        {/* {numeral(+item.price).format('0,0')} */}
-                                                        {item.price}
+                                                        {numeral(+item.price).format('0,0')}
+                                                        {/* {item.price} */}
                                                         <b>đ</b>
                                                     </p>
                                                 </td>
                                                 <td className="quantity">
                                                     <div className="quantity-item">
                                                         <div
-                                                            onClick={() => handleUpdateQuantity('increase', item.id)}
+                                                            onClick={() =>
+                                                                handleUpdateQuantity('increase', item.id, render)
+                                                            }
                                                             className="quantity-item-icon"
                                                         >
                                                             +
@@ -106,7 +111,9 @@ function Cart() {
                                                         <p>{item.quantity}</p>
                                                         {/* <p>{item.quantity}</p> */}
                                                         <div
-                                                            onClick={() => handleUpdateQuantity('decrease', item.id)}
+                                                            onClick={() =>
+                                                                handleUpdateQuantity('decrease', item.id, render)
+                                                            }
                                                             className="quantity-item-icon"
                                                         >
                                                             -
@@ -114,7 +121,10 @@ function Cart() {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {` ${handleTotalPrice1Item(item.quantity, item.price)}`}
+                                                    {numeral(
+                                                        +` ${handleTotalPrice1Item(item.quantity, item.price)}`,
+                                                    ).format('0,0')}
+                                                    {/* {` ${handleTotalPrice1Item(item.quantity, item.price)}`} */}
                                                     <b>đ</b>
                                                 </td>
                                             </tr>
@@ -126,7 +136,7 @@ function Cart() {
                                 <div className="shoppingCart-left-footer-btn">
                                     <FontAwesomeIcon icon={faArrowLeftLong} className="icon" />
                                     <Link to="/" className="text-decoration-none">
-                                        <p>Continuetoviewproducts</p>
+                                        <p>Continue to view products</p>
                                     </Link>
                                 </div>
                             </div>
@@ -137,7 +147,7 @@ function Cart() {
                                 <p>ToTal</p>
                                 <p>
                                     <b>
-                                        {handleTotalProduct(dataCart)}
+                                        {numeral(+` ${handleTotalProduct(productStorage)}`).format('0,0')}
                                         <b>đ</b>
                                     </b>
                                 </p>

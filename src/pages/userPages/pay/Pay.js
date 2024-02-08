@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function Pay() {
+    const productStorage = JSON.parse(localStorage.getItem('products'));
     const {
         register,
         handleSubmit,
@@ -74,7 +75,7 @@ function Pay() {
 
     return (
         <>
-            {dataCart && dataCart.length > 0 ? (
+            {productStorage && productStorage.length > 0 ? (
                 <div className="pay container">
                     <div className="pay-container row">
                         <div className="pay-container-left col-lg-7">
@@ -147,11 +148,11 @@ function Pay() {
                                         <b>TỔNG CỘNG</b>
                                     </p>
                                 </div>
-                                {dataCart.map((item, index) => {
+                                {productStorage.map((item, index) => {
                                     return (
                                         <div key={index} className="pay-container-right-inner-product">
                                             <p>
-                                                {item.title} × {item.quantity}
+                                                {item.name} × {item.quantity}
                                             </p>
                                             <h5>
                                                 <b>

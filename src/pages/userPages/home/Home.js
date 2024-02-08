@@ -4,14 +4,15 @@ import './Home.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { dataDigitalBestSeller } from './dataFake';
+import { handleAddProduct, handleGetDetail } from '../../../util/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import numeral from 'numeral';
-import { faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faCircleInfo, faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../../services/productService';
+import { Link } from 'react-router-dom';
 
-function Home() {
+function Home({ render }) {
     const settings = {
         dots: true,
         infinite: true,
@@ -89,6 +90,26 @@ function Home() {
                                     alt={item.name}
                                     className="card-top-img"
                                 />
+                                <div className="btn-add">
+                                    <button
+                                        onClick={() => handleAddProduct(item, render)}
+                                        type="button"
+                                        className="btn"
+                                    >
+                                        <FontAwesomeIcon icon={faCartShopping} className="icon" />
+                                    </button>
+                                </div>
+                                <div className="btn-detail">
+                                    <Link to="/">
+                                        <button
+                                            // onClick={() => handleGetDetail(item, render())}
+                                            type="button"
+                                            className="btn"
+                                        >
+                                            <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
@@ -138,6 +159,26 @@ function Home() {
                                     alt={item.name}
                                     className="card-top-img"
                                 />
+                                <div className="btn-add">
+                                    <button
+                                        onClick={() => handleAddProduct(item, render)}
+                                        type="button"
+                                        className="btn"
+                                    >
+                                        <FontAwesomeIcon icon={faCartShopping} className="icon" />
+                                    </button>
+                                </div>
+                                <div className="btn-detail">
+                                    <Link to="/">
+                                        <button
+                                            // onClick={() => handleGetDetail(item, render())}
+                                            type="button"
+                                            className="btn"
+                                        >
+                                            <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
@@ -181,6 +222,26 @@ function Home() {
                                     alt={item.name}
                                     className="card-top-img"
                                 />
+                                <div className="btn-add">
+                                    <button
+                                        onClick={() => handleAddProduct(item, render)}
+                                        type="button"
+                                        className="btn"
+                                    >
+                                        <FontAwesomeIcon icon={faCartShopping} className="icon" />
+                                    </button>
+                                </div>
+                                <div className="btn-detail">
+                                    <Link to="/">
+                                        <button
+                                            // onClick={() => handleGetDetail(item, render())}
+                                            type="button"
+                                            className="btn"
+                                        >
+                                            <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>

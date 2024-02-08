@@ -21,8 +21,13 @@ import Orders from './pages/adminPages/orders/Orders';
 import Analytics from './pages/adminPages/analytics/Analytics';
 import NewCustomer from './pages/adminPages/newCustomer/NewCustomer';
 import NewProduct from './pages/adminPages/newProduct/NewProduct';
+import { useState } from 'react';
 
 function App() {
+    let [state, setState] = useState(0);
+    const render = () => {
+        setState(state + 1);
+    };
     return (
         <div className="App">
             <BrowserRouter>
@@ -32,7 +37,7 @@ function App() {
                             index
                             element={
                                 <Layout>
-                                    <Home />
+                                    <Home render={render} />
                                 </Layout>
                             }
                         />
@@ -88,7 +93,7 @@ function App() {
                             path="cart"
                             element={
                                 <Layout>
-                                    <Cart />
+                                    <Cart render={render} />
                                 </Layout>
                             }
                         />

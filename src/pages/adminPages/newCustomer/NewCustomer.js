@@ -38,7 +38,8 @@ function NewCustomer() {
             updatedData = { ...updatedData, roleId: data.role.id };
         }
         await updateUser(updatedData);
-        console.log('check data', updatedData);
+        toast.success('User updated successfully!');
+        navigate('/admin/customer');
     };
     return (
         <>
