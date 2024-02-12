@@ -4,6 +4,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import images from '../../../asset/image/index';
 import { dataNews } from './data';
 import Card from 'react-bootstrap/Card';
+import ContactButton from '../../../components/contactButton/ContactButton';
 
 function News() {
     return (
@@ -72,6 +73,7 @@ function News() {
                     </div>
                 </div>
             </div>
+            <ContactButton />
         </div>
     );
 }

@@ -8,8 +8,10 @@ import { Link } from 'react-router-dom';
 import { productDetail } from '../productDetail/ProductData';
 import Card from 'react-bootstrap/Card';
 import { fetchProducts } from '../../../services/productService';
+import { handleAddProduct } from '../../../util/index';
+import ContactButton from '../../../components/contactButton/ContactButton';
 
-function Bunk() {
+function Bunk({ render }) {
     const [minValue, set_minValue] = useState(1000000);
     const [maxValue, set_maxValue] = useState(25000000);
     const [bunk, setBunk] = useState([]);
@@ -107,7 +109,29 @@ function Bunk() {
                         {filterProducts.map((item, index) => {
                             return (
                                 <Card key={index} className="card mb-3 md-3">
-                                    <Card.Img variant="top" className="card-img" src={item.thumbnail} />
+                                    <div className="card-top">
+                                        <Card.Img variant="top" className="card-img" src={item.thumbnail} />
+                                        <div className="btn-add">
+                                            <button
+                                                onClick={() => handleAddProduct(item, render)}
+                                                type="button"
+                                                className="btn"
+                                            >
+                                                <FontAwesomeIcon icon={faCartShopping} className="icon" />
+                                            </button>
+                                        </div>
+                                        <div className="btn-detail">
+                                            <Link to="/">
+                                                <button
+                                                    // onClick={() => handleGetDetail(item, render())}
+                                                    type="button"
+                                                    className="btn"
+                                                >
+                                                    <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                                </button>
+                                            </Link>
+                                        </div>
+                                    </div>
                                     <Card.Body>
                                         <Card.Title className="card-title">{item.name}</Card.Title>
                                         <Card.Text className="card-content">
@@ -123,6 +147,7 @@ function Bunk() {
                     </div>
                 </div>
             </div>
+            <ContactButton />
         </div>
     );
 }

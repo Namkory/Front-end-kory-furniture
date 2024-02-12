@@ -215,6 +215,50 @@
                 &:hover .card-title {
                     color: #04bcba;
                 }
+                .card-top {
+                    position: relative;
+                    .btn-add,
+                    .btn-detail {
+                        position: absolute;
+                        left: 10px;
+                        width: 40px;
+                        height: 40px;
+                        background-color: rgba(48, 181, 178, 0.4);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        border-radius: 10px;
+                        transition: top 0.3s ease, opacity 0.3s ease; // Thêm transition cho top và opacity
+                        opacity: 0; // Ẩn ban đầu
+                        .btn {
+                            color: #fff;
+                            font-weight: 600;
+                            &:focus {
+                                box-shadow: none;
+                            }
+                        }
+                        &:hover {
+                            background-color: rgba(48, 181, 178, 0.9);
+                        }
+                    }
+                    .btn-add {
+                        top: 100%;
+                    }
+                    .btn-detail {
+                        top: 100%;
+                    }
+                    &:hover {
+                        .btn-add {
+                            top: 80%;
+                            opacity: 1;
+                        }
+                        .btn-detail {
+                            top: 65%;
+                            opacity: 1;
+                        }
+                    }
+                }
                 .card-body {
                     text-align: center;
                 }

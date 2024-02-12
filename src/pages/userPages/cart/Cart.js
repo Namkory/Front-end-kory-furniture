@@ -6,6 +6,7 @@ import { faArrowLeftLong, faTag, faTrash } from '@fortawesome/free-solid-svg-ico
 import { Link } from 'react-router-dom';
 import { dataCart } from './dataCart';
 import numeral from 'numeral';
+import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Cart({ render }) {
     const productStorage = JSON.parse(localStorage.getItem('products'));
@@ -175,6 +176,7 @@ function Cart({ render }) {
             ) : (
                 <div>No product</div>
             )}
+            <ContactButton />
         </div>
     );
 }

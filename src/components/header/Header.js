@@ -158,35 +158,40 @@ function Header() {
                             </ul>
                         </div>
                     </div>
-                    <div className="header-right-item">
+                    <div className="header-right-item bag">
                         <FontAwesomeIcon icon={faBagShopping} className="header-right-item-icon" />
+                        <div className="bag-count">
+                            <span>{productStorage ? productStorage.length : 0}</span>
+                        </div>
                         <div className="header-right-item-bagShopping">
                             <div className="header-right-item-bagShopping-content">
                                 {productStorage && productStorage.length > 0 ? (
                                     <>
-                                        {productStorage.slice(0, 3).map((item, index) => {
-                                            return (
-                                                <div key={index} className="tippy-bag-product">
-                                                    <img
-                                                        src={item.image ? item.image : images.logokory2}
-                                                        alt="avatar product"
-                                                    />
-                                                    <div className="tippy-bag-product-infor">
-                                                        <h5>{item.name}</h5>
-                                                        <p>
-                                                            {item.quantity} x {numeral(+item.price).format('0,0')} đ
-                                                        </p>
+                                        <div className="tippy-bag-item">
+                                            {productStorage.map((item, index) => {
+                                                return (
+                                                    <div key={index} className="tippy-bag-product">
+                                                        <img
+                                                            src={item.image ? item.image : images.logokory2}
+                                                            alt="avatar product"
+                                                        />
+                                                        <div className="tippy-bag-product-infor">
+                                                            <h5>{item.name}</h5>
+                                                            <p>
+                                                                {item.quantity} x {numeral(+item.price).format('0,0')} đ
+                                                            </p>
+                                                        </div>
+                                                        <FontAwesomeIcon
+                                                            icon={faDeleteLeft}
+                                                            className="icon"
+                                                            onClick={() => {
+                                                                handleDeleteProduct(item.id, index);
+                                                            }}
+                                                        />
                                                     </div>
-                                                    <FontAwesomeIcon
-                                                        icon={faDeleteLeft}
-                                                        className="icon"
-                                                        onClick={() => {
-                                                            handleDeleteProduct(item.id, index);
-                                                        }}
-                                                    />
-                                                </div>
-                                            );
-                                        })}
+                                                );
+                                            })}
+                                        </div>
                                         <div className="tippy-bag-total-price">
                                             <p>{`Tổng cộng: ${handleTotalProduct(productStorage)} đ`}</p>
                                         </div>

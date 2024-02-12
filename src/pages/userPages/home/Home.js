@@ -4,13 +4,15 @@ import './Home.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { handleAddProduct, handleGetDetail } from '../../../util/index';
+import { handleAddProduct } from '../../../util/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import numeral from 'numeral';
 import { faCartShopping, faCircleInfo, faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../../services/productService';
 import { Link } from 'react-router-dom';
+import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Home({ render }) {
     const settings = {
@@ -50,7 +52,7 @@ function Home({ render }) {
     const [bad, setBad] = useState([]);
     const [bunk, setBunk] = useState([]);
     const [accessory, setAccessory] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         getProducts();
     }, []);
@@ -71,7 +73,9 @@ function Home({ render }) {
             console.error('Error fetching products:', error);
         }
     };
-    console.log('check badd', bad);
+    const handleGetDetail = (id) => {
+        navigate(`/productDetail/${id}`);
+    };
 
     return (
         <div className="home">
@@ -100,15 +104,9 @@ function Home({ render }) {
                                     </button>
                                 </div>
                                 <div className="btn-detail">
-                                    <Link to="/">
-                                        <button
-                                            // onClick={() => handleGetDetail(item, render())}
-                                            type="button"
-                                            className="btn"
-                                        >
-                                            <FontAwesomeIcon icon={faCircleInfo} className="icon" />
-                                        </button>
-                                    </Link>
+                                    <button onClick={() => handleGetDetail(item.id)} type="button" className="btn">
+                                        <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                    </button>
                                 </div>
                             </div>
                             <div className="card-bottom">
@@ -169,15 +167,9 @@ function Home({ render }) {
                                     </button>
                                 </div>
                                 <div className="btn-detail">
-                                    <Link to="/">
-                                        <button
-                                            // onClick={() => handleGetDetail(item, render())}
-                                            type="button"
-                                            className="btn"
-                                        >
-                                            <FontAwesomeIcon icon={faCircleInfo} className="icon" />
-                                        </button>
-                                    </Link>
+                                    <button onClick={() => handleGetDetail(item.id)} type="button" className="btn">
+                                        <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                    </button>
                                 </div>
                             </div>
                             <div className="card-bottom">
@@ -232,15 +224,9 @@ function Home({ render }) {
                                     </button>
                                 </div>
                                 <div className="btn-detail">
-                                    <Link to="/">
-                                        <button
-                                            // onClick={() => handleGetDetail(item, render())}
-                                            type="button"
-                                            className="btn"
-                                        >
-                                            <FontAwesomeIcon icon={faCircleInfo} className="icon" />
-                                        </button>
-                                    </Link>
+                                    <button onClick={() => handleGetDetail(item.id)} type="button" className="btn">
+                                        <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                    </button>
                                 </div>
                             </div>
                             <div className="card-bottom">
@@ -268,6 +254,7 @@ function Home({ render }) {
                     <button>MUA NGAY</button>
                 </div>
             </div>
+            <ContactButton />
         </div>
     );
 }

@@ -22,6 +22,8 @@ import Analytics from './pages/adminPages/analytics/Analytics';
 import NewCustomer from './pages/adminPages/newCustomer/NewCustomer';
 import NewProduct from './pages/adminPages/newProduct/NewProduct';
 import { useState } from 'react';
+import ContactButton from './components/contactButton/ContactButton';
+import ErrorPage from './components/errorPage/ErrorPage';
 
 function App() {
     let [state, setState] = useState(0);
@@ -32,6 +34,7 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
+                    {/* user page*/}
                     <Route path="/">
                         <Route
                             index
@@ -53,7 +56,7 @@ function App() {
                             path="bed"
                             element={
                                 <Layout>
-                                    <Bed />
+                                    <Bed render={render} />
                                 </Layout>
                             }
                         />
@@ -61,7 +64,7 @@ function App() {
                             path="bunkbed"
                             element={
                                 <Layout>
-                                    <Bunk />
+                                    <Bunk render={render} />
                                 </Layout>
                             }
                         />
@@ -69,7 +72,7 @@ function App() {
                             path="accessory"
                             element={
                                 <Layout>
-                                    <Accessory />
+                                    <Accessory render={render} />
                                 </Layout>
                             }
                         />
@@ -106,14 +109,15 @@ function App() {
                             }
                         />
                         <Route
-                            path="productDetail"
+                            path="productDetail/:id"
                             element={
                                 <Layout>
-                                    <ProductDetail />
+                                    <ProductDetail render={render} />
                                 </Layout>
                             }
                         />
                     </Route>
+                    {/* admin page */}
                     <Route path="admin">
                         <Route
                             index
@@ -194,6 +198,8 @@ function App() {
                             }
                         />
                     </Route>
+                    {/* error page */}
+                    <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer

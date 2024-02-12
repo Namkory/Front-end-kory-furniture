@@ -1,0 +1,40 @@
+@keyframes border-expand {
+    0% {
+        transform: scale(1);
+        border-width: 2px;
+    }
+    50% {
+        transform: scale(1.2);
+        border-width: 4px;
+    }
+    100% {
+        transform: scale(1);
+        border-width: 2px;
+    }
+}
+.contact-button {
+    z-index: 9999;
+    position: fixed;
+    right: 2%;
+    bottom: 10%;
+    justify-content: space-between;
+    height: 200px;
+
+    .contact-button-item {
+        display: block;
+        overflow: hidden;
+        width: 52px;
+        height: 50px;
+        border-radius: 50px;
+        animation: border-expand 2s infinite;
+        img {
+            width: 100%;
+        }
+    }
+    .contact-button-item-phone {
+        position: absolute;
+        right: 120%;
+        bottom: 0;
+        margin-bottom: 11px;
+    }
+}

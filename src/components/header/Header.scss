@@ -121,29 +121,24 @@
                 }
             }
         }
-
         .header-right {
             display: flex;
             justify-content: space-around;
             align-items: center;
-
             .header-right-item {
                 margin: 0 15px;
                 position: relative;
                 cursor: pointer;
-
                 .header-right-item-icon {
                     font-size: 18px;
                     transition: 0.3s ease-in-out;
                 }
-
                 .header-right-item-search {
                     position: absolute;
                     right: 0px;
                     top: 30px;
                     display: none;
                     animation: fadeIn ease-in 0.5s;
-
                     &::before {
                         content: '';
                         border: 20px solid;
@@ -152,7 +147,6 @@
                         right: 2px;
                         top: -30px;
                     }
-
                     .header-right-item-search-content {
                         width: 300px;
                         height: 60px;
@@ -227,12 +221,10 @@
                     .header-right-item-bagShopping-content {
                         padding: 25px 20px;
                         width: 270px;
-                        max-height: min((100hv - 96px) - 60px, 734px);
-                        min-height: 100px;
+                        min-height: 100px !important;
                         border-radius: 15px;
                         background: rgb(255, 255, 255);
                         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
                         .tippy-bag-product {
                             display: flex;
                             padding: 5px 0;
@@ -270,6 +262,10 @@
                                     color: red;
                                 }
                             }
+                        }
+                        .tippy-bag-item {
+                            height: 250px;
+                            overflow-y: auto;
                         }
                         .tippy-bag-total-price {
                             height: 40px;
@@ -320,6 +316,27 @@
                 }
                 &:hover .header-right-item-bagShopping {
                     display: block;
+                }
+            }
+            .bag {
+                position: relative;
+                .bag-count {
+                    position: absolute;
+                    top: -6px;
+                    right: -10px;
+                    width: 17px;
+                    height: 17px;
+                    background-color: #2bb8b2;
+                    padding: 0 2px;
+                    border-radius: 50px;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    span {
+                        width: 100%;
+                        color: white;
+                        font-size: 13px;
+                    }
                 }
             }
         }

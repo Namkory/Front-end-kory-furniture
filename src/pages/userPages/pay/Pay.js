@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Pay() {
     const productStorage = JSON.parse(localStorage.getItem('products'));
@@ -190,6 +191,7 @@ function Pay() {
             ) : (
                 <div>No Product</div>
             )}
+            <ContactButton />
         </>
     );
 }

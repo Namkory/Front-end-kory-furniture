@@ -1,5 +1,6 @@
 import './Intro.scss';
 import images from '../../../asset/image';
+import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Intro() {
     return (
@@ -52,6 +53,7 @@ function Intro() {
                 </div>
             </div>
             <div className="gap-element"></div>
+            <ContactButton />
         </div>
     );
 }

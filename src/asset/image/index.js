@@ -24,5 +24,9 @@ const images = {
     userAdmin2: require('../image/imgAdminUser2.png'),
     userAdmin3: require('../image/imgAdminUser3.png'),
     noImg: require('../image/no-image.jpg'),
+    iconmess: require('../image/iconmess.jpg'),
+    iconzalo: require('../image/iconzalo.png'),
+    iconphone: require('../image/iconphone.png'),
+    errorPage: require('../image/3-1.jpg'),
 };
 export default images;
