@@ -135,7 +135,7 @@
                 }
                 .header-right-item-search {
                     position: absolute;
-                    right: 0px;
+                    right: -100px;
                     top: 30px;
                     display: none;
                     animation: fadeIn ease-in 0.5s;
@@ -144,25 +144,47 @@
                         border: 20px solid;
                         border-color: transparent transparent white transparent;
                         position: absolute;
-                        right: 2px;
+                        right: 90px;
                         top: -30px;
                     }
                     .header-right-item-search-content {
-                        width: 300px;
-                        height: 60px;
+                        width: 600px;
+                        min-height: 60px;
                         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                         border-radius: 10px;
                         padding: 10px 20px;
                         background-color: white;
-
                         input {
                             width: 100%;
-                            // height: 100%;
+                            margin-bottom: 1rem;
                             border: none;
-                            border-bottom: 1px solid gray;
+                            border: 1px solid #ddd;
                             border-radius: 25px;
                             padding: 5px 15px;
                             outline: none;
+                        }
+                        .header-right-item-search-content-drop-down {
+                            overflow-y: scroll;
+                            max-height: 300px;
+                            .header-right-item-search-content-item {
+                                align-items: center;
+                                justify-content: space-between;
+                                text-decoration: none;
+                                color: black;
+                                padding: 10px 0.75em;
+                                img {
+                                    margin-right: 15px;
+                                    width: 40px;
+                                    height: 40px;
+                                    border-radius: 50px;
+                                    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                                    object-fit: cover;
+                                }
+                                p {
+                                    padding-top: 5px;
+                                    // margin: 0;
+                                }
+                            }
                         }
                     }
                 }

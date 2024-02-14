@@ -10,11 +10,12 @@ import {
 import './Header.scss';
 import images from '../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from '../modal/ModalLogin';
 import numeral from 'numeral';
-import { dataDigitalBestSeller } from '../../pages/userPages/home/dataFake';
+import { fetchProducts } from '../../services/productService';
+import { debounce } from 'lodash';
 
 function Header() {
     const productStorage = JSON.parse(localStorage.getItem('products'));
@@ -22,6 +23,8 @@ function Header() {
     const [iconn, setIcon] = useState(true);
     const [isActive, setIsActive] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const handleTonggleIcon = () => {
         setIcon(!iconn);
         console.log('checkk');
@@ -54,6 +57,16 @@ function Header() {
             setState(state + 1);
         }
     };
+    const delayedAPICall = debounce(async () => {
+        const res = await fetchProducts();
+        const filterProductsSearch = res.filter((product) => product.name.includes(searchValue));
+        setFilteredProducts(filterProductsSearch);
+    }, 3000); // Delay API call by 3 seconds
+
+    useEffect(() => {
+        delayedAPICall();
+    }, [searchValue]);
+    console.log('checkkkkk', filteredProducts);
 
     return (
         <div className="header">
@@ -135,7 +148,33 @@ function Header() {
                         <FontAwesomeIcon icon={faSearch} className="header-right-item-icon" />
                         <div className="header-right-item-search">
                             <div className="header-right-item-search-content">
-                                <input type="text" placeholder="Search here ..." />
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm ..."
+                                    value={searchValue}
+                                    onChange={(e) => {
+                                        setSearchValue(e.target.value);
+                                    }}
+                                />
+                                {searchValue ? (
+                                    <div className="header-right-item-search-content-drop-down">
+                                        {filteredProducts.map((item, index) => (
+                                            <Link
+                                                to={`/productDetail/${item.id}`}
+                                                key={index}
+                                                className="header-right-item-search-content-item d-flex"
+                                            >
+                                                <div className="d-flex align-items-center">
+                                                    <img src={item.thumbnail} alt="Products search img" />
+                                                    <p>{item.name}</p>
+                                                </div>
+                                                <p>{item.price}</p>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div>Không có kết quả tìm kiếm</div>
+                                )}
                             </div>
                         </div>
                     </div>
