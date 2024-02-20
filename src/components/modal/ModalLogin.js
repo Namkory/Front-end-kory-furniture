@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
+import { loginUser } from '../../services/AuthService';
+import { createNewUser, getUserById } from '../../services/UserService';
+import { useNavigate } from 'react-router-dom';
 
 function ModalLogin({ open, onClose }) {
     const {
@@ -12,8 +15,24 @@ function ModalLogin({ open, onClose }) {
     } = useForm();
     const [openRegister, setOpenRegister] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const handleLogin = (data) => {
-        console.log('data', data);
+    const navigate = useNavigate();
+    const handleLogin = async (data) => {
+        const response = await loginUser(data);
+        localStorage.setItem('accessToken', JSON.stringify(response));
+        const getUser = await getUserById(response.id);
+        if (getUser) {
+            localStorage.setItem('userRole', getUser.role.name);
+            if (getUser.role.name === 'admin') {
+                navigate('/admin');
+            } else {
+                onClose();
+            }
+        }
+        onClose();
+    };
+    const handleRegister = async (data) => {
+        await createNewUser(data);
+        setOpenRegister(false);
     };
 
     if (!open) return null;
@@ -76,7 +95,7 @@ function ModalLogin({ open, onClose }) {
                             <span className="forgot-password">Quên mật khẩu ?</span>
                         </form>
                     ) : (
-                        <form onSubmit={handleSubmit(handleLogin)}>
+                        <form onSubmit={handleSubmit(handleRegister)}>
                             <h1>ĐĂNG KÝ</h1>
                             <p>Full name*</p>
                             <div className="modal-field">

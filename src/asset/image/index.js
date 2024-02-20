@@ -28,5 +28,11 @@ const images = {
     iconzalo: require('../image/iconzalo.png'),
     iconphone: require('../image/iconphone.png'),
     errorPage: require('../image/3-1.jpg'),
+    logo_momo: require('../image/MoMo_Logo.png'),
+    logo_vietcombank: require('../image/logo-vietcombank.jpg'),
+    icon_qr_scan: require('../image/icon-qr-scan.jpg'),
+    qr_momo: require('../image/qr_momo2.jpg'),
+    qr_vietcombank: require('../image/qrvietcombank.jpg'),
+    thankcute: require('../image/thankcute.jpg'),
 };
 export default images;

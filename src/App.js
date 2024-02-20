@@ -1,6 +1,6 @@
 import './App.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/userPages/home/Home';
 import Layout from './layout/Layout';
@@ -22,14 +22,24 @@ import Analytics from './pages/adminPages/analytics/Analytics';
 import NewCustomer from './pages/adminPages/newCustomer/NewCustomer';
 import NewProduct from './pages/adminPages/newProduct/NewProduct';
 import { useState } from 'react';
-import ContactButton from './components/contactButton/ContactButton';
 import ErrorPage from './components/errorPage/ErrorPage';
+import PayMethod from './pages/userPages/payMethod/PayMethod';
+import PayMethod2 from './pages/userPages/payMethod/PayMethod2';
 
 function App() {
     let [state, setState] = useState(0);
     const render = () => {
         setState(state + 1);
     };
+    const roleAdmin = localStorage.getItem('userRole');
+    const userLogin = localStorage.getItem('accessToken');
+    if (userLogin) {
+        setTimeout(() => {
+            localStorage.removeItem('accessToken');
+            toast.error('Phiên làm việc đã hết hạn, mời bạn đăng nhập lại để tiếp tục');
+            setState(state + 1);
+        }, 1800000);
+    }
     return (
         <div className="App">
             <BrowserRouter>
@@ -109,6 +119,22 @@ function App() {
                             }
                         />
                         <Route
+                            path="pay-method"
+                            element={
+                                <Layout>
+                                    <PayMethod />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="pay-method2"
+                            element={
+                                <Layout>
+                                    <PayMethod2 />
+                                </Layout>
+                            }
+                        />
+                        <Route
                             path="productDetail/:id"
                             element={
                                 <Layout>
@@ -122,9 +148,13 @@ function App() {
                         <Route
                             index
                             element={
-                                <LayoutAdmin>
-                                    <Dashboard />
-                                </LayoutAdmin>
+                                roleAdmin === 'admin' ? (
+                                    <LayoutAdmin>
+                                        <Dashboard />
+                                    </LayoutAdmin>
+                                ) : (
+                                    <Navigate to="/" />
+                                )
                             }
                         />
                         <Route path="customer">
@@ -204,7 +234,7 @@ function App() {
             </BrowserRouter>
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

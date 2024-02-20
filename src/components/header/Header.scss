@@ -214,7 +214,10 @@
                         padding: 10px 20px;
                         background-color: white;
                         list-style: none;
-
+                        .disabled {
+                            pointer-events: none;
+                            opacity: 0.5;
+                        }
                         li {
                             margin-bottom: 10px;
 

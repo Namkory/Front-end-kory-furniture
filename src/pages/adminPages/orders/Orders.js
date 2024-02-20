@@ -2,12 +2,14 @@ import './Orders.scss';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { flexbox } from '@mui/system';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import images from '../../../asset/image/index';
+import numeral from 'numeral';
+import { getAllOrders } from '../../../services/OrderService';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'userId', headerName: 'UserId', width: 70 },
     {
         field: 'fullName',
         headerName: 'Full Name',
@@ -22,7 +24,7 @@ const columns = [
         editable: true,
     },
     {
-        field: 'phone',
+        field: 'phoneNumber',
         headerName: 'Phone',
         // type: 'number',
         width: 100,
@@ -32,6 +34,12 @@ const columns = [
         field: 'address',
         headerName: 'Address',
         width: 200,
+        editable: true,
+    },
+    {
+        field: 'gender',
+        headerName: 'Gender',
+        width: 100,
         editable: true,
     },
     {
@@ -45,6 +53,11 @@ const columns = [
         headerName: 'OrderDate',
         width: 100,
         editable: true,
+        renderCell: (params) => {
+            // const orderDate = params.row.orderDate.slice(0.3).join('-');
+            const orderDate = params.row.orderDate.join(' - ');
+            return <span>{orderDate.slice(0, 13)}</span>;
+        },
     },
     {
         field: 'totalMoney',
@@ -52,129 +65,125 @@ const columns = [
         width: 100,
         editable: true,
         renderCell: (params) => {
-            return (
-                <div>
-                    {/* {numeral(params.row.totalMoney).format('0,0')}đ */}
-                    {params.row.totalMoney} đ
-                </div>
-            );
+            return <div>{numeral(params.row.totalMoney).format('0,0')}đ</div>;
         },
     },
 ];
-const rows = [
-    {
-        id: 1,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 2,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 3,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 4,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 5,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 6,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 7,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 8,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 9,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-    {
-        id: 10,
-        userId: 1,
-        fullName: 'Nam kory',
-        email: 'Namkory@gmail.com',
-        phone: '0909360125',
-        address: 'HCM',
-        note: 'ko co gì',
-        orderDate: '18/01/2024',
-        totalMoney: 15000,
-    },
-];
+// const rows = [
+//     {
+//         id: 1,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 2,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 3,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 4,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 5,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 6,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 7,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 8,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 9,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+//     {
+//         id: 10,
+//         userId: 1,
+//         fullName: 'Nam kory',
+//         email: 'Namkory@gmail.com',
+//         phone: '0909360125',
+//         address: 'HCM',
+//         note: 'ko co gì',
+//         orderDate: '18/01/2024',
+//         totalMoney: 15000,
+//     },
+// ];
 
 function Orders() {
+    const [rows, setRow] = useState([]);
     const handleOrderDetail = (order_id) => {
         console.log('order id', order_id);
     };
@@ -182,7 +191,7 @@ function Orders() {
         {
             field: 'action',
             headerName: 'Action',
-            width: 100,
+            width: 80,
             renderCell: (params) => {
                 return (
                     <div className="custome-action">
@@ -200,6 +209,13 @@ function Orders() {
             },
         },
     ];
+    useEffect(() => {
+        const getOrders = async () => {
+            const res = await getAllOrders();
+            setRow(res);
+        };
+        getOrders();
+    }, []);
 
     return (
         <div className="Orders">
@@ -211,6 +227,7 @@ function Orders() {
                     sx={{ textAlign: 'center' }}
                     rows={rows}
                     columns={columns.concat(actionColumn)}
+                    // columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
                     checkboxSelection

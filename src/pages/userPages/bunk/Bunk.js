@@ -4,7 +4,7 @@ import MultiRangeSlider from 'multi-range-slider-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { productDetail } from '../productDetail/ProductData';
 import Card from 'react-bootstrap/Card';
 import { fetchProducts } from '../../../services/productService';
@@ -20,6 +20,7 @@ function Bunk({ render }) {
         set_minValue(e.minValue);
         set_maxValue(e.maxValue);
     };
+    const navigate = useNavigate();
     useEffect(() => {
         const filteredProducts = bunk.filter((product) => product.price >= minValue && product.price <= maxValue);
         setFilterProducts(filteredProducts);
@@ -36,6 +37,10 @@ function Bunk({ render }) {
         } catch (error) {
             console.error('Error fetching products:', error);
         }
+    };
+    const handleGetDetail = (id) => {
+        navigate(`/productDetail/${id}`);
+        render();
     };
 
     return (
@@ -121,15 +126,13 @@ function Bunk({ render }) {
                                             </button>
                                         </div>
                                         <div className="btn-detail">
-                                            <Link to="/">
-                                                <button
-                                                    // onClick={() => handleGetDetail(item, render())}
-                                                    type="button"
-                                                    className="btn"
-                                                >
-                                                    <FontAwesomeIcon icon={faCircleInfo} className="icon" />
-                                                </button>
-                                            </Link>
+                                            <button
+                                                onClick={() => handleGetDetail(item.id, render)}
+                                                type="button"
+                                                className="btn"
+                                            >
+                                                <FontAwesomeIcon icon={faCircleInfo} className="icon" />
+                                            </button>
                                         </div>
                                     </div>
                                     <Card.Body>

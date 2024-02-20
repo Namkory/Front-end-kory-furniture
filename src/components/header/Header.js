@@ -6,6 +6,7 @@ import {
     faSearch,
     faTimes,
     faUser,
+    faUserSlash,
 } from '@fortawesome/free-solid-svg-icons';
 import './Header.scss';
 import images from '../../asset/image';
@@ -16,9 +17,11 @@ import ModalLogin from '../modal/ModalLogin';
 import numeral from 'numeral';
 import { fetchProducts } from '../../services/productService';
 import { debounce } from 'lodash';
+import { toast } from 'react-toastify';
 
 function Header() {
     const productStorage = JSON.parse(localStorage.getItem('products'));
+    const userLogin = localStorage.getItem('accessToken');
     const [state, setState] = useState(0);
     const [iconn, setIcon] = useState(true);
     const [isActive, setIsActive] = useState(0);
@@ -62,11 +65,9 @@ function Header() {
         const filterProductsSearch = res.filter((product) => product.name.includes(searchValue));
         setFilteredProducts(filterProductsSearch);
     }, 3000); // Delay API call by 3 seconds
-
     useEffect(() => {
         delayedAPICall();
     }, [searchValue]);
-    console.log('checkkkkk', filteredProducts);
 
     return (
         <div className="header">
@@ -188,11 +189,23 @@ function Header() {
                         </div>
                     </div>
                     <div className="header-right-item">
-                        <FontAwesomeIcon icon={faUser} className="header-right-item-icon" />
+                        {/* <FontAwesomeIcon icon={faUserSlash} className="header-right-item-icon" /> */}
+                        <FontAwesomeIcon icon={userLogin ? faUser : faUserSlash} className="header-right-item-icon" />
                         <div className="header-right-item-user">
                             <ul className="header-right-item-user-content">
-                                <li onClick={() => setIsModalOpen(true)}>Log in</li>
-                                <li>Log out</li>
+                                <li onClick={() => setIsModalOpen(true)} className={userLogin ? 'disabled' : ''}>
+                                    Log in
+                                </li>
+                                <li
+                                    onClick={() => {
+                                        localStorage.removeItem('accessToken');
+                                        localStorage.removeItem('userRole');
+                                        setState(state + 1);
+                                    }}
+                                    className={!userLogin ? 'disabled' : ''}
+                                >
+                                    Log out
+                                </li>
                                 {/* <ModalLogin open={true} onClose={() => {}} /> */}
                             </ul>
                         </div>

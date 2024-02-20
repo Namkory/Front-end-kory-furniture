@@ -1,20 +1,18 @@
 import './Pay.scss';
-import { dataCart } from '../cart/dataCart';
 import { useState, useEffect } from 'react';
 import numeral from 'numeral';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ContactButton from '../../../components/contactButton/ContactButton';
+import { getUserById } from '../../../services/UserService';
+import { toast } from 'react-toastify';
+import { createOrder } from '../../../services/OrderService';
 
 function Pay() {
+    const [data, setData] = useState({});
     const productStorage = JSON.parse(localStorage.getItem('products'));
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const userId = localStorage.getItem('accessToken') ? JSON.parse(localStorage.getItem('accessToken')).id : null;
     const [payMethod, setPayMethod] = useState(() => {
         const savedPayMethod = localStorage.getItem('pay_method');
         return savedPayMethod !== null ? savedPayMethod : 'vietcombank';
@@ -26,6 +24,15 @@ function Pay() {
         const sum = price * quantity;
         return sum;
     };
+    useEffect(() => {
+        if (userId) {
+            const getUser = async () => {
+                const res = await getUserById(userId);
+                setData(res);
+            };
+            getUser();
+        }
+    }, [userId]);
     const handleTotalProduct = (data) => {
         const arr = [];
         if (data && data.length > 0) {
@@ -70,8 +77,22 @@ function Pay() {
     //         alert('Bạn phải đăng nhập trước');
     //     }
     // };
-    const handleOrder = (data) => {
-        console.log('data', data);
+    const handleOrder = async (e) => {
+        e.preventDefault();
+        if (userId) {
+            let time = new Date();
+            data.listProducts = productStorage;
+            data.totalMoney = handleTotalProduct(productStorage);
+            data.orderDate = time;
+            await createOrder(data);
+            if (payMethod === 'tienmat') {
+                navigate('/pay-method2');
+            } else {
+                navigate('/pay-method');
+            }
+        } else {
+            toast.error('Bạn phải đăng nhập trước');
+        }
     };
 
     return (
@@ -81,18 +102,18 @@ function Pay() {
                     <div className="pay-container row">
                         <div className="pay-container-left col-lg-7">
                             <h1>THÔNG TIN THANH TOÁN</h1>
-                            <Form onSubmit={handleSubmit(handleOrder)}>
+                            <Form>
                                 <Form.Group className="mb-3" controlId="fullName">
                                     <Form.Label>Full Name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="fullName"
                                         id="fullName"
-                                        {...register('fullName', { required: true })}
+                                        value={data.fullName}
+                                        onChange={(e) => {
+                                            setData({ ...data, fullName: e.target.value });
+                                        }}
                                     />
-                                    <Form.Text className="text-danger">
-                                        {errors.fullName && <p>Username is required</p>}
-                                    </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email</Form.Label>
@@ -100,11 +121,11 @@ function Pay() {
                                         type="email"
                                         id="email"
                                         name="email"
-                                        {...register('email', { required: true })}
+                                        value={data.email}
+                                        onChange={(e) => {
+                                            setData({ ...data, email: e.target.value });
+                                        }}
                                     />
-                                    <Form.Text className="text-danger">
-                                        {errors.email && <p>Email is required</p>}
-                                    </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="address">
                                     <Form.Label>Address</Form.Label>
@@ -112,11 +133,11 @@ function Pay() {
                                         type="text"
                                         id="address"
                                         name="address"
-                                        {...register('address', { required: true })}
+                                        value={data.address}
+                                        onChange={(e) => {
+                                            setData({ ...data, address: e.target.value });
+                                        }}
                                     />
-                                    <Form.Text className="text-danger">
-                                        {errors.address && <p>Address is required</p>}
-                                    </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="phone">
                                     <Form.Label>Phone</Form.Label>
@@ -124,17 +145,31 @@ function Pay() {
                                         type="number"
                                         id="phone"
                                         name="phone"
-                                        {...register('phone', { required: true })}
+                                        value={data.phoneNumber}
+                                        onChange={(e) => {
+                                            setData({ ...data, phoneNumber: e.target.value });
+                                        }}
                                     />
-                                    <Form.Text className="text-danger">
-                                        {errors.phone && <p>Phone is required</p>}
-                                    </Form.Text>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="note">
                                     <Form.Label>Note</Form.Label>
-                                    <Form.Control as="textarea" rows={3} id="note" name="note" {...register('note')} />
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={3}
+                                        id="note"
+                                        name="note"
+                                        onChange={(e) => {
+                                            setData({ ...data, note: e.target.value });
+                                        }}
+                                    />
                                 </Form.Group>
-                                <Button type="submit" style={{ backgroundColor: '#30b5b2', borderColor: '#30b5b2' }}>
+                                <Button
+                                    type="submit"
+                                    style={{ backgroundColor: '#30b5b2', borderColor: '#30b5b2' }}
+                                    onClick={(e) => {
+                                        handleOrder(e);
+                                    }}
+                                >
                                     Submit
                                 </Button>
                             </Form>
@@ -169,7 +204,7 @@ function Pay() {
                                 <div className="pay-container-right-inner-total">
                                     <p>Tổng cộng</p>
                                     <h5>
-                                        <b>{numeral(handleTotalProduct(dataCart)).format('0,0')} đ</b>
+                                        <b>{numeral(handleTotalProduct(productStorage)).format('0,0')} đ</b>
                                     </h5>
                                 </div>
                                 <div className="pay-container-right-inner-total">
