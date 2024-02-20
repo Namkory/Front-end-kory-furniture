@@ -145,7 +145,7 @@ function App() {
                     </Route>
                     {/* admin page */}
                     <Route path="admin">
-                        <Route
+                        {/* <Route
                             index
                             element={
                                 roleAdmin === 'admin' ? (
@@ -155,6 +155,14 @@ function App() {
                                 ) : (
                                     <Navigate to="/" />
                                 )
+                            }
+                        /> */}
+                        <Route
+                            index
+                            element={
+                                <LayoutAdmin>
+                                    <Dashboard />
+                                </LayoutAdmin>
                             }
                         />
                         <Route path="customer">
