@@ -12,8 +12,8 @@ import { handleAddProduct } from '../../../util/index';
 import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Bed({ render }) {
-    const [minValue, set_minValue] = useState(5000000);
-    const [maxValue, set_maxValue] = useState(15000000);
+    const [minValue, set_minValue] = useState(0);
+    const [maxValue, set_maxValue] = useState(25000000);
     const [bad, setBad] = useState([]);
     const [filterProducts, setFilterProducts] = useState([]);
     const handleInput = (e) => {
@@ -22,7 +22,7 @@ function Bed({ render }) {
     };
     const navigate = useNavigate();
     useEffect(() => {
-        const filteredProducts = bad.filter((product) => product.price >= minValue && product.price <= maxValue);
+        const filteredProducts = bad.filter((product) => product.salePrice >= minValue && product.salePrice <= maxValue);
         setFilterProducts(filteredProducts);
     }, [minValue, maxValue, bad]);
     useEffect(() => {
@@ -30,9 +30,9 @@ function Bed({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            const res = await fetchProducts();
-            const badProducts = res.filter((product) => product.category?.id === 1);
-            setBad(badProducts);
+            const res = await fetchProducts(1);
+            console.log('hello', res)
+            setBad(res);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -68,8 +68,8 @@ function Bed({ render }) {
                     <div className="bed-left-range">
                         <div className="bed-left-range-title">LỌC THEO GIÁ</div>
                         <MultiRangeSlider
-                            min={3500000}
-                            max={15000000}
+                            min={2000000}
+                            max={25000000}
                             step={5}
                             ruler="flase"
                             minValue={minValue}
@@ -114,7 +114,7 @@ function Bed({ render }) {
                             return (
                                 <Card key={index} className="card mb-3 md-3">
                                     <div className="card-top">
-                                        <Card.Img variant="top" className="card-img" src={item.thumbnail} />
+                                        <Card.Img variant="top" className="card-img" src={item.thumbnailData} />
                                         <div className="btn-add">
                                             <button
                                                 onClick={() => handleAddProduct(item, render)}
@@ -137,7 +137,7 @@ function Bed({ render }) {
                                     <Card.Body>
                                         <Card.Title className="card-title">{item.name}</Card.Title>
                                         <Card.Text className="card-content">
-                                            {numeral(+item.price).format('0,0')}
+                                            {numeral(+item.salePrice).format('0,0')}
                                             <b>
                                                 <u>đ</u>
                                             </b>

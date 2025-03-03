@@ -9,7 +9,7 @@ import ContactButton from '../../../components/contactButton/ContactButton';
 
 function ProductDetail({ render }) {
     const { id } = useParams(); //Dùng để lấy id trên thanh url
-    const userId = localStorage.getItem('accessToken');
+    const userId = 1;
     const [quantity, setQuantity] = useState(1);
     const [dataProduct, setData] = useState([]);
     const handleUpdateQuantity = (action) => {
@@ -26,7 +26,8 @@ function ProductDetail({ render }) {
         if (id) {
             const getProductDetail = async () => {
                 const res = await getPById(id);
-                setData(res);
+                console.log('productDetail', res.result)
+                setData(res.result);
             };
             getProductDetail();
         }
@@ -103,7 +104,7 @@ function ProductDetail({ render }) {
                             <div className="productDetail-right col-lg-7">
                                 <div className="wrapper-right-productDetail">
                                     <div className="productDetail-right-img">
-                                        <img src={dataProduct.thumbnail} alt="golden" />
+                                        <img src={dataProduct.thumbnailData} alt="golden" />
                                     </div>
                                     <div className="productDetail-right-infor">
                                         <div className="productDetail-right-header">
@@ -116,7 +117,7 @@ function ProductDetail({ render }) {
                                         <div className="productDetail-right-title">
                                             <h1>{dataProduct.name}</h1>
                                         </div>
-                                        <h1>{numeral(dataProduct.price).format('0,0')}đ</h1>
+                                        <h1>{numeral(dataProduct.salePrice).format('0,0')}đ</h1>
                                         <p>{dataProduct.description}</p>
                                         <div className="productDetail-right-infor-footer">
                                             <div className="quantity-item">

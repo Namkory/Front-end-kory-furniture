@@ -17,19 +17,31 @@ function ModalLogin({ open, onClose }) {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const navigate = useNavigate();
     const handleLogin = async (data) => {
-        const response = await loginUser(data);
-        localStorage.setItem('accessToken', JSON.stringify(response));
-        const getUser = await getUserById(response.id);
-        if (getUser) {
-            localStorage.setItem('userRole', getUser.role.name);
-            if (getUser.role.name === 'admin') {
-                navigate('/admin');
-            } else {
-                onClose();
+        try {
+            console.log('Login Data:', data);
+            const response = await loginUser(data);
+            console.log("Login Response:", response);
+    
+            // Lưu token đúng cách
+            localStorage.setItem('accessToken', response.token);
+    
+            // Lấy userId từ response để gọi API lấy user info
+            const getUser = await getUserById(response.userId);
+            if (getUser) {
+                localStorage.setItem('userRole', getUser.roles[0]); // Lấy role đầu tiên
+                if (getUser.roles.includes('ADMIN')) {
+                    navigate('/admin');
+                } else {
+                    onClose();
+                }
             }
+            
+        } catch (error) {
+            console.error("Login error:", error.response?.data || error.message);
         }
         onClose();
     };
+    
     const handleRegister = async (data) => {
         await createNewUser(data);
         setOpenRegister(false);
@@ -52,12 +64,12 @@ function ModalLogin({ open, onClose }) {
                             <p>Tên tài khoản hoặc địa chỉ email*</p>
                             <div className="modal-field">
                                 <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    {...register('email', { required: true })}
+                                    type="text"
+                                    id="userName"
+                                    name="userName"
+                                    {...register('userName', { required: true })}
                                 />
-                                {errors.email && <p className="text-danger">Email is required</p>}
+                                {errors.userName && <p className="text-danger">User name is required</p>}
                             </div>
                             <p>Mật khẩu*</p>
                             <div className="modal-password">

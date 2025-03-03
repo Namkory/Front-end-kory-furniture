@@ -22,7 +22,7 @@ function Bunk({ render }) {
     };
     const navigate = useNavigate();
     useEffect(() => {
-        const filteredProducts = bunk.filter((product) => product.price >= minValue && product.price <= maxValue);
+        const filteredProducts = bunk.filter((product) => product.salePrice >= minValue && product.salePrice <= maxValue);
         setFilterProducts(filteredProducts);
     }, [minValue, maxValue, bunk]);
     useEffect(() => {
@@ -30,10 +30,8 @@ function Bunk({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            const res = await fetchProducts();
-            const badProducts = res.filter((product) => product.category?.id === 2);
-            setBunk(badProducts);
-            // console.log('check res', badProducts);
+            const res = await fetchProducts(2);
+            setBunk(res);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -115,7 +113,7 @@ function Bunk({ render }) {
                             return (
                                 <Card key={index} className="card mb-3 md-3">
                                     <div className="card-top">
-                                        <Card.Img variant="top" className="card-img" src={item.thumbnail} />
+                                        <Card.Img variant="top" className="card-img" src={item.thumbnailData} />
                                         <div className="btn-add">
                                             <button
                                                 onClick={() => handleAddProduct(item, render)}
@@ -138,7 +136,7 @@ function Bunk({ render }) {
                                     <Card.Body>
                                         <Card.Title className="card-title">{item.name}</Card.Title>
                                         <Card.Text className="card-content">
-                                            {numeral(+item.price).format('0,0')}
+                                            {numeral(+item.salePrice).format('0,0')}
                                             <b>
                                                 <u>đ</u>
                                             </b>

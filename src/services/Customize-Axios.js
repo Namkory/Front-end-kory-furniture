@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://backend-web-service-kory-furniture.onrender.com',
+    baseURL: 'http://localhost:8080',
 });
 
 instance.interceptors.response.use(

@@ -179,7 +179,7 @@ function Header() {
                             </div>
                         </div>
                     </div>
-                    <div className="header-right-item">
+                    {/* <div className="header-right-item">
                         <FontAwesomeIcon icon={faGlobe} className="header-right-item-icon" />
                         <div className="header-right-item-language">
                             <ul className="header-right-item-language-content">
@@ -187,7 +187,7 @@ function Header() {
                                 <li>Vietnamese</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="header-right-item">
                         {/* <FontAwesomeIcon icon={faUserSlash} className="header-right-item-icon" /> */}
                         <FontAwesomeIcon icon={userLogin ? faUser : faUserSlash} className="header-right-item-icon" />

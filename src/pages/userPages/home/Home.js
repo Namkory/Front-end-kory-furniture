@@ -11,7 +11,6 @@ import numeral from 'numeral';
 import { faCartShopping, faCircleInfo, faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../../services/productService';
-import { Link } from 'react-router-dom';
 import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Home({ render }) {
@@ -58,19 +57,12 @@ function Home({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            const res = await fetchProducts();
-
-            // Lọc sản phẩm có category.id === 1 và 2 và 3
-            const badProducts = res.filter((product) => product.category?.id === 1);
-            const bunkProducts = res.filter((product) => product.category?.id === 2);
-            const accessoryProducts = res.filter((product) => product.category?.id === 3);
-
-            // Cập nhật state bad và bunk và accessory
-            setBad(badProducts);
-            setBunk(bunkProducts);
-            setAccessory(accessoryProducts);
+            setBad(await fetchProducts(1));
+            setBunk(await fetchProducts(2));
+            setAccessory(await fetchProducts(3));
+    
         } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error('Error processing products:', error);
         }
     };
     const handleGetDetail = (id) => {
@@ -90,7 +82,7 @@ function Home({ render }) {
                         <div className="card">
                             <div className="card-top">
                                 <img
-                                    src={item.thumbnail ? item.thumbnail : images.noImg}
+                                    src={item.thumbnailData ? item.thumbnailData[0] : images.noImg}
                                     alt={item.name}
                                     className="card-top-img"
                                 />
@@ -112,7 +104,7 @@ function Home({ render }) {
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
                                 <h3>
-                                    {numeral(+item.price).format('0,0')}
+                                    {numeral(+item.salePrice).format('0,0')}
                                     <b>
                                         <u>đ</u>
                                     </b>
@@ -153,7 +145,7 @@ function Home({ render }) {
                         <div className="card">
                             <div className="card-top">
                                 <img
-                                    src={item.thumbnail ? item.thumbnail : images.noImg}
+                                    src={item.thumbnailData ? item.thumbnailData[0] : images.noImg}
                                     alt={item.name}
                                     className="card-top-img"
                                 />
@@ -175,7 +167,7 @@ function Home({ render }) {
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
                                 <h3>
-                                    {numeral(+item.price).format('0,0')}
+                                    {numeral(+item.salePrice).format('0,0')}
                                     <b>
                                         <u>đ</u>
                                     </b>
@@ -210,7 +202,7 @@ function Home({ render }) {
                         <div className="card">
                             <div className="card-top">
                                 <img
-                                    src={item.thumbnail ? item.thumbnail : images.noImg}
+                                    src={item.thumbnailData ? item.thumbnailData[0] : images.noImg}
                                     alt={item.name}
                                     className="card-top-img"
                                 />
@@ -232,7 +224,7 @@ function Home({ render }) {
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
                                 <h3>
-                                    {numeral(+item.price).format('0,0')}
+                                    {numeral(+item.salePrice).format('0,0')}
                                     <b>
                                         <u>đ</u>
                                     </b>
