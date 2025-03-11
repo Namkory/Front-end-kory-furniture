@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://koryfurniture.click',
+    baseURL: 'http://13.250.179.202',
 });
 
 instance.interceptors.response.use(
