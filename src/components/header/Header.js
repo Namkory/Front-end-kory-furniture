@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from '../modal/ModalLogin';
 import numeral from 'numeral';
-import { fetchProducts } from '../../services/productService';
+import { fetchProductsSearch } from '../../services/productService';
 import { debounce } from 'lodash';
 import { toast } from 'react-toastify';
 
@@ -60,11 +60,16 @@ function Header() {
             setState(state + 1);
         }
     };
-    const delayedAPICall = debounce(async () => {
-        const res = await fetchProducts();
+    // const delayedAPICall = debounce(async () => {
+    //     const res = await fetchProductsSearch();
+    //     const filterProductsSearch = res.content.filter((product) => product.name.includes(searchValue));
+    //     setFilteredProducts(filterProductsSearch);
+    // }, 3000); // Delay API call by 3 seconds
+    const delayedAPICall = async () => {
+        const res = await fetchProductsSearch();
         const filterProductsSearch = res.filter((product) => product.name.includes(searchValue));
         setFilteredProducts(filterProductsSearch);
-    }, 3000); // Delay API call by 3 seconds
+    };
     useEffect(() => {
         delayedAPICall();
     }, [searchValue]);
@@ -166,10 +171,10 @@ function Header() {
                                                 className="header-right-item-search-content-item d-flex"
                                             >
                                                 <div className="d-flex align-items-center">
-                                                    <img src={item.thumbnail} alt="Products search img" />
+                                                    <img src={item.thumbnailData[0]} alt="Products search img" />
                                                     <p>{item.name}</p>
                                                 </div>
-                                                <p>{item.price}</p>
+                                                <p>{item.salePrice}</p>
                                             </Link>
                                         ))}
                                     </div>

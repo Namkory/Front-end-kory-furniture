@@ -27,6 +27,19 @@ export const fetchProducts = async (categoryId) => {
     }
 };
 
+export const fetchProductsSearch = async () => {
+
+    try {
+        const response = await axios.get("/api/v2/product/no-pagination");
+        // console.log('Raw API Response:', response);
+
+        return response; 
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        return [];
+    }
+};
+
 export const getPById = (id) => {
     return axios.get(`/api/v2/product/${id}`);
 };

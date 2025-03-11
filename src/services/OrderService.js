@@ -1,5 +1,9 @@
 import axios from './Customize-Axios';
 
+export const createPayment = (orderId, amount) => {
+    return axios.post(`/api/create?orderId=${orderId}&amount=${amount}`);
+};
+
 export const createOrder = (data) => {
     return axios.post('/api/v1/order', data, {
         headers: {

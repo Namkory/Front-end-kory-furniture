@@ -17,7 +17,7 @@ export const handleAddProduct = async (data, render) => {
                 'products',
                 JSON.stringify([
                     ...dataLocal,
-                    { id: data.id, name: data.name, image: data.thumbnail, quantity: 1, price: data.price },
+                    { id: data.id, name: data.name, image: data.thumbnailData[0], quantity: 1, price: data.salePrice },
                 ]),
             );
         }
@@ -25,7 +25,7 @@ export const handleAddProduct = async (data, render) => {
         //add new
         localStorage.setItem(
             'products',
-            JSON.stringify([{ id: data.id, name: data.name, image: data.thumbnail, quantity: 1, price: data.price }]),
+            JSON.stringify([{ id: data.id, name: data.name, image: data.thumbnailData[0], quantity: 1, price: data.salePrice }]),
         );
     }
     render();

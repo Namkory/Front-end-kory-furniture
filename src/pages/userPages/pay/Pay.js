@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import ContactButton from '../../../components/contactButton/ContactButton';
 import { getUserById } from '../../../services/UserService';
 import { toast } from 'react-toastify';
-import { createOrder } from '../../../services/OrderService';
+import { createOrder, createPayment } from '../../../services/OrderService';
 
 function Pay() {
     const [data, setData] = useState({});
@@ -95,6 +95,44 @@ function Pay() {
         }
     };
 
+    const handleCreatePayment = async (e) =>{
+        e.preventDefault();
+        try {
+            if (!userId) {
+                toast.error('Bạn phải đăng nhập trước');
+                return;
+            }
+    
+            let time = new Date();
+            let orderData = {
+                listProducts: productStorage,
+                totalMoney: handleTotalProduct(productStorage),
+                orderDate: time,
+            };
+    
+            // Bước 1: Tạo đơn hàng trước
+            const orderResponse = await createOrder(orderData);
+            const orderId = orderResponse?.data?.orderId; // Lấy orderId từ response
+    
+            if (!orderId) {
+                toast.error('Lỗi khi tạo đơn hàng');
+                return;
+            }
+    
+            // Bước 2: Gọi API thanh toán VNPay với orderId vừa tạo
+            const paymentResponse = await createPayment(orderId, handleTotalProduct(productStorage));
+    
+            if (paymentResponse?.data?.paymentUrl) {
+                window.location.href = paymentResponse.data.paymentUrl; // Chuyển hướng sang trang thanh toán
+            } else {
+                toast.error('Lỗi khi tạo thanh toán');
+            }
+        } catch (error) {
+            console.error('Lỗi khi tạo thanh toán:', error);
+            toast.error('Có lỗi xảy ra, vui lòng thử lại');
+        }
+    }
+
     return (
         <>
             {productStorage && productStorage.length > 0 ? (
@@ -167,7 +205,7 @@ function Pay() {
                                     type="submit"
                                     style={{ backgroundColor: '#30b5b2', borderColor: '#30b5b2' }}
                                     onClick={(e) => {
-                                        handleOrder(e);
+                                        handleCreatePayment(e);
                                     }}
                                 >
                                     Submit
@@ -210,8 +248,7 @@ function Pay() {
                                 <div className="pay-container-right-inner-total">
                                     <p>Phương thức thanh toán</p>
                                     <select value={payMethod} onChange={handleOptionChange}>
-                                        <option value="vietcombank">Vietcombank</option>
-                                        <option value="momo">Quét mã Momo</option>
+                                        <option value="vietcombank">VNPay</option>
                                         <option value="tienmat">Tiền mặt</option>
                                     </select>
                                 </div>

@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 function ContactButton() {
     return (
         <div className="contact-button d-flex flex-column">
-            <a href="#" className="contact-button-item">
+            {/* <a href="#" className="contact-button-item">
                 <img src={images.iconmess} />
             </a>
             <a href="#" className="contact-button-item">
                 <img src={images.iconzalo} />
-            </a>
+            </a> */}
             <a href="#" className="contact-button-item">
                 <img src={images.iconphone} />
             </a>
