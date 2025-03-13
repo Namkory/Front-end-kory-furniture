@@ -18,6 +18,7 @@ import numeral from 'numeral';
 import { fetchProductsSearch } from '../../services/productService';
 import { debounce } from 'lodash';
 import { toast } from 'react-toastify';
+import { fakeData4 } from '../../util/Data';
 
 function Header() {
     const productStorage = JSON.parse(localStorage.getItem('products'));
@@ -67,7 +68,8 @@ function Header() {
     // }, 3000); // Delay API call by 3 seconds
     const delayedAPICall = async () => {
         const res = await fetchProductsSearch();
-        const filterProductsSearch = res.filter((product) => product.name.includes(searchValue));
+        // const filterProductsSearch = res.filter((product) => product.name.includes(searchValue));
+        const filterProductsSearch = fakeData4.filter((product) => product.name.includes(searchValue));
         setFilteredProducts(filterProductsSearch);
     };
     useEffect(() => {

@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card';
 import { fetchProducts } from '../../../services/productService';
 import { handleAddProduct } from '../../../util/index';
 import ContactButton from '../../../components/contactButton/ContactButton';
+import { fakeData2 } from '../../../util/Data';
 
 function Bunk({ render }) {
     const [minValue, set_minValue] = useState(1000000);
@@ -31,7 +32,8 @@ function Bunk({ render }) {
     const getProducts = async () => {
         try {
             const res = await fetchProducts(2);
-            setBunk(res);
+            // setBunk(res);
+            setBunk(fakeData2)
         } catch (error) {
             console.error('Error fetching products:', error);
         }

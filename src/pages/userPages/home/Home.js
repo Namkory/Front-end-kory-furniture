@@ -12,6 +12,7 @@ import { faCartShopping, faCircleInfo, faGift, faPiggyBank, faTruck } from '@for
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../../../services/productService';
 import ContactButton from '../../../components/contactButton/ContactButton';
+import { fakeData1, fakeData2, fakeData3 } from '../../../util/Data';
 
 function Home({ render }) {
     const settings = {
@@ -57,9 +58,12 @@ function Home({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            setBad(await fetchProducts(1));
-            setBunk(await fetchProducts(2));
-            setAccessory(await fetchProducts(3));
+            // setBad(await fetchProducts(1));
+            // setBunk(await fetchProducts(2));
+            // setAccessory(await fetchProducts(3));
+            setBad(fakeData1);
+            setBunk(fakeData2);
+            setAccessory(fakeData3);
     
         } catch (error) {
             console.error('Error processing products:', error);
