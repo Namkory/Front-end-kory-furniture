@@ -1,0 +1,102 @@
+@use '../../styles/breakpoints' as *;
+
+.product-list {
+    padding: 30px 0;
+
+    .product-list-container {
+        display: flex;
+    }
+
+    .product-list-sidebar {
+        flex: 1;
+        padding: 0 15px;
+    }
+
+    .product-list-breadcrumb {
+        display: flex;
+        margin-bottom: 30px;
+
+        span {
+            color: rgba(102, 102, 102, 0.7);
+            margin: 0 10px;
+        }
+        .product-list-breadcrumb-home {
+            font-size: 18px;
+            color: rgba(102, 102, 102, 0.7);
+
+            &:hover {
+                color: #30b5b2;
+            }
+        }
+        .product-list-breadcrumb-current {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+
+    .product-list-content {
+        flex: 3;
+        min-width: 0;
+        padding: 0 30px;
+    }
+
+    .product-list-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+}
+
+@include lg-down {
+    .product-list {
+        .product-list-container {
+            flex-direction: column;
+        }
+        .product-list-sidebar {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 30px;
+            padding: 0;
+        }
+        .product-list-breadcrumb {
+            grid-column: 1 / -1;
+        }
+        .featured-products {
+            display: none;
+        }
+        .product-list-content {
+            padding: 0;
+        }
+    }
+}
+
+@include md-down {
+    .product-list {
+        padding: 20px 0;
+
+        .product-list-breadcrumb {
+            margin-bottom: 20px;
+
+            .product-list-breadcrumb-home,
+            .product-list-breadcrumb-current {
+                font-size: 15px;
+            }
+        }
+        .product-list-grid {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+    }
+}
+
+@include sm-down {
+    .product-list {
+        .product-list-sidebar {
+            grid-template-columns: minmax(0, 1fr);
+        }
+        .product-list-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+    }
+}

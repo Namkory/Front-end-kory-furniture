@@ -1,0 +1,43 @@
+@use '../../styles/mixins' as *;
+
+.price-filter {
+    margin-bottom: 30px;
+    padding-right: 10px;
+
+    .price-filter-title {
+        @include sidebar-title;
+    }
+
+    .multi-range-slider {
+        border: none;
+        padding: 20px 0px;
+        box-shadow: none;
+
+        .labels,
+        .caption {
+            display: none;
+        }
+        .bar-left,
+        .bar-right {
+            background-color: #f1f1f1;
+            border-radius: 10px 0px 0px 10px;
+            box-shadow: none;
+        }
+        .bar-inner {
+            background-color: #ababab;
+            border: solid 1px #ababab;
+        }
+        .thumb::before {
+            background-color: #666;
+            width: 20px;
+            height: 20px;
+            border: solid 1px #666;
+            box-shadow: none;
+            margin: -8px -12px;
+        }
+    }
+
+    .price-filter-value {
+        font-size: 1em;
+    }
+}

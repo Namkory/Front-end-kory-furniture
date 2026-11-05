@@ -1,0 +1,16 @@
+@mixin sidebar-title {
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 25px;
+
+    &::after {
+        content: '';
+        display: block;
+        background-color: #e5e5e5;
+        top: 140%;
+        left: 0;
+        width: 30px;
+        height: 3px;
+        position: absolute;
+    }
+}

@@ -1,0 +1,112 @@
+@use '../../styles/breakpoints' as *;
+
+.product-card.card {
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover .product-card-title {
+        color: #04bcba;
+    }
+
+    .product-card-top {
+        position: relative;
+
+        &:hover {
+            .product-card-btn--add {
+                top: 80%;
+                opacity: 1;
+            }
+            .product-card-btn--detail {
+                top: 65%;
+                opacity: 1;
+            }
+        }
+    }
+
+    .product-card-img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .product-card-btn {
+        position: absolute;
+        top: 100%;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(48, 181, 178, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: top 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+
+        .btn {
+            color: #fff;
+            font-weight: 600;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+        &:hover {
+            background-color: rgba(48, 181, 178, 0.9);
+        }
+    }
+
+    .product-card-body {
+        text-align: center;
+    }
+
+    .product-card-title,
+    .product-card-price {
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+    .product-card-title {
+        font-size: 16px;
+    }
+    .product-card-price {
+        height: 45px;
+    }
+}
+
+@include md-down {
+    .product-card.card {
+        .product-card-title {
+            font-size: 14px;
+        }
+    }
+}
+
+@include sm-down {
+    .product-card.card {
+        .product-card-body {
+            padding: 10px 8px;
+        }
+    }
+}
+
+@include touch {
+    .product-card.card {
+        .product-card-btn {
+            opacity: 1;
+            top: auto;
+        }
+        .product-card-btn--add {
+            bottom: 10px;
+        }
+        .product-card-btn--detail {
+            bottom: 60px;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+@use '../../styles/mixins' as *;
+
+.featured-products {
+    .featured-products-title {
+        @include sidebar-title;
+    }
+
+    .featured-products-list {
+        min-height: 250px;
+        border: 1px solid #dddddd;
+        padding: 10px 15px;
+    }
+
+    .featured-products-item {
+        padding: 10px 0;
+        display: flex;
+
+        p {
+            margin: 0px;
+        }
+        &:hover {
+            cursor: pointer;
+            color: #30b5b2;
+        }
+    }
+
+    .featured-products-avatar {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        margin-right: 15px;
+    }
+}
