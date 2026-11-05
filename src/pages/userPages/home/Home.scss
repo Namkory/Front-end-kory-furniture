@@ -1,3 +1,5 @@
+@use '../../../styles/breakpoints' as *;
+
 .home {
     .slick-slide > div {
         margin: 0 10px;
@@ -6,8 +8,6 @@
         margin: 0 -10px;
     }
     .home-bed {
-        // margin-top: 50px;
-
         h2 {
             margin-bottom: 20px;
             text-align: center;
@@ -29,7 +29,6 @@
         .card-top {
             position: relative;
             overflow: hidden;
-            // height: 80%;
             .card-top-img {
                 width: 100%;
                 height: 100%;
@@ -51,8 +50,8 @@
                 justify-content: center;
                 cursor: pointer;
                 border-radius: 10px;
-                transition: top 0.3s ease, opacity 0.3s ease; // Thêm transition cho top và opacity
-                opacity: 0; // Ẩn ban đầu
+                transition: top 0.3s ease, opacity 0.3s ease;
+                opacity: 0;
                 .btn {
                     color: #fff;
                     font-weight: 600;
@@ -120,13 +119,13 @@
         position: relative;
 
         .overlay {
-            position: absolute; /* Lớp này sẽ ở trên cùng và giữ nguyên vị trí khi cuộn trang */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Màu nền với độ trong suốt (opacity) */
-            z-index: 1; /* Đảm bảo lớp này ở trên cùng */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
         .banner-content {
@@ -155,8 +154,6 @@
 
             .banner-2-item-img {
                 width: 100%;
-                // height: auto;
-                // display: block;
                 object-fit: contain;
                 transition: transform 0.3s ease;
             }
@@ -197,6 +194,105 @@
                 border-radius: 3px;
                 &:hover {
                     background-color: #30b5b2;
+                }
+            }
+        }
+    }
+}
+
+@include lg-down {
+    .home {
+        .emty {
+            height: 60px;
+        }
+        .banner {
+            height: auto;
+            padding: 40px 0;
+            background-size: cover;
+        }
+        .banner-2 {
+            .banner-2-item {
+                height: auto;
+            }
+        }
+        .banner-3 {
+            height: auto;
+            padding: 80px 15px;
+            background-size: cover;
+
+            .banner-3-content h3 {
+                font-size: 28px;
+            }
+        }
+    }
+}
+
+@include md-down {
+    .home {
+        .emtyy {
+            height: 30px;
+        }
+        .emty {
+            height: 40px;
+        }
+        .home-bed {
+            h2 {
+                font-size: 1.5rem;
+            }
+            .home-bed-line {
+                margin-bottom: 30px;
+            }
+        }
+        .slick-prev,
+        .slick-next {
+            display: none !important;
+        }
+        .banner {
+            .banner-content {
+                padding: 12px 0;
+
+                .banner-content-icon {
+                    margin-bottom: 10px;
+                }
+                p {
+                    font-size: 16px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+        .banner-3 {
+            padding: 60px 15px;
+
+            .banner-3-content h3 {
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+@include sm-down {
+    .home {
+        .card {
+            height: auto;
+            padding-bottom: 10px;
+        }
+    }
+}
+
+@include touch {
+    .home {
+        .card {
+            .card-top {
+                .btn-add,
+                .btn-detail {
+                    opacity: 1;
+                    top: auto;
+                }
+                .btn-add {
+                    bottom: 10px;
+                }
+                .btn-detail {
+                    bottom: 60px;
                 }
             }
         }

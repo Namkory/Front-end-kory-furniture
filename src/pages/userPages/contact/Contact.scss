@@ -1,3 +1,5 @@
+@use '../../../styles/breakpoints' as *;
+
 * {
     margin: 0;
     padding: 0;
@@ -17,8 +19,6 @@
         .contact-left {
             width: 50%;
             background-color: rgba(52, 74, 95, 0.74);
-            // background-color: #30b5b2;
-            // opacity: 0.6;
             padding: 60px 30px 60px 30px;
             .contact-left-header {
                 display: flex;
@@ -136,6 +136,60 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+@include lg-down {
+    .contact {
+        height: auto;
+        min-height: calc(100vh - var(--header-height));
+        padding: 40px 0;
+
+        .container {
+            .contact-left {
+                padding: 40px 25px;
+            }
+            .contact-right {
+                padding: 40px 25px;
+
+                .contact-right-form form textarea {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include md-down {
+    .contact {
+        padding: 20px 0;
+
+        .container {
+            flex-direction: column;
+            min-height: 0;
+
+            .contact-left,
+            .contact-right {
+                width: 100%;
+            }
+            .contact-left {
+                padding: 30px 20px;
+
+                .contact-left-header h1 {
+                    font-size: 26px;
+                }
+                .contact-left-content {
+                    margin: 20px 0 0;
+
+                    p {
+                        margin: 12px 0;
+                    }
+                }
+            }
+            .contact-right {
+                padding: 30px 20px;
             }
         }
     }

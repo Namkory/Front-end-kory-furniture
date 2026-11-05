@@ -18,13 +18,9 @@ function PayMethod() {
             return formattedTotal;
         }
     };
-    // Tạo một số ngẫu nhiên có giá trị từ 0 đến 9999
     const randomNumber = Math.floor(Math.random() * 10000);
-    // Đảm bảo số có đủ 4 chữ số bằng cách thêm các số 0 ở đầu nếu cần
     const randomFourDigitNumber = String(randomNumber).padStart(4, '0');
-    // Tạo một đối tượng Date đại diện cho thời điểm hiện tại
     const currentDate = new Date();
-    // Lấy thông tin ngày, tháng và năm
     const day = currentDate.getDate();
     const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();

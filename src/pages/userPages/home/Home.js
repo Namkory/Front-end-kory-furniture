@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import numeral from 'numeral';
 import { faCartShopping, faCircleInfo, faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { fetchProducts } from '../../../services/productService';
 import ContactButton from '../../../components/contactButton/ContactButton';
 import { fakeData1, fakeData2, fakeData3 } from '../../../util/Data';
 
@@ -58,9 +57,6 @@ function Home({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            // setBad(await fetchProducts(1));
-            // setBunk(await fetchProducts(2));
-            // setAccessory(await fetchProducts(3));
             setBad(fakeData1);
             setBunk(fakeData2);
             setAccessory(fakeData3);
@@ -77,7 +73,6 @@ function Home({ render }) {
         <div className="home">
             <Banner />
             <div className="emtyy"></div>
-            {/* Phần Giường Ngủ  */}
             <div className="container home-bed">
                 <h2>GIƯỜNG NGỦ</h2>
                 <div className="home-bed-line"></div>
@@ -119,7 +114,6 @@ function Home({ render }) {
                 </Slider>
             </div>
             <div className="emty"></div>
-            {/* Phần banner 1*/}
             <div className="banner">
                 <div className="overlay"></div>
                 <div className="container text-center">
@@ -140,7 +134,6 @@ function Home({ render }) {
                 </div>
             </div>
             <div className="emtyy"></div>
-            {/* Phần Giường Tầng  */}
             <div className="container home-bed">
                 <h2>GIƯỜNG TẦNG</h2>
                 <div className="home-bed-line"></div>
@@ -182,7 +175,6 @@ function Home({ render }) {
                 </Slider>
             </div>
             <div className="emty"></div>
-            {/* Phần banner 2*/}
             <div className="banner-2">
                 <div className="row m-0 p-0">
                     <div className="col-lg-4 col-md-4 col-sm-12 m-0 p-0 banner-2-item">
@@ -197,7 +189,6 @@ function Home({ render }) {
                 </div>
             </div>
             <div className="emtyy"></div>
-            {/* Phần Phụ Kiện  */}
             <div className="container home-bed">
                 <h2>PHỤ KIỆN</h2>
                 <div className="home-bed-line"></div>

@@ -1,3 +1,5 @@
+@use '../../../styles/breakpoints' as *;
+
 .NewProduct {
     padding: 4rem 3rem 0 2rem;
 
@@ -31,5 +33,34 @@
 
     .spin {
         animation: spin 1s linear infinite;
+    }
+}
+
+@include xl-down {
+    .NewProduct {
+        padding: 2.5rem 1.5rem 1.5rem;
+    }
+}
+
+@include md-down {
+    .NewProduct {
+        padding: 1.5rem 1rem;
+
+        .NewProduct-header {
+            margin-bottom: 20px;
+
+            h3 {
+                font-size: 1.4rem;
+            }
+        }
+    }
+}
+
+@include sm-down {
+    .NewProduct {
+        .input-avatar {
+            width: 120px;
+            height: 120px;
+        }
     }
 }

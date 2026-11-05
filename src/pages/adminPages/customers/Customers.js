@@ -3,8 +3,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link, useNavigate } from 'react-router-dom';
 import { flexbox } from '@mui/system';
-import { useEffect, useState } from 'react';
-import { deleteUser, getAllUser } from '../../../services/UserService';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const columns = [
@@ -52,10 +51,8 @@ const columns = [
     },
 ];
 function Users() {
-    const [rows, setRow] = useState([]);
-    const handleDeleteUser = async (idUser) => {
-        await deleteUser(idUser);
-        getUsers();
+    const [rows] = useState([]);
+    const handleDeleteUser = () => {
         toast('delete user successfully!');
     };
     const navigate = useNavigate();
@@ -93,14 +90,6 @@ function Users() {
             },
         },
     ];
-
-    useEffect(() => {
-        getUsers();
-    }, []);
-    const getUsers = async () => {
-        const res = await getAllUser();
-        setRow(res);
-    };
 
     return (
         <div className="customers">

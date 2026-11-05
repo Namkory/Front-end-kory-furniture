@@ -6,8 +6,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { flexbox } from '@mui/system';
 import { Link, useNavigate } from 'react-router-dom';
 import images from '../../../asset/image/index';
-import { useEffect } from 'react';
-import { deleteProduct, fetchProducts } from '../../../services/productService';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -23,7 +21,6 @@ const columns = [
                     <img
                         className="cellImg"
                         src={params.row.thumbnail ? params.row.thumbnail : images.noImg}
-                        // src={params.row.thumbnail}
                         alt="avatar"
                     />
                 </>
@@ -64,11 +61,9 @@ const columns = [
     },
 ];
 function Products() {
-    const [rows, setRows] = useState([]);
+    const [rows] = useState([]);
     const navigate = useNavigate();
-    const handleDeleteProduct = async (pId) => {
-        const res = await deleteProduct(pId);
-        await getProducts();
+    const handleDeleteProduct = () => {
         toast.success('Product has been successfully deleted!');
     };
     const handleUpdateProduct = async (id) => {
@@ -105,13 +100,6 @@ function Products() {
             },
         },
     ];
-    useEffect(() => {
-        getProducts();
-    }, []);
-    const getProducts = async () => {
-        const res = await fetchProducts();
-        setRows(res);
-    };
 
     return (
         <div className="Products">

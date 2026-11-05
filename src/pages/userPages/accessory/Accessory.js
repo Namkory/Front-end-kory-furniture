@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { productDetail } from '../productDetail/ProductData';
 import Card from 'react-bootstrap/Card';
-import { fetchProducts } from '../../../services/productService';
 import { handleAddProduct } from '../../../util/index';
 import ContactButton from '../../../components/contactButton/ContactButton';
 import { fakeData3 } from '../../../util/Data';
@@ -31,8 +30,6 @@ function Accessory({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            const res = await fetchProducts(3);
-            // setAccessory(res);
             setAccessory(fakeData3)
         } catch (error) {
             console.error('Error fetching products:', error);

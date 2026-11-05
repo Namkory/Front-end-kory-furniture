@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { productDetail } from '../productDetail/ProductData';
 import Card from 'react-bootstrap/Card';
-import { fetchProducts } from '../../../services/productService';
 import { handleAddProduct } from '../../../util/index';
 import ContactButton from '../../../components/contactButton/ContactButton';
 import { fakeData1 } from '../../../util/Data';
@@ -31,9 +30,6 @@ function Bed({ render }) {
     }, []);
     const getProducts = async () => {
         try {
-            const res = await fetchProducts(1);
-            console.log('hello', res)
-            // setBad(res);
             setBad(fakeData1)
         } catch (error) {
             console.error('Error fetching products:', error);

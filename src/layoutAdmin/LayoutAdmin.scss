@@ -1,3 +1,5 @@
+@use '../styles/breakpoints' as *;
+
 .layoutAdmin {
     background: linear-gradient(106.37deg, #ffe1bc 29.63%, #bde5e1 51.55%, #60e2d4 90.85%);
     height: 100vh;
@@ -12,17 +14,32 @@
         border-radius: 2rem;
         overflow: hidden;
         background-color: rgba(255, 255, 255, 0.54);
-        grid-template-columns: 11rem auto;
+        grid-template-columns: 11rem minmax(0, 1fr);
+
+        > * {
+            min-width: 0;
+        }
+        > :not(.sidebar) {
+            overflow-y: auto;
+        }
     }
 }
 
-@media screen and (max-width: 1200px) {
+@include xl-down {
     .layoutAdmin {
         .layoutAdmin-glass {
-            // overflow: auto;
-            overflow-y: scroll;
+            grid-template-columns: 5rem minmax(0, 1fr);
+        }
+    }
+}
+
+@include md-down {
+    .layoutAdmin {
+        .layoutAdmin-glass {
+            width: 100%;
             height: 100%;
-            grid-template-columns: 10% 90%;
+            border-radius: 0;
+            grid-template-columns: 3.75rem minmax(0, 1fr);
         }
     }
 }

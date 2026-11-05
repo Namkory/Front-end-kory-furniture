@@ -1,0 +1,34 @@
+$bp-xl: 1199.98px;
+$bp-lg: 991.98px;
+$bp-md: 767.98px;
+$bp-sm: 575.98px;
+
+@mixin xl-down {
+    @media screen and (max-width: $bp-xl) {
+        @content;
+    }
+}
+
+@mixin lg-down {
+    @media screen and (max-width: $bp-lg) {
+        @content;
+    }
+}
+
+@mixin md-down {
+    @media screen and (max-width: $bp-md) {
+        @content;
+    }
+}
+
+@mixin sm-down {
+    @media screen and (max-width: $bp-sm) {
+        @content;
+    }
+}
+
+@mixin touch {
+    @media (hover: none) {
+        @content;
+    }
+}

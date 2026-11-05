@@ -1,7 +1,6 @@
 export const handleAddProduct = async (data, render) => {
     const dataLocal = await JSON.parse(localStorage.getItem('products'));
     if (dataLocal) {
-        //localstorage ton tai 1 san pham
         const exits = dataLocal.find((item) => {
             return item.id === data.id;
         });
@@ -22,7 +21,6 @@ export const handleAddProduct = async (data, render) => {
             );
         }
     } else {
-        //add new
         localStorage.setItem(
             'products',
             JSON.stringify([{ id: data.id, name: data.name, image: data.thumbnailData[0], quantity: 1, price: data.salePrice }]),
@@ -31,7 +29,6 @@ export const handleAddProduct = async (data, render) => {
     render();
 };
 export const handleGetDetail = async (data) => {
-    // console.log('check data', data);
     const localProductDetail = JSON.parse(localStorage.getItem('productDetail'));
     if (localProductDetail == null) {
         localStorage.setItem(
@@ -48,7 +45,6 @@ export const handleGetDetail = async (data) => {
             ]),
         );
     } else {
-        // Xóa item có tên là "myArrayData" trong localStorage
         localStorage.removeItem('productDetail');
         localStorage.setItem(
             'productDetail',

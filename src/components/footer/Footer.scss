@@ -1,5 +1,7 @@
+@use '../../styles/breakpoints' as *;
+
 .footer {
-    height: 350px;
+    min-height: 350px;
     padding: 70px;
     background-color: #fff;
 
@@ -79,7 +81,8 @@
 
             input {
                 height: 100%;
-                width: 65%;
+                flex: 1;
+                min-width: 0;
                 padding: 10px;
                 margin-right: 10px;
                 border-radius: 3px;
@@ -94,6 +97,33 @@
                 color: #fff;
                 font-weight: 600;
                 outline: none;
+            }
+        }
+    }
+}
+
+@include lg-down {
+    .footer {
+        padding: 50px 0 30px;
+
+        .footer-content-left,
+        .footer-content-mid,
+        .footer-content-right {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+@include md-down {
+    .footer {
+        min-height: 0;
+        padding: 40px 0 10px;
+
+        .footer-content-left,
+        .footer-content-mid,
+        .footer-content-right {
+            h3 {
+                margin-bottom: 15px;
             }
         }
     }

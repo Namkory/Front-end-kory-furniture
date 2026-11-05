@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints' as *;
+
 .rightSide {
     width: 95%;
     padding-top: 65px;
@@ -5,7 +7,7 @@
         margin-bottom: 40px;
     }
 }
-@media screen and (max-width: 1200px) {
+@include xl-down {
     .rightSide {
         padding-top: 24px;
         justify-content: flex-start;

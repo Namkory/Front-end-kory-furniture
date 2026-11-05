@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints' as *;
+
 @keyframes growth {
     from {
         transform: scale(0.7);
@@ -26,15 +28,22 @@
     bottom: 0;
     left: 0;
 
+    overflow-y: auto;
+    padding: 0 15px;
+
     .modal-container {
-        width: 870px;
+        width: 100%;
+        max-width: 870px;
+        margin: 180px auto;
         min-height: 370px;
         background-color: white;
         box-shadow: 3px 3px 20px 0 rgb(0 0 0 / 15%);
         border-radius: 15px;
         padding: 30px 20px;
-        // animation: growth ease-out 0.3s;
         animation: fall ease-out 0.5s;
+    }
+    .modal-container--register {
+        margin: 20px auto;
     }
     .modal-container-inner {
         .forgot-password {
@@ -70,7 +79,6 @@
         }
         .modal-gender {
             height: 40px;
-            // margin-bottom: 20px;
             select {
                 width: 70px;
                 height: 30px;
@@ -113,6 +121,35 @@
                     &:focus {
                         box-shadow: none;
                     }
+                }
+            }
+        }
+    }
+}
+
+@include md-down {
+    .modall {
+        .modal-container {
+            margin: 80px auto 20px;
+            min-height: 0;
+            padding: 25px 15px;
+        }
+        .modal-container--register {
+            margin: 20px auto;
+        }
+    }
+}
+
+@include sm-down {
+    .modall {
+        .modal-container-inner {
+            .modal-btn-login {
+                gap: 10px;
+
+                .modal-btn {
+                    flex: 1;
+                    width: auto;
+                    margin-right: 0;
                 }
             }
         }

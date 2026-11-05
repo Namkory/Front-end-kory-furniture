@@ -8,8 +8,7 @@ function Footer() {
         <div className="footer">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-4 col-lg-4 col-ms-12 footer-content-left">
-                        {/* <img src={images.logo} alt="logo" className="" /> */}
+                    <div className="col-12 col-md-4 footer-content-left">
                         <h3 className="">Kory Furniture</h3>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh ....</p>
                         <div className="footer-content-left-social-media-relate">
@@ -24,7 +23,7 @@ function Footer() {
                             </p>
                         </div>
                     </div>
-                    <div className="col-md-4 col-lg-4 col-ms-12 footer-content-mid">
+                    <div className="col-12 col-md-4 footer-content-mid">
                         <h3>VỀ CHÚNG TÔI</h3>
                         <ul className="footer-content-mid-list">
                             <li className="footer-content-mid-list-item">
@@ -45,7 +44,7 @@ function Footer() {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-md-4 col-lg-4 col-ms-12 footer-content-right">
+                    <div className="col-12 col-md-4 footer-content-right">
                         <h3>ĐĂNG KÝ NHẬN TIN</h3>
                         <div className="footer-content-right-email">
                             <input type="text" placeholder="Email..." className="inp" />

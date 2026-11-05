@@ -1,12 +1,9 @@
 import React from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Banner.scss';
-// import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +33,6 @@ function Banner() {
                             <p>For the ultimate luxury sleeping experience</p>
                             <Link to="/dog" style={{ textDecoration: 'none' }}>
                                 <button type="button" className="btn">
-                                    {/* <span>{t('shopnow')}</span> */}
                                     MUA NGAY
                                 </button>
                             </Link>
@@ -52,7 +48,6 @@ function Banner() {
                                 <p>For the ultimate luxury sleeping experience</p>
                                 <Link to="/food" style={{ textDecoration: 'none' }}>
                                     <button type="button" className="btn">
-                                        {/* <span>{t('shopnow')}</span> */}
                                         MUA NGAY
                                     </button>
                                 </Link>
@@ -69,7 +64,6 @@ function Banner() {
                             <p>For the ultimate luxury sleeping experience</p>
                             <Link to="/dog" style={{ textDecoration: 'none' }}>
                                 <button type="button" className="btn">
-                                    {/* <span>{t('shopnow')}</span> */}
                                     MUA NGAY
                                 </button>
                             </Link>

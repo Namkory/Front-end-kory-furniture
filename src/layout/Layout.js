@@ -5,7 +5,7 @@ function Layout({ children }) {
     return (
         <div>
             <Header />
-            <div style={{ paddingTop: '100px' }}>{children}</div>
+            <div style={{ paddingTop: 'var(--header-height)' }}>{children}</div>
             <Footer />
         </div>
     );

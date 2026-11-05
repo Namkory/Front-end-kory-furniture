@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints' as *;
+
 .banner1 {
     background: url('../../asset/image/banner1.jpg') no-repeat center;
     background-size: cover;
@@ -25,7 +27,6 @@
         }
 
         p {
-            // color: #353535;
             color: #999;
             font-size: 18px;
         }
@@ -100,6 +101,87 @@
                     color: white;
                 }
             }
+        }
+    }
+}
+
+@include lg-down {
+    .banner1,
+    .banner3 {
+        padding-top: 70px;
+
+        .banner-content {
+            min-height: 420px;
+            padding: 0 20px;
+
+            h1 {
+                font-size: 48px;
+            }
+        }
+    }
+    .banner2 {
+        padding-top: 90px;
+
+        .banner-content {
+            min-height: 400px;
+            padding: 0 20px;
+
+            .banner-content-title {
+                width: 60%;
+
+                h3 {
+                    font-size: 30px;
+                }
+                h2 {
+                    font-size: 48px;
+                }
+            }
+        }
+    }
+}
+
+@include md-down {
+    .banner1,
+    .banner3,
+    .banner2 {
+        padding-top: 50px;
+
+        .banner-content {
+            min-height: 300px;
+        }
+    }
+    .banner1,
+    .banner3 {
+        .banner-content {
+            h1 {
+                font-size: 32px;
+            }
+            p {
+                font-size: 15px;
+            }
+        }
+    }
+    .banner2 {
+        .banner-content {
+            .banner-content-title {
+                width: 100%;
+
+                h3 {
+                    font-size: 22px;
+                }
+                h2 {
+                    font-size: 34px;
+                }
+                p {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+    .mySwiper {
+        .swiper-button-prev,
+        .swiper-button-next {
+            display: none;
         }
     }
 }

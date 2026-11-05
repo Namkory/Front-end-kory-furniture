@@ -4,12 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createNewUser, getUserById, updateUser } from '../../../services/UserService';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function NewCustomer() {
-    const { id } = useParams(); //Dùng để lấy id trên thanh url
+    const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState({});
     const {
@@ -17,41 +16,25 @@ function NewCustomer() {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const handleCreate = async (data) => {
-        await createNewUser(data);
+    const handleCreate = () => {
         toast.success('Create successful new user!');
         navigate('/admin/customer');
     };
-    useEffect(() => {
-        if (id) {
-            getUser();
-        }
-    }, id);
-    const getUser = async () => {
-        const res = await getUserById(id);
-        setData(res);
-    };
-    const handleUpdateUser = async (e) => {
+    const handleUpdateUser = (e) => {
         e.preventDefault();
-        let updatedData = { ...data };
-        if (data.role) {
-            updatedData = { ...updatedData, roleId: data.role.id };
-        }
-        await updateUser(updatedData);
         toast.success('User updated successfully!');
         navigate('/admin/customer');
     };
     return (
         <>
             {id ? (
-                // Update user
                 <div className="NewCustomer">
                     <div className="NewCustomer-header">
                         <h3>Update customer</h3>
                     </div>
                     <Form>
                         <Row>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicfullName">
                                     <Form.Label>Full name*</Form.Label>
                                     <Form.Control
@@ -85,11 +68,8 @@ function NewCustomer() {
                                         onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
                                     />
                                 </Form.Group>
-                                <Button variant="primary" type="submit" onClick={(e) => handleUpdateUser(e)}>
-                                    Update
-                                </Button>
                             </Col>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicAddress">
                                     <Form.Label>Address*</Form.Label>
                                     <Form.Control
@@ -132,17 +112,19 @@ function NewCustomer() {
                                 </Form.Group>
                             </Col>
                         </Row>
+                        <Button variant="primary" type="submit" onClick={(e) => handleUpdateUser(e)}>
+                            Update
+                        </Button>
                     </Form>
                 </div>
             ) : (
-                //Create new User
                 <div className="NewCustomer">
                     <div className="NewCustomer-header">
                         <h3>New customers</h3>
                     </div>
                     <Form onSubmit={handleSubmit(handleCreate)}>
                         <Row>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicfullName">
                                     <Form.Label>Full name*</Form.Label>
                                     <Form.Control
@@ -183,11 +165,8 @@ function NewCustomer() {
                                     </Form.Text>
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
-                                    Create
-                                </Button>
                             </Col>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                                     <Form.Label>Phone number*</Form.Label>
                                     <Form.Control
@@ -235,6 +214,9 @@ function NewCustomer() {
                                 </Form.Group>
                             </Col>
                         </Row>
+                        <Button variant="primary" type="submit">
+                            Create
+                        </Button>
                     </Form>
                 </div>
             )}

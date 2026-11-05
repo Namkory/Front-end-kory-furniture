@@ -1,5 +1,5 @@
 import './App.scss';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/userPages/home/Home';
@@ -31,7 +31,6 @@ function App() {
     const render = () => {
         setState(state + 1);
     };
-    const roleAdmin = localStorage.getItem('userRole');
     const userLogin = localStorage.getItem('accessToken');
     if (userLogin) {
         setTimeout(() => {
@@ -44,7 +43,6 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    {/* user page*/}
                     <Route path="/">
                         <Route
                             index
@@ -143,20 +141,7 @@ function App() {
                             }
                         />
                     </Route>
-                    {/* admin page */}
                     <Route path="admin">
-                        {/* <Route
-                            index
-                            element={
-                                roleAdmin === 'admin' ? (
-                                    <LayoutAdmin>
-                                        <Dashboard />
-                                    </LayoutAdmin>
-                                ) : (
-                                    <Navigate to="/" />
-                                )
-                            }
-                        /> */}
                         <Route
                             index
                             element={
@@ -236,7 +221,6 @@ function App() {
                             }
                         />
                     </Route>
-                    {/* error page */}
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </BrowserRouter>

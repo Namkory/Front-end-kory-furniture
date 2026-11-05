@@ -18,7 +18,6 @@ export const fetchProducts = async (categoryId) => {
     }
     try {
         const response = await axios.get(`/api/v2/product/category/${categoryId}`);
-        // console.log('Raw API Response:', response);
 
         return response; 
     } catch (error) {
@@ -31,7 +30,6 @@ export const fetchProductsSearch = async () => {
 
     try {
         const response = await axios.get("/api/v2/product/no-pagination");
-        // console.log('Raw API Response:', response);
 
         return response; 
     } catch (error) {

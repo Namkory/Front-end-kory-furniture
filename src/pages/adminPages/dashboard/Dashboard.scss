@@ -1,9 +1,10 @@
+@use '../../../styles/breakpoints' as *;
+
 .dashboard {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     padding-top: 40px;
-    // padding: 40px 3rem 0 3rem;
     padding-left: 3rem;
     padding-right: 3rem;
     h3 {
@@ -13,13 +14,25 @@
         height: 350px;
     }
 }
-@media screen and (max-width: 1200px) {
+@include xl-down {
     .dashboard {
         justify-content: flex-start;
-        margin-top: 2rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+
+        .dasboard-chart {
+            width: 100%;
+            margin: 2rem 0 0;
+        }
     }
-    .dasboard-chart {
-        width: 100%;
-        margin-top: 2rem;
+}
+
+@include md-down {
+    .dashboard {
+        padding: 1.5rem 1rem;
+
+        .dasboard-chart {
+            height: 280px;
+        }
     }
 }

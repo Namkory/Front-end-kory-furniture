@@ -3,9 +3,6 @@ import { useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../services/AuthService';
-import { createNewUser, getUserById } from '../../services/UserService';
-import { useNavigate } from 'react-router-dom';
 
 function ModalLogin({ open, onClose }) {
     const {
@@ -15,35 +12,12 @@ function ModalLogin({ open, onClose }) {
     } = useForm();
     const [openRegister, setOpenRegister] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const navigate = useNavigate();
-    const handleLogin = async (data) => {
-        try {
-            console.log('Login Data:', data);
-            const response = await loginUser(data);
-            console.log("Login Response:", response);
-    
-            // Lưu token đúng cách
-            localStorage.setItem('accessToken', response.token);
-    
-            // Lấy userId từ response để gọi API lấy user info
-            const getUser = await getUserById(response.userId);
-            if (getUser) {
-                localStorage.setItem('userRole', getUser.roles[0]); // Lấy role đầu tiên
-                if (getUser.roles.includes('ADMIN')) {
-                    navigate('/admin');
-                } else {
-                    onClose();
-                }
-            }
-            
-        } catch (error) {
-            console.error("Login error:", error.response?.data || error.message);
-        }
+    const handleLogin = (data) => {
+        console.log('Login Data:', data);
         onClose();
     };
-    
-    const handleRegister = async (data) => {
-        await createNewUser(data);
+
+    const handleRegister = () => {
         setOpenRegister(false);
     };
 
@@ -51,8 +25,7 @@ function ModalLogin({ open, onClose }) {
     return (
         <div className="modall" onClick={onClose}>
             <div
-                className="modal-container"
-                style={!openRegister ? { margin: '180px auto' } : { margin: '20px auto' }}
+                className={`modal-container ${openRegister ? 'modal-container--register' : ''}`}
                 onClick={(e) => {
                     e.stopPropagation();
                 }}

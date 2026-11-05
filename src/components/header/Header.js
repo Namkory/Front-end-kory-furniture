@@ -2,7 +2,6 @@ import {
     faBagShopping,
     faBars,
     faDeleteLeft,
-    faGlobe,
     faSearch,
     faTimes,
     faUser,
@@ -15,9 +14,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from '../modal/ModalLogin';
 import numeral from 'numeral';
-import { fetchProductsSearch } from '../../services/productService';
-import { debounce } from 'lodash';
-import { toast } from 'react-toastify';
 import { fakeData4 } from '../../util/Data';
 
 function Header() {
@@ -35,6 +31,7 @@ function Header() {
     };
     const handleMenuClick = (index) => {
         setIsActive(index);
+        setIcon(true);
     };
     const handleTotalProduct = (data) => {
         const arr = [];
@@ -61,14 +58,7 @@ function Header() {
             setState(state + 1);
         }
     };
-    // const delayedAPICall = debounce(async () => {
-    //     const res = await fetchProductsSearch();
-    //     const filterProductsSearch = res.content.filter((product) => product.name.includes(searchValue));
-    //     setFilteredProducts(filterProductsSearch);
-    // }, 3000); // Delay API call by 3 seconds
     const delayedAPICall = async () => {
-        const res = await fetchProductsSearch();
-        // const filterProductsSearch = res.filter((product) => product.name.includes(searchValue));
         const filterProductsSearch = fakeData4.filter((product) => product.name.includes(searchValue));
         setFilteredProducts(filterProductsSearch);
     };
@@ -86,7 +76,6 @@ function Header() {
                 </Link>
                 <div className="header-menu">
                     <ul id={iconn ? 'navbar' : 'active'} className="header-menu-list">
-                        {/* <Link to="/intro"> */}
                         <li
                             className={`header-menu-list-item ${isActive === 1 ? 'active' : null}`}
                             onClick={() => handleMenuClick(1)}
@@ -95,7 +84,6 @@ function Header() {
                                 <p> GIỚI THIỆU </p>
                             </Link>
                         </li>
-                        {/* </Link> */}
                         <li
                             className={`header-menu-list-item ${isActive === 2 ? 'active' : null}`}
                             onClick={() => handleMenuClick(2)}
@@ -120,19 +108,6 @@ function Header() {
                                 <p> PHỤ KIỆN </p>
                             </Link>
                         </li>
-                        {/* <li
-                            className={`header-menu-list-item ${isActive === 2 ? 'active' : null}`}
-                            onClick={() => handleMenuClick(2)}
-                        >
-                            <p> SẢN PHẨM </p>
-                            <div className="header-menu-list-wrapper">
-                                <ul className="header-menu-list-wrapper-item">
-                                    <li>Giường ngủ</li>
-                                    <li>Giường tầng</li>
-                                    <li>Phụ kiện</li>
-                                </ul>
-                            </div>
-                        </li> */}
                         <li
                             className={`header-menu-list-item ${isActive === 5 ? 'active' : null}`}
                             onClick={() => handleMenuClick(5)}
@@ -186,17 +161,7 @@ function Header() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="header-right-item">
-                        <FontAwesomeIcon icon={faGlobe} className="header-right-item-icon" />
-                        <div className="header-right-item-language">
-                            <ul className="header-right-item-language-content">
-                                <li>English</li>
-                                <li>Vietnamese</li>
-                            </ul>
-                        </div>
-                    </div> */}
                     <div className="header-right-item">
-                        {/* <FontAwesomeIcon icon={faUserSlash} className="header-right-item-icon" /> */}
                         <FontAwesomeIcon icon={userLogin ? faUser : faUserSlash} className="header-right-item-icon" />
                         <div className="header-right-item-user">
                             <ul className="header-right-item-user-content">
@@ -213,7 +178,6 @@ function Header() {
                                 >
                                     Log out
                                 </li>
-                                {/* <ModalLogin open={true} onClose={() => {}} /> */}
                             </ul>
                         </div>
                     </div>

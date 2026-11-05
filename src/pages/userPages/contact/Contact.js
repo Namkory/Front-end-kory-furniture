@@ -7,9 +7,6 @@ function Contact() {
                 <div className="contact-left">
                     <div className="contact-left-header">
                         <h1>GET IN TOUCH</h1>
-                        {/* <div className="contact-left-header-img">
-                        <img src={images.bell1} alt="bell" />
-                    </div> */}
                     </div>
                     <div className="contact-left-content">
                         <p>
@@ -24,11 +21,6 @@ function Contact() {
                             officae.
                         </p>
                     </div>
-                    {/* <div className="contact-left-footer">
-                    <div className="contact-left-footer-img">
-                        <img src={images.bell1} alt="bell" />
-                    </div>
-                </div> */}
                 </div>
                 <div className="contact-right">
                     <div className="contact-right-form">

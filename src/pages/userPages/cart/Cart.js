@@ -1,5 +1,4 @@
 import './Cart.scss';
-import images from '../../../asset/image/index';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faTag, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +24,6 @@ function Cart({ render }) {
     };
     const handleTotalPrice1Item = (quantity, price) => {
         const sum = price * quantity;
-        // const formattedTotal = numeral(sum).format('0,0');
         return sum;
     };
     const handleDeleteProduct = (id, index, render) => {
@@ -95,7 +93,6 @@ function Cart({ render }) {
                                                 <td>
                                                     <p>
                                                         {numeral(+item.price).format('0,0')}
-                                                        {/* {item.price} */}
                                                         <b>đ</b>
                                                     </p>
                                                 </td>
@@ -110,7 +107,6 @@ function Cart({ render }) {
                                                             +
                                                         </div>
                                                         <p>{item.quantity}</p>
-                                                        {/* <p>{item.quantity}</p> */}
                                                         <div
                                                             onClick={() =>
                                                                 handleUpdateQuantity('decrease', item.id, render)
@@ -125,7 +121,6 @@ function Cart({ render }) {
                                                     {numeral(
                                                         +` ${handleTotalPrice1Item(item.quantity, item.price)}`,
                                                     ).format('0,0')}
-                                                    {/* {` ${handleTotalPrice1Item(item.quantity, item.price)}`} */}
                                                     <b>đ</b>
                                                 </td>
                                             </tr>

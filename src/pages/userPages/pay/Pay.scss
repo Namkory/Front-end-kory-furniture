@@ -1,3 +1,5 @@
+@use '../../../styles/breakpoints' as *;
+
 .pay {
     p,
     h5 {
@@ -6,7 +8,6 @@
     }
     .pay-container {
         display: flex;
-        // width: 1200px;
         margin: 30px auto;
         .pay-container-left {
             margin-right: 30px;
@@ -89,6 +90,43 @@
                 }
                 .pay-container-right-inner-text {
                     color: #30b5b2;
+                }
+            }
+        }
+    }
+}
+
+@include lg-down {
+    .pay {
+        .pay-container {
+            .pay-container-left {
+                margin-right: 0;
+            }
+            .pay-container-right {
+                height: auto;
+                margin: 30px 12px 0;
+                width: calc(100% - 24px);
+            }
+        }
+    }
+}
+
+@include md-down {
+    .pay {
+        .pay-container {
+            margin: 20px auto;
+
+            .pay-container-right {
+                padding: 20px 15px;
+
+                .pay-container-right-inner {
+                    .pay-container-right-inner-product,
+                    .pay-container-right-inner-total {
+                        height: auto;
+                        min-height: 33px;
+                        flex-wrap: wrap;
+                        gap: 5px 10px;
+                    }
                 }
             }
         }

@@ -13,10 +13,10 @@ function Intro() {
                         <div className="intro-header-line"></div>
                     </div>
                     <div className="col-12 intro-banner">
-                        <img src={images.banner3intro} style={{ width: '100%', height: '350px' }} alt="banner intro" />
+                        <img src={images.banner3intro} className="intro-banner-img" alt="banner intro" />
                     </div>
                     <div className="row intro-infro">
-                        <div className="col-md-4 col-lg-4 col-ms-12 text-center">
+                        <div className="col-12 col-md-4 text-center">
                             <div className="intro-infro-icon">
                                 <img src={images.introdiamond} alt="intro diamond" className="intro-infro-icon-img" />
                             </div>
@@ -27,7 +27,7 @@ function Intro() {
                             </p>
                             <button>CLICK ME!</button>
                         </div>
-                        <div className="col-md-4 col-lg-4 col-ms-12 text-center">
+                        <div className="col-12 col-md-4 text-center">
                             <div className="intro-infro-icon">
                                 <img src={images.intronetwork} alt="intro network" className="intro-infro-icon-img" />
                             </div>
@@ -38,7 +38,7 @@ function Intro() {
                             </p>
                             <button>CLICK ME!</button>
                         </div>
-                        <div className="col-md-4 col-lg-4 col-ms-12 text-center">
+                        <div className="col-12 col-md-4 text-center">
                             <div className="intro-infro-icon">
                                 <img src={images.introeye} alt="intro eye" className="intro-infro-icon-imgeye" />
                             </div>

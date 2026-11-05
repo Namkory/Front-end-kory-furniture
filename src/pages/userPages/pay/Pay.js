@@ -1,13 +1,10 @@
 import './Pay.scss';
 import { useState, useEffect } from 'react';
 import numeral from 'numeral';
-import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ContactButton from '../../../components/contactButton/ContactButton';
-import { getUserById } from '../../../services/UserService';
 import { toast } from 'react-toastify';
-import { createOrder, createPayment } from '../../../services/OrderService';
 
 function Pay() {
     const [data, setData] = useState({});
@@ -24,15 +21,6 @@ function Pay() {
         const sum = price * quantity;
         return sum;
     };
-    useEffect(() => {
-        if (userId) {
-            const getUser = async () => {
-                const res = await getUserById(userId);
-                setData(res);
-            };
-            getUser();
-        }
-    }, [userId]);
     const handleTotalProduct = (data) => {
         const arr = [];
         if (data && data.length > 0) {
@@ -48,90 +36,12 @@ function Pay() {
     const handleOptionChange = (e) => {
         setPayMethod(e.target.value);
     };
-    const navigate = useNavigate();
-    // const handleOrder = (e) => {
-    //     e.preventDefault();
-    //     if (localStorage.getItem('userId') !== null) {
-    //         let time = new Date();
-    //         axios
-    //             .post(`${process.env.REACT_APP_BACKEND_URL}/create-order`, {
-    //                 userId: userID,
-    //                 fullName: fullName,
-    //                 address: address,
-    //                 phone: phone,
-    //                 email: email,
-    //                 note: note,
-    //                 dataProduct: productStorage,
-    //                 orderDate: time,
-    //                 totalMoney: handleTotalProduct(productStorage),
-    //             })
-    //             .then((res) => {
-    //                 if (payMethod === 'tienmat') {
-    //                     navigate('/pay/payMethod2');
-    //                 } else {
-    //                     navigate('/pay/payMethod');
-    //                 }
-    //             })
-    //             .catch((error) => console.log(error));
-    //     } else {
-    //         alert('Bạn phải đăng nhập trước');
-    //     }
-    // };
-    const handleOrder = async (e) => {
+    const handleCreatePayment = (e) => {
         e.preventDefault();
-        if (userId) {
-            let time = new Date();
-            data.listProducts = productStorage;
-            data.totalMoney = handleTotalProduct(productStorage);
-            data.orderDate = time;
-            await createOrder(data);
-            if (payMethod === 'tienmat') {
-                navigate('/pay-method2');
-            } else {
-                navigate('/pay-method');
-            }
-        } else {
-            toast.error('Bạn phải đăng nhập trước');
+        if (!userId) {
+            toast.error('Bạn phải đăng nhập trước');
         }
     };
-
-    const handleCreatePayment = async (e) =>{
-        e.preventDefault();
-        try {
-            if (!userId) {
-                toast.error('Bạn phải đăng nhập trước');
-                return;
-            }
-    
-            let time = new Date();
-            let orderData = {
-                listProducts: productStorage,
-                totalMoney: handleTotalProduct(productStorage),
-                orderDate: time,
-            };
-    
-            // Bước 1: Tạo đơn hàng trước
-            const orderResponse = await createOrder(orderData);
-            const orderId = orderResponse?.data?.orderId; // Lấy orderId từ response
-    
-            if (!orderId) {
-                toast.error('Lỗi khi tạo đơn hàng');
-                return;
-            }
-    
-            // Bước 2: Gọi API thanh toán VNPay với orderId vừa tạo
-            const paymentResponse = await createPayment(orderId, handleTotalProduct(productStorage));
-    
-            if (paymentResponse?.data?.paymentUrl) {
-                window.location.href = paymentResponse.data.paymentUrl; // Chuyển hướng sang trang thanh toán
-            } else {
-                toast.error('Lỗi khi tạo thanh toán');
-            }
-        } catch (error) {
-            console.error('Lỗi khi tạo thanh toán:', error);
-            toast.error('Có lỗi xảy ra, vui lòng thử lại');
-        }
-    }
 
     return (
         <>

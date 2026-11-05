@@ -4,7 +4,7 @@ import { UpdatesData } from './UpdatesData';
 function Update() {
     return (
         <div className="updates">
-            {UpdatesData.map((update, index) => {
+            {UpdatesData.map((update) => {
                 return (
                     <div className="update">
                         <img src={update.img} alt="Update Image" />

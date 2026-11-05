@@ -1,7 +1,10 @@
+@use '../../../styles/breakpoints' as *;
+
 .payMethod {
-    height: 90vh;
+    min-height: 90vh;
     .container {
-        width: 1000px;
+        width: 100%;
+        max-width: 1000px;
         margin: 30px auto;
         .header {
             text-align: center;
@@ -40,6 +43,33 @@
                             li {
                                 margin: 10px 0;
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include md-down {
+    .payMethod {
+        min-height: 0;
+        padding-bottom: 30px;
+
+        .container {
+            margin: 20px auto;
+
+            .content {
+                flex-direction: column;
+
+                .right {
+                    margin-top: 30px;
+
+                    .right-container {
+                        margin-left: 0;
+
+                        .right-content {
+                            padding: 20px 15px;
                         }
                     }
                 }

@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints' as *;
+
 @keyframes border-expand {
     0% {
         transform: scale(1);
@@ -36,5 +38,18 @@
         right: 120%;
         bottom: 0;
         margin-bottom: 11px;
+    }
+}
+
+@include md-down {
+    .contact-button {
+        right: 12px;
+        bottom: 20px;
+        height: 44px;
+
+        .contact-button-item {
+            width: 44px;
+            height: 44px;
+        }
     }
 }

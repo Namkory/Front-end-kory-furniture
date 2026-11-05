@@ -7,12 +7,11 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import images from '../../../asset/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpider, faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
-import { createNewProduct, getPById, updateProduct } from '../../../services/productService';
+import { faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 function NewProduct() {
-    const { id } = useParams(); //Dùng để lấy id trên thanh url
+    const { id } = useParams();
     const [file, setFile] = useState('');
     const [fileUpdate, setFileUpdate] = useState('');
     const [dataUpdated, setDataUpdate] = useState({});
@@ -26,7 +25,6 @@ function NewProduct() {
     const handleCreate = async (data) => {
         setcallAPI(true);
         const formData = new FormData();
-        // create
         data.image = file;
         for (const [key, value] of Object.entries(data)) {
             formData.append(key, value);
@@ -34,44 +32,16 @@ function NewProduct() {
         for (var pair of formData.entries()) {
             console.log(pair[0], pair[1]);
         }
-        const res = await createNewProduct(formData);
         toast.success('Create successful new products!');
         setcallAPI(false);
         navigate('/admin/products');
     };
-    const handleUpdate = async (e) => {
+    const handleUpdate = (e) => {
         e.preventDefault();
-        setcallAPI(true);
-        const formData = new FormData();
-        // update
         if (id) {
-            formData.append('id', id);
-            for (const [key, value] of Object.entries(dataUpdated)) {
-                if (key === 'category') {
-                    formData.append('categoryId', value.id ? value.id : value);
-                } else {
-                    formData.append(key, value);
-                }
-            }
-            if (fileUpdate) {
-                formData.append('image', fileUpdate);
-            }
-            const res = await updateProduct(formData);
-            setcallAPI(false);
             toast.success('The product has been updated successfully!');
             navigate('/admin/products');
-            return;
         }
-    };
-    useEffect(() => {
-        if (id) {
-            fetchProductById();
-        }
-    }, [id]);
-    const fetchProductById = async () => {
-        const res = await getPById(id);
-        console.log('check update res', res);
-        setDataUpdate(res);
     };
     const spinnerStyle = {
         animation: 'spin 1s linear infinite !important',
@@ -80,14 +50,13 @@ function NewProduct() {
     return (
         <>
             {id ? (
-                //Update
                 <div className="NewProduct">
                     <div className="NewProduct-header">
                         <h3>Update product</h3>
                     </div>
                     <Form>
                         <Row>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3 d-flex align-items-center" controlId="formBasicThumbnail">
                                     <div style={{ marginRight: '2rem' }}>
                                         <img
@@ -136,15 +105,8 @@ function NewProduct() {
                                         name="price"
                                     />
                                 </Form.Group>
-                                <Button variant="primary" type="submit" onClick={(e) => handleUpdate(e)}>
-                                    {callAPI ? (
-                                        <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
-                                    ) : (
-                                        'Update'
-                                    )}
-                                </Button>
                             </Col>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicDiscount">
                                     <Form.Label>Discount*</Form.Label>
                                     <Form.Control
@@ -180,17 +142,23 @@ function NewProduct() {
                                 </Form.Group>
                             </Col>
                         </Row>
+                        <Button variant="primary" type="submit" onClick={(e) => handleUpdate(e)}>
+                            {callAPI ? (
+                                <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
+                            ) : (
+                                'Update'
+                            )}
+                        </Button>
                     </Form>
                 </div>
             ) : (
-                //Create
                 <div className="NewProduct">
                     <div className="NewProduct-header">
                         <h3>New product</h3>
                     </div>
                     <Form onSubmit={handleSubmit(handleCreate)}>
                         <Row>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3 d-flex align-items-center" controlId="formBasicThumbnail">
                                     <div style={{ marginRight: '2rem' }}>
                                         <img
@@ -223,7 +191,6 @@ function NewProduct() {
                                         type="text"
                                         placeholder="Enter Name Product"
                                         name="name"
-                                        // value={id ? dataUpdated.name : ''}
                                         id="name"
                                         {...register('name', { required: true })}
                                     />
@@ -235,7 +202,6 @@ function NewProduct() {
                                     <Form.Label>Price*</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        // value={id ? dataUpdated.price : ''}
                                         placeholder="Enter price"
                                         id="price"
                                         name="price"
@@ -246,20 +212,12 @@ function NewProduct() {
                                     </Form.Text>
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
-                                    {callAPI ? (
-                                        <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
-                                    ) : (
-                                        'Create'
-                                    )}
-                                </Button>
                             </Col>
-                            <Col>
+                            <Col xs={12} md={6}>
                                 <Form.Group className="mb-3" controlId="formBasicDiscount">
                                     <Form.Label>Discount*</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        // value={id ? dataUpdated.discount : ''}
                                         placeholder="Enter discount"
                                         id="discount"
                                         name="discount"
@@ -274,7 +232,6 @@ function NewProduct() {
                                     <Form.Control
                                         type="text"
                                         placeholder="Description"
-                                        // value={id ? dataUpdated.description : ''}
                                         id="description"
                                         name="description"
                                         {...register('description', { required: true })}
@@ -295,6 +252,13 @@ function NewProduct() {
                                 </Form.Group>
                             </Col>
                         </Row>
+                        <Button variant="primary" type="submit">
+                            {callAPI ? (
+                                <FontAwesomeIcon icon={faSpinner} style={spinnerStyle} className="spin" />
+                            ) : (
+                                'Create'
+                            )}
+                        </Button>
                     </Form>
                 </div>
             )}

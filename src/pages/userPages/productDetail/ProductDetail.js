@@ -1,17 +1,15 @@
 import './ProductDetail.scss';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import numeral from 'numeral';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { productDetail } from './ProductData';
-import { getPById } from '../../../services/productService';
 import ContactButton from '../../../components/contactButton/ContactButton';
 
 function ProductDetail({ render }) {
-    const { id } = useParams(); //Dùng để lấy id trên thanh url
     const userId = 1;
     const [quantity, setQuantity] = useState(1);
-    const [dataProduct, setData] = useState([]);
+    const [dataProduct] = useState([]);
     const handleUpdateQuantity = (action) => {
         if (action === 'increase') {
             setQuantity(quantity + 1);
@@ -22,20 +20,9 @@ function ProductDetail({ render }) {
         }
     };
     const navigate = useNavigate();
-    useEffect(() => {
-        if (id) {
-            const getProductDetail = async () => {
-                const res = await getPById(id);
-                console.log('productDetail', res.result)
-                setData(res.result);
-            };
-            getProductDetail();
-        }
-    }, [id]);
     const handleAddNewProduct = async (data) => {
         const dataLocal = await JSON.parse(localStorage.getItem('products'));
         if (dataLocal) {
-            //localstorage ton tai 1 san pham
             const exits = dataLocal.find((item) => {
                 return item.id === data.id;
             });
@@ -62,7 +49,6 @@ function ProductDetail({ render }) {
                 );
             }
         } else {
-            //add new
             localStorage.setItem(
                 'products',
                 JSON.stringify([
@@ -80,7 +66,7 @@ function ProductDetail({ render }) {
                 <div className="productDetail container">
                     <div className="productDetail-container">
                         <div className="row">
-                            <div className="productDetail-left col-lg-4">
+                            <div className="productDetail-left col-12 col-lg-4 order-2 order-lg-1">
                                 <div className="productDetail-left-products-title">SẢN PHẨM</div>
                                 <div className="productDetail-left-products">
                                     {productDetail.slice(0, 5).map((item, index) => {
@@ -101,7 +87,7 @@ function ProductDetail({ render }) {
                                     })}
                                 </div>
                             </div>
-                            <div className="productDetail-right col-lg-7">
+                            <div className="productDetail-right col-12 col-lg-7 order-1 order-lg-2">
                                 <div className="wrapper-right-productDetail">
                                     <div className="productDetail-right-img">
                                         <img src={dataProduct.thumbnailData} alt="golden" />
@@ -137,7 +123,6 @@ function ProductDetail({ render }) {
                                             </div>
                                             <div className="productDetail-right-infor-footer-btn">
                                                 <p onClick={() => handleAddNewProduct(dataProduct)}>Add to cart</p>
-                                                {/* <p>Add to cart</p> */}
                                             </div>
                                         </div>
                                     </div>
