@@ -58,12 +58,8 @@ function Header() {
             setState(state + 1);
         }
     };
-    const delayedAPICall = async () => {
-        const filterProductsSearch = fakeData4.filter((product) => product.name.includes(searchValue));
-        setFilteredProducts(filterProductsSearch);
-    };
     useEffect(() => {
-        delayedAPICall();
+        setFilteredProducts(fakeData4.filter((product) => product.name.includes(searchValue)));
     }, [searchValue]);
 
     return (
