@@ -72,6 +72,8 @@ function Home({ render }) {
 
     return (
         <div className="home">
+            {/* h1 chính của trang chủ cho SEO, ẩn khỏi giao diện nhưng vẫn đọc được bởi Google và trình đọc màn hình */}
+            <h1 className="visually-hidden">Kory Furniture - Nội thất phòng ngủ: giường ngủ, giường tầng, phụ kiện</h1>
             <Banner />
             <div className="emtyy"></div>
             <div className="container home-bed">
@@ -102,7 +104,7 @@ function Home({ render }) {
                                 </div>
                             </div>
                             <div className="card-bottom">
-                                <h1>{item.name}</h1>
+                                <h3 className="card-bottom-name">{item.name}</h3>
                                 <ProductRating productId={item.id} className="card-bottom-rating" />
                                 <h3>
                                     {numeral(+item.salePrice).format('0,0')}
@@ -164,7 +166,7 @@ function Home({ render }) {
                                 </div>
                             </div>
                             <div className="card-bottom">
-                                <h1>{item.name}</h1>
+                                <h3 className="card-bottom-name">{item.name}</h3>
                                 <ProductRating productId={item.id} className="card-bottom-rating" />
                                 <h3>
                                     {numeral(+item.salePrice).format('0,0')}
@@ -220,7 +222,7 @@ function Home({ render }) {
                                 </div>
                             </div>
                             <div className="card-bottom">
-                                <h1>{item.name}</h1>
+                                <h3 className="card-bottom-name">{item.name}</h3>
                                 <ProductRating productId={item.id} className="card-bottom-rating" />
                                 <h3>
                                     {numeral(+item.salePrice).format('0,0')}

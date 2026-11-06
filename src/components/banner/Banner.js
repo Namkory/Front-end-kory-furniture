@@ -27,11 +27,11 @@ function Banner() {
                 <SwiperSlide>
                     <div className="object-fill w-full h-screen banner1">
                         <div className="banner-content">
-                            <h1>
+                            <h2 className="banner-heading">
                                 <span style={{ color: '#2da4d6' }}>SILK</span> BED LINEN
-                            </h1>
+                            </h2>
                             <p>For the ultimate luxury sleeping experience</p>
-                            <Link to="/dog" style={{ textDecoration: 'none' }}>
+                            <Link to="/accessory" style={{ textDecoration: 'none' }}>
                                 <button type="button" className="btn">
                                     MUA NGAY
                                 </button>
@@ -46,7 +46,7 @@ function Banner() {
                                 <h3>The Better</h3>
                                 <h2>MATTRESES</h2>
                                 <p>For the ultimate luxury sleeping experience</p>
-                                <Link to="/food" style={{ textDecoration: 'none' }}>
+                                <Link to="/bed" style={{ textDecoration: 'none' }}>
                                     <button type="button" className="btn">
                                         MUA NGAY
                                     </button>
@@ -58,11 +58,11 @@ function Banner() {
                 <SwiperSlide>
                     <div className="object-fill w-full h-screen banner3">
                         <div className="banner-content">
-                            <h1>
+                            <h2 className="banner-heading">
                                 <span style={{ color: '#2da4d6' }}>SILK</span> BED LINEN
-                            </h1>
+                            </h2>
                             <p>For the ultimate luxury sleeping experience</p>
-                            <Link to="/dog" style={{ textDecoration: 'none' }}>
+                            <Link to="/accessory" style={{ textDecoration: 'none' }}>
                                 <button type="button" className="btn">
                                     MUA NGAY
                                 </button>

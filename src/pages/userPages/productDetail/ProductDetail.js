@@ -12,6 +12,8 @@ import ContactButton from '../../../components/contactButton/ContactButton';
 import ProductTabs, { TAB_KEYS } from './ProductTabs';
 import ProductRating, { Stars } from '../../../components/starRating/StarRating';
 import { getAverageRating, loadReviews, saveReviews } from '../../../util/reviews';
+import { SITE_NAME, usePageMeta } from '../../../util/seo';
+import { CATEGORIES } from '../../../util/categories';
 
 const allProducts = [...fakeData1, ...fakeData2, ...fakeData3];
 const GALLERY_SIZE = 5;
@@ -38,6 +40,43 @@ function ProductDetail({ render }) {
     const [activeTab, setActiveTab] = useState(TAB_KEYS.description);
     const averageRating = getAverageRating(reviews);
     const inStock = dataProduct.amount > 0;
+    const categoryName = dataProduct.category?.name;
+    const category = Object.values(CATEGORIES).find((item) => item.id === dataProduct.category?.id);
+
+    // SEO: title/description theo sản phẩm; id không tồn tại thì noindex
+    usePageMeta(
+        dataProduct.id
+            ? {
+                  title: dataProduct.name,
+                  description: `${dataProduct.name}${categoryName ? ` - ${categoryName}` : ''} ${
+                      dataProduct.description ? dataProduct.description.toLowerCase() : ''
+                  }, kích thước ${dataProduct.size}, giá ${numeral(dataProduct.salePrice).format(
+                      '0,0',
+                  )}đ. Mua ngay tại ${SITE_NAME}, giao hàng tận nơi.`,
+                  image: productImage,
+                  type: 'product',
+              }
+            : { title: 'Không tìm thấy sản phẩm', noindex: true },
+    );
+
+    // Dữ liệu có cấu trúc (schema.org) giúp Google hiển thị giá, tình trạng hàng trên kết quả tìm kiếm
+    const productJsonLd = dataProduct.id && {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: dataProduct.name,
+        image: dataProduct.thumbnailData,
+        description: dataProduct.description,
+        sku: String(dataProduct.id),
+        category: categoryName,
+        ...(dataProduct.brand && { brand: { '@type': 'Brand', name: dataProduct.brand } }),
+        offers: {
+            '@type': 'Offer',
+            priceCurrency: 'VND',
+            price: Number(dataProduct.salePrice),
+            availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            url: window.location.origin + window.location.pathname,
+        },
+    };
 
     useEffect(() => {
         setActiveIndex(0);
@@ -159,7 +198,7 @@ function ProductDetail({ render }) {
                                     {productDetail.slice(0, 5).map((item, index) => {
                                         return (
                                             <div key={index} className="productDetail-left-products-item">
-                                                <img src={item.linkImg} alt="avatar product" className="avatar" />
+                                                <img src={item.linkImg} alt={item.title} className="avatar" loading="lazy" />
                                                 <div className="productDetail-left-products-item-infor">
                                                     <p className="title">{item.title}</p>
                                                     <ProductRating showCount={false} className="avatar-rating" />
@@ -235,13 +274,19 @@ function ProductDetail({ render }) {
                                         </div>
                                     </div>
                                     <div className="productDetail-right-infor">
-                                        <div className="productDetail-right-header">
-                                            <Link to="/" style={{ textDecoration: 'none' }}>
-                                                <h1 className="productDetail-right-header-home">TRANG CHỦ</h1>
+                                        <nav className="productDetail-right-header" aria-label="breadcrumb">
+                                            <Link to="/" className="productDetail-right-header-home">
+                                                TRANG CHỦ
                                             </Link>
-                                            <span>/</span>
-                                            <h1 className="productDetail-right-header-dog">GIƯỜNG NGỦ</h1>
-                                        </div>
+                                            {category && (
+                                                <>
+                                                    <span className="breadcrumb-divider">/</span>
+                                                    <Link to={category.path} className="productDetail-right-header-dog">
+                                                        {category.name}
+                                                    </Link>
+                                                </>
+                                            )}
+                                        </nav>
                                         <div className="productDetail-right-title">
                                             <h1>{dataProduct.name}</h1>
                                             <div className="productDetail-right-meta">
@@ -266,7 +311,7 @@ function ProductDetail({ render }) {
                                                 </span>
                                             </div>
                                         </div>
-                                        <h1>{numeral(dataProduct.salePrice).format('0,0')}đ</h1>
+                                        <p className="productDetail-right-price">{numeral(dataProduct.salePrice).format('0,0')}đ</p>
                                         <p>{dataProduct.description}</p>
                                         <div className="productDetail-right-infor-footer">
                                             <div className="quantity-item">
@@ -305,6 +350,13 @@ function ProductDetail({ render }) {
                         </div>
                     </div>
                     <ContactButton />
+                    {productJsonLd && (
+                        <script
+                            type="application/ld+json"
+                            // escape "<" để nội dung sản phẩm không thể đóng thẻ <script>
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd).replace(/</g, '\\u003c') }}
+                        />
+                    )}
                 </div>
             ) : (
                 <div className="emty">

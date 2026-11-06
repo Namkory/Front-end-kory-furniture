@@ -68,7 +68,7 @@ function Header() {
             <div className="header-content container">
                 <Link to="/">
                     <div className="header-logo" onClick={() => handleMenuClick(0)}>
-                        <img src={images.logokory} alt="logo" className="header-logo-icon" />
+                        <img src={images.logokory} alt="Kory Furniture" className="header-logo-icon" />
                     </div>
                 </Link>
                 <div className="header-menu">
@@ -145,7 +145,7 @@ function Header() {
                                                 className="header-right-item-search-content-item d-flex"
                                             >
                                                 <div className="d-flex align-items-center">
-                                                    <img src={item.thumbnailData[0]} alt="Products search img" />
+                                                    <img src={item.thumbnailData[0]} alt={item.name} />
                                                     <div>
                                                         <p>{item.name}</p>
                                                         <ProductRating productId={item.id} showCount={false} />

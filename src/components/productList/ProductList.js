@@ -63,13 +63,13 @@ function ProductList({ category, products: rawProducts, render }) {
         <div className="product-list container">
             <div className="product-list-container">
                 <div className="product-list-sidebar">
-                    <div className="product-list-breadcrumb">
-                        <Link to="/" style={{ textDecoration: 'none' }}>
-                            <h1 className="product-list-breadcrumb-home">TRANG CHỦ</h1>
+                    <nav className="product-list-breadcrumb" aria-label="breadcrumb">
+                        <Link to="/" className="product-list-breadcrumb-home">
+                            TRANG CHỦ
                         </Link>
                         <span>/</span>
                         <h1 className="product-list-breadcrumb-current">{name}</h1>
-                    </div>
+                    </nav>
                     <CategoryMenu />
                     <PriceFilter
                         min={minPrice}

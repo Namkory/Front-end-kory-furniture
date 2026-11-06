@@ -1,3 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+# /pay chặn luôn /pay-method, /pay-method2
+Disallow: /admin
+Disallow: /cart
+Disallow: /pay

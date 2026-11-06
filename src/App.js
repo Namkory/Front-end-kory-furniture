@@ -25,6 +25,42 @@ import { useState } from 'react';
 import ErrorPage from './components/errorPage/ErrorPage';
 import PayMethod from './pages/userPages/payMethod/PayMethod';
 import PayMethod2 from './pages/userPages/payMethod/PayMethod2';
+import { PageMeta } from './util/seo';
+
+// Title / description cho từng trang (trang chi tiết sản phẩm tự đặt meta theo sản phẩm)
+const SEO = {
+    home: {},
+    intro: {
+        title: 'Giới thiệu',
+        description:
+            'Giới thiệu Kory Furniture - thương hiệu nội thất phòng ngủ với giường ngủ, giường tầng, nệm và chăn ga gối chất lượng, thiết kế hiện đại.',
+    },
+    bed: {
+        title: 'Giường ngủ',
+        description:
+            'Mua giường ngủ đẹp, hiện đại tại Kory Furniture: giường gỗ, giường bọc nệm, giường cao cấp nhiều kích thước, giá tốt, giao hàng tận nơi.',
+    },
+    bunkbed: {
+        title: 'Giường tầng',
+        description:
+            'Giường tầng cho bé và gia đình tại Kory Furniture: giường tầng gỗ, giường tầng sắt chắc chắn, an toàn, tiết kiệm không gian.',
+    },
+    accessory: {
+        title: 'Phụ kiện phòng ngủ',
+        description:
+            'Phụ kiện phòng ngủ tại Kory Furniture: chăn ga gối, nệm, drap và đồ trang trí giúp phòng ngủ thêm ấm cúng, tiện nghi.',
+    },
+    news: {
+        title: 'Tin tức',
+        description: 'Tin tức, kinh nghiệm chọn giường ngủ, nệm và mẹo trang trí phòng ngủ từ Kory Furniture.',
+    },
+    contact: {
+        title: 'Liên hệ',
+        description: 'Liên hệ Kory Furniture để được tư vấn chọn nội thất phòng ngủ, báo giá và hỗ trợ đặt hàng.',
+    },
+    cart: { title: 'Giỏ hàng', noindex: true },
+    pay: { title: 'Thanh toán', noindex: true },
+};
 
 function App() {
     let [state, setState] = useState(0);
@@ -48,6 +84,7 @@ function App() {
                             index
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.home} />
                                     <Home render={render} />
                                 </Layout>
                             }
@@ -56,6 +93,7 @@ function App() {
                             path="intro"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.intro} />
                                     <Intro />
                                 </Layout>
                             }
@@ -64,6 +102,7 @@ function App() {
                             path="bed"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.bed} />
                                     <Bed render={render} />
                                 </Layout>
                             }
@@ -72,6 +111,7 @@ function App() {
                             path="bunkbed"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.bunkbed} />
                                     <Bunk render={render} />
                                 </Layout>
                             }
@@ -80,6 +120,7 @@ function App() {
                             path="accessory"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.accessory} />
                                     <Accessory render={render} />
                                 </Layout>
                             }
@@ -88,6 +129,7 @@ function App() {
                             path="news"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.news} />
                                     <News />
                                 </Layout>
                             }
@@ -96,6 +138,7 @@ function App() {
                             path="contact"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.contact} />
                                     <Contact />
                                 </Layout>
                             }
@@ -104,6 +147,7 @@ function App() {
                             path="cart"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.cart} />
                                     <Cart render={render} />
                                 </Layout>
                             }
@@ -112,6 +156,7 @@ function App() {
                             path="pay"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.pay} />
                                     <Pay />
                                 </Layout>
                             }
@@ -120,6 +165,7 @@ function App() {
                             path="pay-method"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.pay} />
                                     <PayMethod />
                                 </Layout>
                             }
@@ -128,6 +174,7 @@ function App() {
                             path="pay-method2"
                             element={
                                 <Layout>
+                                    <PageMeta {...SEO.pay} />
                                     <PayMethod2 />
                                 </Layout>
                             }

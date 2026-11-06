@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faTag, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { dataCart } from './dataCart';
 import numeral from 'numeral';
 import ContactButton from '../../../components/contactButton/ContactButton';
 
 function Cart({ render }) {
-    const productStorage = JSON.parse(localStorage.getItem('products'));
+    const productStorage = JSON.parse(localStorage.getItem('products')) || [];
     const [state, setState] = useState(0);
     const handleTotalProduct = (data) => {
         const arr = [];
@@ -62,7 +61,7 @@ function Cart({ render }) {
 
     return (
         <div className="container">
-            {dataCart && dataCart.length !== 0 ? (
+            {productStorage.length !== 0 ? (
                 <div className="shoppingCart ">
                     <div className="shoppingCart-container row">
                         <div className="shoppingCart-left col-lg-7 ">

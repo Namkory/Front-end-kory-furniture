@@ -162,6 +162,12 @@
                     .productDetail-right-header {
                         display: flex;
                         margin-bottom: 10px;
+                        a {
+                            margin-bottom: 0.5rem;
+                            line-height: 1.2;
+                            font-weight: 500;
+                            text-decoration: none;
+                        }
                         .productDetail-right-header-home {
                             font-size: 14px;
                             color: rgba(102, 102, 102, 0.7);
@@ -169,14 +175,24 @@
                                 color: #30b5b2;
                             }
                         }
-                        span {
+                        .breadcrumb-divider {
                             color: rgba(102, 102, 102, 0.7);
                             margin: 0 10px;
                         }
                         .productDetail-right-header-dog {
                             font-size: 14px;
                             font-weight: bold;
+                            color: inherit;
+                            &:hover {
+                                color: #30b5b2;
+                            }
                         }
+                    }
+                    .productDetail-right-price {
+                        margin-bottom: 0.5rem;
+                        font-size: 22px;
+                        font-weight: 600;
+                        line-height: 1.2;
                     }
                     .productDetail-right-title {
                         position: relative;
