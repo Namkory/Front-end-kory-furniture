@@ -11,6 +11,7 @@ import numeral from 'numeral';
 import { faCartShopping, faCircleInfo, faGift, faPiggyBank, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import ContactButton from '../../../components/contactButton/ContactButton';
+import ProductRating from '../../../components/starRating/StarRating';
 import { fakeData1, fakeData2, fakeData3 } from '../../../util/Data';
 
 function Home({ render }) {
@@ -102,6 +103,7 @@ function Home({ render }) {
                             </div>
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
+                                <ProductRating productId={item.id} className="card-bottom-rating" />
                                 <h3>
                                     {numeral(+item.salePrice).format('0,0')}
                                     <b>
@@ -163,6 +165,7 @@ function Home({ render }) {
                             </div>
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
+                                <ProductRating productId={item.id} className="card-bottom-rating" />
                                 <h3>
                                     {numeral(+item.salePrice).format('0,0')}
                                     <b>
@@ -218,6 +221,7 @@ function Home({ render }) {
                             </div>
                             <div className="card-bottom">
                                 <h1>{item.name}</h1>
+                                <ProductRating productId={item.id} className="card-bottom-rating" />
                                 <h3>
                                     {numeral(+item.salePrice).format('0,0')}
                                     <b>

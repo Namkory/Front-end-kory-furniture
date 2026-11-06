@@ -1,0 +1,26 @@
+.star-rating-stars {
+    display: inline-flex;
+    gap: 3px;
+    color: #f5a623;
+
+    &.selectable svg {
+        cursor: pointer;
+        font-size: 18px;
+        transition: transform 0.15s;
+        &:hover {
+            transform: scale(1.15);
+        }
+    }
+}
+
+.product-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1;
+
+    .product-rating-count {
+        color: #888888;
+    }
+}

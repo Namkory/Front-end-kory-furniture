@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import ModalLogin from '../modal/ModalLogin';
 import numeral from 'numeral';
 import { fakeData4 } from '../../util/Data';
+import ProductRating from '../starRating/StarRating';
 
 function Header() {
     const productStorage = JSON.parse(localStorage.getItem('products'));
@@ -145,7 +146,10 @@ function Header() {
                                             >
                                                 <div className="d-flex align-items-center">
                                                     <img src={item.thumbnailData[0]} alt="Products search img" />
-                                                    <p>{item.name}</p>
+                                                    <div>
+                                                        <p>{item.name}</p>
+                                                        <ProductRating productId={item.id} showCount={false} />
+                                                    </div>
                                                 </div>
                                                 <p>{item.salePrice}</p>
                                             </Link>

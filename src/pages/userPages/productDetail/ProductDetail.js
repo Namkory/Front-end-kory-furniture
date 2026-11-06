@@ -9,6 +9,9 @@ import { productDetail } from './ProductData';
 import { fakeData1, fakeData2, fakeData3 } from '../../../util/Data';
 import images from '../../../asset/image/index';
 import ContactButton from '../../../components/contactButton/ContactButton';
+import ProductTabs, { TAB_KEYS } from './ProductTabs';
+import ProductRating, { Stars } from '../../../components/starRating/StarRating';
+import { getAverageRating, loadReviews, saveReviews } from '../../../util/reviews';
 
 const allProducts = [...fakeData1, ...fakeData2, ...fakeData3];
 const GALLERY_SIZE = 5;
@@ -30,10 +33,30 @@ function ProductDetail({ render }) {
     const gallery = buildGallery(dataProduct);
     const productImage = gallery[0];
 
+    // Đánh giá dùng chung cho dòng sao dưới tên sản phẩm và tab Đánh giá
+    const [reviews, setReviews] = useState(() => loadReviews(dataProduct.id));
+    const [activeTab, setActiveTab] = useState(TAB_KEYS.description);
+    const averageRating = getAverageRating(reviews);
+    const inStock = dataProduct.amount > 0;
+
     useEffect(() => {
         setActiveIndex(0);
         setQuantity(1);
-    }, [id]);
+        setReviews(loadReviews(dataProduct.id));
+        setActiveTab(TAB_KEYS.description);
+    }, [dataProduct.id]);
+
+    const handleAddReview = (review) => {
+        const next = [review, ...reviews];
+        setReviews(next);
+        saveReviews(dataProduct.id, next);
+    };
+
+    // Bấm vào dòng sao: mở tab Đánh giá và cuộn xuống
+    const handleShowReviews = () => {
+        setActiveTab(TAB_KEYS.reviews);
+        document.getElementById('product-tabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
 
     useEffect(() => {
         // Cuộn danh sách thumbnail (chỉ theo chiều ngang) để ảnh đang chọn luôn nằm trong khung nhìn
@@ -130,7 +153,7 @@ function ProductDetail({ render }) {
                 <div className="productDetail container">
                     <div className="productDetail-container">
                         <div className="row">
-                            <div className="productDetail-left col-12 col-lg-4 order-2 order-lg-1">
+                            <div className="productDetail-left col-12 col-lg-4 order-3 order-lg-1">
                                 <div className="productDetail-left-products-title">SẢN PHẨM</div>
                                 <div className="productDetail-left-products">
                                     {productDetail.slice(0, 5).map((item, index) => {
@@ -139,6 +162,7 @@ function ProductDetail({ render }) {
                                                 <img src={item.linkImg} alt="avatar product" className="avatar" />
                                                 <div className="productDetail-left-products-item-infor">
                                                     <p className="title">{item.title}</p>
+                                                    <ProductRating showCount={false} className="avatar-rating" />
                                                     <p>
                                                         <b>
                                                             {numeral(item.price).format('0,0')}
@@ -220,6 +244,27 @@ function ProductDetail({ render }) {
                                         </div>
                                         <div className="productDetail-right-title">
                                             <h1>{dataProduct.name}</h1>
+                                            <div className="productDetail-right-meta">
+                                                <span>
+                                                    Thương hiệu:{' '}
+                                                    <span className="meta-value">
+                                                        {dataProduct.brand || 'Đang cập nhật'}
+                                                    </span>
+                                                </span>
+                                                <span className="meta-divider">|</span>
+                                                <span>
+                                                    Tình trạng:{' '}
+                                                    <span className={`meta-value${inStock ? '' : ' out-of-stock'}`}>
+                                                        {inStock ? 'Còn hàng' : 'Hết hàng'}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div className="productDetail-right-rating" onClick={handleShowReviews}>
+                                                <Stars value={Math.round(averageRating)} />
+                                                <span className="rating-count">
+                                                    {reviews.length ? `(${reviews.length} đánh giá)` : '(Chưa có đánh giá)'}
+                                                </span>
+                                            </div>
                                         </div>
                                         <h1>{numeral(dataProduct.salePrice).format('0,0')}đ</h1>
                                         <p>{dataProduct.description}</p>
@@ -245,6 +290,17 @@ function ProductDetail({ render }) {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="productDetail-tabs col-12 order-2 order-lg-3">
+                                <ProductTabs
+                                    key={dataProduct.id}
+                                    product={dataProduct}
+                                    image={productImage}
+                                    reviews={reviews}
+                                    onAddReview={handleAddReview}
+                                    activeTab={activeTab}
+                                    onChangeTab={setActiveTab}
+                                />
                             </div>
                         </div>
                     </div>

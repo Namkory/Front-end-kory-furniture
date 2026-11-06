@@ -43,6 +43,9 @@
                                 color: #30b5b2;
                             }
                         }
+                        .avatar-rating {
+                            margin-bottom: 6px;
+                        }
                     }
                 }
             }
@@ -176,18 +179,48 @@
                         }
                     }
                     .productDetail-right-title {
-                        height: 40px;
                         position: relative;
-                        margin-bottom: 20px;
+                        padding-bottom: 15px;
+                        margin-bottom: 15px;
                         &:after {
                             content: '';
                             display: block;
                             background-color: #e5e5e5;
-                            top: 138%;
+                            bottom: 0;
                             left: 0;
                             width: 30px;
                             height: 3px;
                             position: absolute;
+                        }
+                        .productDetail-right-meta {
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            gap: 4px 10px;
+                            margin-top: 8px;
+                            font-size: 14px;
+                            color: #555555;
+                            .meta-value {
+                                color: #30b5b2;
+                            }
+                            .meta-value.out-of-stock {
+                                color: #e53935;
+                            }
+                            .meta-divider {
+                                color: #cccccc;
+                            }
+                        }
+                        .productDetail-right-rating {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 8px;
+                            margin-top: 8px;
+                            font-size: 13px;
+                            color: #888888;
+                            cursor: pointer;
+                            &:hover .rating-count {
+                                color: #30b5b2;
+                            }
                         }
                     }
                     h1 {
@@ -275,6 +308,15 @@
 }
 @include touch {
     @include hide-zoom;
+}
+
+.productDetail .productDetail-container .productDetail-tabs {
+    padding: 0 30px;
+}
+@include lg-down {
+    .productDetail .productDetail-container .productDetail-tabs {
+        padding: 0 12px;
+    }
 }
 
 .emty {

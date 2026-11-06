@@ -1,6 +1,7 @@
 import './FeaturedProducts.scss';
 import numeral from 'numeral';
 import { productDetail } from '../../pages/userPages/productDetail/ProductData';
+import ProductRating from '../starRating/StarRating';
 
 function FeaturedProducts({ limit = 5 }) {
     return (
@@ -12,6 +13,7 @@ function FeaturedProducts({ limit = 5 }) {
                         <img src={item.linkImg} alt={item.title} className="featured-products-avatar" />
                         <div>
                             <p>{item.title}</p>
+                            <ProductRating showCount={false} className="featured-products-rating" />
                             <p>
                                 <b>
                                     {numeral(+item.price).format('0,0')}

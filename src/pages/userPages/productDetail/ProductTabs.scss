@@ -1,0 +1,196 @@
+@use '../../../styles/breakpoints' as *;
+
+$primary: #30b5b2;
+$primary-dark: #359492;
+$border: #dddddd;
+
+.product-tabs {
+    margin: 40px 0 30px;
+
+    .product-tabs-header {
+        display: flex;
+        flex-wrap: wrap;
+
+        .product-tabs-header-item {
+            padding: 12px 30px;
+            border: 1px solid $border;
+            border-bottom: none;
+            margin-right: -1px;
+            background-color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+
+            &:hover {
+                color: $primary;
+            }
+            &.active {
+                background-color: $primary;
+                border-color: $primary;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .product-tabs-content {
+        padding: 20px 25px;
+        border: 1px solid $border;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #444444;
+    }
+
+    // ---------- Tab mô tả ----------
+    .product-tabs-description {
+        h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 20px 0 10px;
+        }
+        img {
+            display: block;
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            margin: 15px 0;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th,
+            td {
+                padding: 8px 12px;
+                border: 1px solid $border;
+            }
+            th {
+                width: 35%;
+                background-color: #f9f9f9;
+                font-weight: 600;
+            }
+        }
+    }
+
+    // ---------- Tab đánh giá ----------
+    .product-tabs-reviews {
+        .product-tabs-reviews-summary {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid $border;
+
+            .average {
+                font-size: 40px;
+                font-weight: 700;
+                color: $primary;
+                line-height: 1;
+            }
+            p {
+                margin: 4px 0 0;
+                color: #888888;
+            }
+        }
+
+        .product-tabs-reviews-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 15px 0;
+                border-bottom: 1px solid $border;
+
+                .review-header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 4px;
+                }
+                .review-date {
+                    color: #888888;
+                    font-size: 13px;
+                }
+                p {
+                    margin: 6px 0 0;
+                }
+            }
+        }
+
+        .product-tabs-reviews-empty {
+            padding: 15px 0;
+            margin: 0;
+            color: #888888;
+            border-bottom: 1px solid $border;
+        }
+
+        .product-tabs-reviews-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+
+            h3 {
+                font-size: 16px;
+                font-weight: 700;
+                margin: 0;
+            }
+            .form-rating {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            input,
+            textarea {
+                width: 100%;
+                padding: 8px 12px;
+                border: 1px solid $border;
+                outline: none;
+                resize: vertical;
+                &:focus {
+                    border-color: $primary;
+                }
+            }
+            .form-error {
+                margin: 0;
+                color: #e53935;
+            }
+            button {
+                align-self: flex-start;
+                padding: 10px 30px;
+                border: none;
+                background-color: $primary;
+                color: #ffffff;
+                font-weight: 600;
+                cursor: pointer;
+                &:hover {
+                    background-color: $primary-dark;
+                }
+            }
+        }
+    }
+}
+
+@include md-down {
+    .product-tabs {
+        margin-top: 25px;
+
+        .product-tabs-header .product-tabs-header-item {
+            flex: 1;
+            padding: 10px 12px;
+        }
+        .product-tabs-content {
+            padding: 15px;
+        }
+    }
+}

@@ -3,6 +3,7 @@ import numeral from 'numeral';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import ProductRating from '../starRating/StarRating';
 
 function ProductCard({ product, onAddToCart, onViewDetail }) {
     return (
@@ -27,6 +28,7 @@ function ProductCard({ product, onAddToCart, onViewDetail }) {
             </div>
             <Card.Body className="product-card-body">
                 <Card.Title className="product-card-title">{product.name}</Card.Title>
+                <ProductRating productId={product.id} className="product-card-rating" />
                 <Card.Text className="product-card-price">
                     {numeral(+product.salePrice).format('0,0')}
                     <b>
