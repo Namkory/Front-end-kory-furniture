@@ -57,9 +57,99 @@
                 .productDetail-right-img {
                     margin-right: 20px;
                     width: 50%;
-                    img {
+                    .productDetail-zoom {
+                        position: relative;
+                        cursor: crosshair;
+                        .productDetail-zoom-lens {
+                            position: absolute;
+                            border: 1px solid #888888;
+                            background-color: rgba(255, 255, 255, 0.3);
+                            pointer-events: none;
+                        }
+                        .productDetail-zoom-result {
+                            position: absolute;
+                            top: 0;
+                            left: calc(100% + 12px);
+                            z-index: 10;
+                            width: 100%;
+                            height: 100%;
+                            border: 3px solid #888888;
+                            background-color: #ffffff;
+                            background-repeat: no-repeat;
+                            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+                            pointer-events: none;
+                        }
+                    }
+                    .productDetail-right-img-main {
+                        display: block;
                         width: 100%;
-                        height: 100%;
+                        aspect-ratio: 1 / 1;
+                        object-fit: cover;
+                    }
+                    .productDetail-gallery {
+                        position: relative;
+                        margin-top: 12px;
+                        .productDetail-gallery-list {
+                            position: relative;
+                            display: flex;
+                            gap: 8px;
+                            overflow-x: auto;
+                            scrollbar-width: none;
+                            &::-webkit-scrollbar {
+                                display: none;
+                            }
+                        }
+                        .productDetail-gallery-item {
+                            flex: 0 0 calc((100% - 4 * 8px) / 5);
+                            aspect-ratio: 1 / 1;
+                            padding: 4px;
+                            border: 1px solid #dddddd;
+                            cursor: pointer;
+                            transition: border-color 0.2s;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                opacity: 0.7;
+                                transition: opacity 0.2s;
+                            }
+                            &:hover img,
+                            &.active img {
+                                opacity: 1;
+                            }
+                            &.active {
+                                border-color: #30b5b2;
+                            }
+                        }
+                        .productDetail-gallery-arrow {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            z-index: 1;
+                            width: 26px;
+                            height: 26px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 0;
+                            border: none;
+                            border-radius: 50%;
+                            background-color: rgba(255, 255, 255, 0.85);
+                            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+                            color: #30b5b2;
+                            font-size: 12px;
+                            cursor: pointer;
+                            &:hover {
+                                background-color: #30b5b2;
+                                color: #fff;
+                            }
+                            &.prev {
+                                left: 4px;
+                            }
+                            &.next {
+                                right: 4px;
+                            }
+                        }
                     }
                 }
                 .productDetail-right-infor {
@@ -170,6 +260,23 @@
         }
     }
 }
+// Màn hình nhỏ / thiết bị cảm ứng: không có hover và không đủ chỗ cho khung zoom
+@mixin hide-zoom {
+    .productDetail .productDetail-container .productDetail-right .wrapper-right-productDetail .productDetail-right-img .productDetail-zoom {
+        cursor: default;
+        .productDetail-zoom-lens,
+        .productDetail-zoom-result {
+            display: none;
+        }
+    }
+}
+@include md-down {
+    @include hide-zoom;
+}
+@include touch {
+    @include hide-zoom;
+}
+
 .emty {
     display: flex;
     align-items: center;
@@ -213,11 +320,6 @@
                     }
                     .productDetail-right-img {
                         margin-bottom: 20px;
-
-                        img {
-                            height: auto;
-                            object-fit: contain;
-                        }
                     }
                     .productDetail-right-infor {
                         padding: 10px 0;
