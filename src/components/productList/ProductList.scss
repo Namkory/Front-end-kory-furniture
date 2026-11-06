@@ -45,6 +45,22 @@
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
     }
+
+    .product-list-result {
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: #888888;
+    }
+
+    .product-list-pagination {
+        margin-top: 30px;
+    }
+
+    .product-list-empty {
+        padding: 40px 0;
+        text-align: center;
+        color: #888888;
+    }
 }
 
 @include lg-down {
